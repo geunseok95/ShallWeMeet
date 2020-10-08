@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_bar_home"
+        android:title="홈"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:enabled="true" />
+    <item
+        android:id="@+id/navigation_bar_apply"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:enabled="true"
+        android:title="요청" />
+    <item
+        android:id="@+id/navigation_bar_favorite"
+        android:icon="@drawable/star_down"
+        android:enabled="true"
+        android:title="찜"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/navigation_bar_success"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:enabled="true"
+        android:title="성공"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/navigation_bar_myinfo"
+        android:icon="@drawable/ic_baseline_person_pin_24"
+        android:enabled="true"
+        android:title="내 정보"/>
+</menu>
