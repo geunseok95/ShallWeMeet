@@ -6,13 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.makeramen.roundedimageview.RoundedImageView
-import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 
 
-class BottomSheetDialog:BottomSheetDialogFragment() {
+class BottomSheetDialog(
+    bottombutton_listener: BottomsheetbuttonItemSelectedInterface
+    ) : BottomSheetDialogFragment() {
 
-    var bottom_sheet_dialog_camera: RoundedImageView? = null
-    var bottom_sheet_dialog_gallery: RoundedImageView? = null
+    interface BottomsheetbuttonItemSelectedInterface{
+        fun bottombutton_listener(v: View)
+    }
+
+    private var mbottombutton_listener: BottomsheetbuttonItemSelectedInterface? =
+        bottombutton_listener
+
+    lateinit var bottom_sheet_dialog_camera: RoundedImageView
+    lateinit var bottom_sheet_dialog_gallery: RoundedImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,10 +28,7 @@ class BottomSheetDialog:BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.bottom_sheet_dialog, container, false)
-        bottom_sheet_dialog_camera = view.bottom_sheet_dialog_camera
-        bottom_sheet_dialog_gallery = view.bottom_sheet_dialog_gallery
-
-
+        mbottombutton_listener?.bottombutton_listener(view)
         return view
     }
 

@@ -17,22 +17,26 @@ import retrofit2.Response
 
 class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface {
 
-    val connect_server = ConnectRetrofit.retrofitService()
+
+    lateinit var retrofitService: ConnectRetrofit
+
     lateinit var mRecyclerView: RecyclerView
     private var mRecyclerAdapter:RecyclerAdapter? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mRecyclerAdapter = RecyclerAdapter(context, this, meetinglist)
+        retrofitService = ConnectRetrofit(context)
     }
 
     var imageview_img1:RoundedImageView? = null
     var imageview_title:String? = null
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        val connect_server = retrofitService.retrofitService()
         // retrofit 서버연결
         connect_server.requestSearchBoard().enqueue(object: Callback<boards> {
             override fun onFailure(call: Call<boards>, t: Throwable) {

@@ -1,5 +1,6 @@
 package com.professionalandroid.apps.capston_meeting
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
 import okhttp3.ResponseBody
@@ -21,7 +23,14 @@ import java.io.InputStream
 
 class DetailPage : Fragment() {
 
-    val connect_server = ConnectRetrofit.retrofitService()
+    lateinit var retrofitService: ConnectRetrofit
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        retrofitService  = ConnectRetrofit(context)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -54,7 +63,7 @@ class DetailPage : Fragment() {
         if(arguments != null){
             val href = arguments?.getString("href")
             val new_href = StringBuffer(href!!).substring(35).toString()
-
+            val connect_server = retrofitService.retrofitService()
             connect_server.requestSearchSpecificBoard(new_href).enqueue(object: Callback<board> {
                 override fun onFailure(call: Call<board>, t: Throwable) {
                     Log.d("test","서버연결 실패 BoardActivity")
@@ -87,21 +96,26 @@ class DetailPage : Fragment() {
         return view
     }
 
+    // 서버에서 이미지 받아오기
     fun getimagefromserver(imageveiw:RoundedImageView, image_path: String) {
 
-        connect_server.requestSearchImage(image_path).enqueue(object :Callback<ResponseBody>{
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+//        connect_server.requestSearchImage(image_path).enqueue(object :Callback<ResponseBody>{
+//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//
+//                val ss: InputStream = response.body()!!.byteStream()
+//                bitmap = BitmapFactory.decodeStream(ss)
+//                imageveiw.setImageBitmap(bitmap)
+//            }
+//
+//        })
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+        Glide.with(this).load(image_path).override(250, 250).into(imageveiw)
 
-                val ss: InputStream = response.body()!!.byteStream()
-                bitmap = BitmapFactory.decodeStream(ss)
-                imageveiw.setImageBitmap(bitmap)
-            }
 
-        })
 
     }
 }

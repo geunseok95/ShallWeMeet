@@ -7,17 +7,45 @@
     tools:context=".RequestPage"
     android:background="@drawable/background_color">
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <HorizontalScrollView
         android:id="@+id/request_img"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/request_profile"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="90dp"
-        android:src="@drawable/ic_baseline_add_24" />
+        android:layout_marginTop="90dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/request_img1"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_baseline_add_24" />
 
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/request_img2"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_baseline_add_24" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/request_img3"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_baseline_add_24" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
     <LinearLayout
         android:id="@+id/request_profile"
         android:layout_width="wrap_content"
@@ -27,7 +55,52 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
+        <EditText
+            android:id="@+id/request_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="제목"
+            android:inputType="textPersonName" />
 
+        <EditText
+            android:id="@+id/request_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="지역"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/request_num_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="인원수"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/request_keyword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="키워드"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/request_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="100dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:text="등록하기"/>
 
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
