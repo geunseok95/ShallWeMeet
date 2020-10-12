@@ -19,9 +19,6 @@ class BottomSheetDialog(
     private var mbottombutton_listener: BottomsheetbuttonItemSelectedInterface? =
         bottombutton_listener
 
-    lateinit var bottom_sheet_dialog_camera: RoundedImageView
-    lateinit var bottom_sheet_dialog_gallery: RoundedImageView
-
     override fun onCreateView(
         inflater: LayoutInflater,
          container: ViewGroup?,

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="location">
+        <item>홍대 입구</item>
+        <item>신촌</item>
+        <item>강남</item>
+        <item>건대 입구</item>
+        <item>잠실</item>
+        <item>천호</item>
+        <item>이태원</item>
+        <item>성수</item>
+        <item>연남동</item>
+    </string-array>
+
+</resources>

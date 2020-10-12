@@ -34,21 +34,28 @@ data class board(
     var updatedDate:String,
 
     @SerializedName("_links")
-    var _links:_links2
+    var _links:_links2,
+
+    @SerializedName("user")
+    var user:user
 )
 
 data class _links2(
     var self: self,
     @SerializedName("board")
     var board: board2,
-    var user: user
+    var user: user2
 )
 
 data class board2(
     var href: String
 )
 
-data class user(
+data class user2(
     var href:String
+)
+
+data class user(
+    var idx:Int
 )
 

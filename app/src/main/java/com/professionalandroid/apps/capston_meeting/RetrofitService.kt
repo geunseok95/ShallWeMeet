@@ -1,10 +1,9 @@
 package com.professionalandroid.apps.capston_meeting
 
-import android.graphics.Bitmap
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
+import kotlin.collections.HashMap
 
 interface RetrofitService {
 
@@ -27,14 +26,9 @@ interface RetrofitService {
 
     //새로운 글 작성
     @FormUrlEncoded
-    @POST("/api/boards/")
-    fun requestAdd(
+    @POST("/api/boards")
+    fun sendBoard(
         //인풋을 정의하는 곳
-        @Field("title") title:String,
-        @Field("subTitle") subTitle:String,
-        @Field("content") content:String,
-        @Field("createdDate") createdDate:String,
-        @Field("updatedDate") updatedDate:String
-    ): Call<boards>
-
+        @FieldMap input: HashMap<String, Any>
+    ): Call<board>
 }

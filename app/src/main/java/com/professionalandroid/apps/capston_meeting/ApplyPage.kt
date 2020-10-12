@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
+import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
+import kotlinx.android.synthetic.main.fragment_apply_page.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface {
+class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface, ApplyFilter.ApplyFilterSelectedInterface {
 
 
     lateinit var retrofitService: ConnectRetrofit
-
+    lateinit var mapplyfilter: ApplyFilter
     lateinit var mRecyclerView: RecyclerView
     private var mRecyclerAdapter:RecyclerAdapter? = null
     override fun onAttach(context: Context) {
@@ -79,14 +81,19 @@ class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface {
         mRecyclerView.layoutManager = GridLayoutManager(context,2)
         mRecyclerView.adapter = mRecyclerAdapter
 
+        view.apply_filter.apply {
+            setOnClickListener {
+                mapplyfilter = ApplyFilter(this@ApplyPage)
+                mapplyfilter.show((activity as MainActivity).supportFragmentManager, "apply_filter")
+            }
+        }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mRecyclerAdapter?.notifyDataSetChanged()
-
-
     }
 
     fun setmeeting(item:MutableList<list_item_data>){
@@ -109,6 +116,12 @@ class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface {
         bundle.putString("href", meetinglist[viewholder.index!!]._links.board.href)
         detailpage.arguments = bundle
         (activity as MainActivity).move_next_fragment(detailpage)
+    }
+
+    override fun applyfilter_listener(v: View) {
+        v.filter_btn.setOnClickListener {
+            
+        }
     }
 
 }

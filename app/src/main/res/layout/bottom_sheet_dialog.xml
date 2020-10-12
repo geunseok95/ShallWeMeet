@@ -10,24 +10,24 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/bottom_sheet_dialog_camera"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:src="@drawable/background_color"
         app:riv_corner_radius="50dp"
         android:scaleType="centerCrop"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"  />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/bottom_sheet_dialog_gallery"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:src="@drawable/background_color"
         app:riv_corner_radius="50dp"
         android:scaleType="centerCrop"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="20dp" />
 
 </LinearLayout>
