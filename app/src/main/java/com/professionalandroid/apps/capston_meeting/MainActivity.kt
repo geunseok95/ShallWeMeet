@@ -2,6 +2,7 @@ package com.professionalandroid.apps.capston_meeting
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.ImageDecoder
@@ -47,9 +48,9 @@ class MainActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.statusBarColor = Color.TRANSPARENT
 
+
+        // 권한 요청
         tedPermission()
-
-
 
         val homepage = HomePage()
         val applypage = ApplyPage()
