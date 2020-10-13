@@ -2,7 +2,7 @@ package com.professionalandroid.apps.capston_meeting
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.ActivityInfo
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.ImageDecoder
@@ -11,14 +11,15 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.FileOutputStream
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         private val REQUEST_IMAGE_CAPTURE = 1
         lateinit var currentPhotoPath : String //문자열 형태의 사진 경로값 (초기값을 null로 시작하고 싶을 때 - lateinti var)
         val REQUEST_IMAGE_PICK = 10
-        val request_Image_list = mutableListOf<RoundedImageView>()
+        val request_Image_list = mutableListOf<ImageView>()
+        val request_Image_File_list = mutableListOf<Uri>()
         var img_num = 0
     }
 
@@ -161,7 +163,6 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
             val bitmap : Bitmap
             val file = File(currentPhotoPath)
@@ -183,16 +184,20 @@ class MainActivity : AppCompatActivity() {
             val bitmap : Bitmap
             if(Build.VERSION.SDK_INT < 28){//안드로이드 9.0 보다 버전이 낮을 경우
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver,data?.data)
+                request_Image_File_list[img_num] = Uri.parse("file : //"+ getPath(data?.data!!) )
+                Log.d("test", "$request_Image_File_list[img_num]")
                 request_Image_list[img_num].setImageBitmap(bitmap)
-            }else{//안드로이드 9.0 보다 버 전이 높을 경우
+            }else{//안드로이드 9.0 보다 버전이 높을 경우
                 val decode = ImageDecoder.createSource(
                     this.contentResolver,
                     data?.data!!
                 )
                 bitmap = ImageDecoder.decodeBitmap(decode)
+                request_Image_File_list[img_num] = Uri.parse("file://"+ getPath(data.data!!) )
+                Log.d("test", "${request_Image_File_list[img_num]}")
+
                 request_Image_list[img_num].setImageBitmap(bitmap)
             }
-
         }
     }
 
@@ -208,7 +213,29 @@ class MainActivity : AppCompatActivity() {
         //실제적인 저장 처리
         val out = FileOutputStream(folderPath + fileName)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+        request_Image_File_list[img_num] = Uri.fromFile(File("$folderPath/$fileName/"))
+        Log.d("test", "${Uri.fromFile(File("$folderPath/$fileName/"))}")
         Toast.makeText(this,"사진이 앨범에 저장되었습니다.",Toast.LENGTH_SHORT).show()
     }
+
+    fun getPath(uri: Uri): String?{
+        val result: String?
+        val cursor: Cursor? = contentResolver.query(uri, null, null, null, null)
+
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = uri.path
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+
+
+        return result
+    }
+
+
+
 
 }

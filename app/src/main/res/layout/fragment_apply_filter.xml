@@ -2,52 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ApplyFilter">
+    tools:context=".ApplyFilter"
+    android:background="@drawable/background_color">
 
     <!-- TODO: Update blank fragment layout -->
 
     <Spinner
         android:id="@+id/spinner_location"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:background="@drawable/spinner_background"
         android:theme="@style/SpinnerTheme"
-        android:spinnerMode="dialog"/>
+        android:spinnerMode="dialog"
+        android:layout_margin="20dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="인원 수"/>
-        <SeekBar
-            android:id="@+id/filter_num_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2명"/>
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3명"/>
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4명"/>
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5명 이상"/>
+        </RadioGroup>
+
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="선호 나이 대"/>
-        <SeekBar
+        <TextView
             android:id="@+id/filter_age"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="19"/>
+        <SeekBar
+            android:id="@+id/filter_age_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:min="19"
+            android:max="80"/>
 
     </LinearLayout>
     <Button
         android:id="@+id/filter_btn"
+        android:background="@drawable/round_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="검색"
+        android:layout_margin="20dp"/>
 
 </LinearLayout>

@@ -120,7 +120,7 @@ class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface, Appl
 
     override fun applyfilter_listener(v: View) {
         v.filter_btn.setOnClickListener {
-            
+            val spinner_location = v.spinner_location.selectedItem.toString()
         }
     }
 

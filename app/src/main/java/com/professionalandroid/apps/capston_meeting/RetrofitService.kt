@@ -1,5 +1,7 @@
 package com.professionalandroid.apps.capston_meeting
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -25,10 +27,12 @@ interface RetrofitService {
     ): Call<ResponseBody>
 
     //새로운 글 작성
-    @FormUrlEncoded
-    @POST("/api/boards")
+    @Multipart
+    @POST("/img/upload")
     fun sendBoard(
         //인풋을 정의하는 곳
-        @FieldMap input: HashMap<String, Any>
-    ): Call<board>
+       //@PartMap partMap: HashMap<String, RequestBody>,
+        @Part partMapImg: List<MultipartBody.Part>
+        //@Part files: MutableList<MultipartBody.Part>
+    ): Call<String>
 }

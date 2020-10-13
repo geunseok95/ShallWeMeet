@@ -20,29 +20,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.makeramen.roundedimageview.RoundedImageView
+            <ImageView
                 android:id="@+id/request_img1"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/ic_baseline_add_24" />
+                android:src="@drawable/happy" />
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <ImageView
                 android:id="@+id/request_img2"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_baseline_add_24" />
+                android:src="@drawable/happy" />
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <ImageView
                 android:id="@+id/request_img3"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/ic_baseline_add_24" />
+                android:src="@drawable/happy" />
 
         </LinearLayout>
     </HorizontalScrollView>

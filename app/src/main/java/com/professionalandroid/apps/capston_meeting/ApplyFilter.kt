@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.SeekBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
 
@@ -19,7 +20,6 @@ class ApplyFilter(
     }
     private var mapplyfilter_listener: ApplyFilterSelectedInterface? = applyfilter_listener
     lateinit var spinneradapter:ArrayAdapter<String>
-
 
 
     override fun onAttach(context: Context) {
@@ -43,6 +43,25 @@ class ApplyFilter(
         mapplyfilter_listener?.applyfilter_listener(view)
         view.spinner_location.adapter = spinneradapter
         view.spinner_location.prompt = "지역을 선택하세요"
+
+        view.filter_age_seekbar.apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                    view.filter_age.text = "$p1"
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                    view.filter_age.text = "${p0?.progress}"
+                }
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {
+                    view.filter_age.text = "${p0?.progress}"
+                }
+
+            })
+        }
+
+
         return view
     }
 
