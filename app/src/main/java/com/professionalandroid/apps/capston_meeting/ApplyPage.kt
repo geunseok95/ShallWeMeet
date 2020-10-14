@@ -67,7 +67,6 @@ class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface, Appl
                 }
                 mRecyclerAdapter?.notifyDataSetChanged()
             }
-
         })
     }
 
@@ -112,7 +111,6 @@ class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface, Appl
 
         val detailpage = DetailPage()
         val bundle = Bundle()
-        Log.d("test", meetinglist[viewholder.index!!]._links.board.href)
         bundle.putString("href", meetinglist[viewholder.index!!]._links.board.href)
         detailpage.arguments = bundle
         (activity as MainActivity).move_next_fragment(detailpage)

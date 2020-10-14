@@ -8,7 +8,7 @@
     android:background="@drawable/background_color">
 
 
- 
+
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/my_info_image"
         android:layout_width="250dp"

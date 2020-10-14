@@ -14,7 +14,7 @@ class SlideViewPager: Fragment() {
 
     private lateinit var mViewPager: ViewPager
     lateinit var mdots_indicator: DotsIndicator
-    private var adapter = SlideViewPagerAdapter(meetinglist)
+    private var adapter = SlideViewPagerAdapter(viewpager_list)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,19 +6,18 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class SlideViewPagerAdapter(private val list: MutableList<list_item_data>):PagerAdapter(){
+class SlideViewPagerAdapter(private val list: MutableList<viewpager_list_item>):PagerAdapter(){
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(container.context)
         val view = inflater.inflate(R.layout.list_item, container, false)
 
-        //view.imageview_image.setImageResource(Integer.parseInt(list[position].img1))
+        view.imageview_image.setImageResource(Integer.parseInt(list[position].img1))
         view.imageview_description.text = list[position].title
 
         container.addView(view)
         return view
     }
-
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view == `object`

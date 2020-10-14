@@ -47,7 +47,6 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
 
         holder.title?.text = items[position].title
-
         //holder.img1?.setImageResource(Integer.parseInt(items[position].img1))
         holder.location?.text = items[position].location
         holder.num_type?.text = items[position].num_type
@@ -59,7 +58,6 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var parentview = view
         var title: TextView? = null
-        var user: TextView? = null
         var img1: RoundedImageView? = null
         var location: TextView? = null
         var num_type: TextView? = null
@@ -68,7 +66,6 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
 
         init {
             title = view.imageview_title
-            user = view.imageview_user
             img1 = view.imageview_img1
             location = view.imageview_location
             num_type = view.imageview_num_type

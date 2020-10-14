@@ -9,7 +9,7 @@
         android:enabled="true" />
     <item
         android:id="@+id/navigation_bar_apply"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_search_24"
         android:enabled="true"
         android:title="요청" />
     <item
