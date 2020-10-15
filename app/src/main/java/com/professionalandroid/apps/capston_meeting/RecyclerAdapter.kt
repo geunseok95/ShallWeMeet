@@ -50,6 +50,7 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
         //holder.img1?.setImageResource(Integer.parseInt(items[position].img1))
         holder.location?.text = items[position].location
         holder.num_type?.text = items[position].num_type
+        holder.age?.text = items[position].age
         holder.gender?.text = items[position].gender
         holder.index = position
     }
@@ -61,6 +62,7 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
         var img1: RoundedImageView? = null
         var location: TextView? = null
         var num_type: TextView? = null
+        var age: TextView? = null
         var gender: TextView? = null
         var index: Int? = null
 
@@ -68,6 +70,7 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
             title = view.imageview_title
             img1 = view.imageview_img1
             location = view.imageview_location
+            age = view.imageview_age
             num_type = view.imageview_num_type
             index = 0
             parentview.item2_card_view.setOnClickListener {

@@ -14,6 +14,13 @@ interface RetrofitService {
     fun requestSearchBoard(
     ):Call<boards>
 
+    @GET("/filter")
+    fun requestSearchBoard2(
+        @Query("location") location: String,
+        @Query("num_type") num_type: String,
+        @Query("age") age: String
+    ):Call<List<board>>
+
     // 번호로 특정 게시판 불러오기
     @GET("/api/boards/{new_href}/")
     fun requestSearchSpecificBoard(
@@ -31,7 +38,7 @@ interface RetrofitService {
     @POST("/img/upload")
     fun sendBoard(
         //인풋을 정의하는 곳
-       //@PartMap partMap: HashMap<String, RequestBody>,
+        //@PartMap partMap: HashMap<String, RequestBody>,
         @Part partMapImg: List<MultipartBody.Part>
         //@Part files: MutableList<MultipartBody.Part>
     ): Call<String>

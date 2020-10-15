@@ -29,9 +29,11 @@
             android:text="인원 수"/>
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:checkedButton="@+id/radioButton5">
 
             <RadioButton
                 android:id="@+id/radioButton"
@@ -56,6 +58,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5명 이상"/>
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상관없음"/>
         </RadioGroup>
 
 
@@ -82,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:min="19"
-            android:max="40"/>
+            android:max="60"/>
 
     </LinearLayout>
     <Button

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="location">
-        <item>홍대 입구</item>
+        <item>상관없음</item>
+        <item>홍대입구</item>
         <item>신촌</item>
         <item>강남</item>
-        <item>건대 입구</item>
+        <item>건대입구</item>
         <item>잠실</item>
         <item>천호</item>
         <item>이태원</item>

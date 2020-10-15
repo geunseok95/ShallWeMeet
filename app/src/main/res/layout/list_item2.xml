@@ -39,28 +39,34 @@
                     android:id="@+id/imageview_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="건대"
+                    android:text="제목"
                     android:ems="13"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="#000000" />
                 <TextView
+                    android:id="@+id/imageview_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="나이"
+                    android:textColor="#000000" />
+                <TextView
                     android:id="@+id/imageview_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="건대"
+                    android:text="위치"
                     android:textColor="#000000" />
                 <TextView
                     android:id="@+id/imageview_num_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="건대"
+                    android:text="사람 수"
                     android:textColor="#000000" />
                 <TextView
                     android:id="@+id/imageview_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="건대"
+                    android:text="성별"
                     android:textColor="#000000" />
 
             </LinearLayout>

@@ -3,6 +3,9 @@ package com.professionalandroid.apps.capston_meeting
 import com.google.gson.annotations.SerializedName
 
 data class board(
+    @SerializedName("idx")
+    var idx: Long,
+
     @SerializedName("title")
     var title:String,
 
@@ -23,6 +26,9 @@ data class board(
 
     @SerializedName("num_type")
     var num_type:String,
+
+    @SerializedName("age")
+    var age:String,
 
     @SerializedName("gender")
     var gender:String,
