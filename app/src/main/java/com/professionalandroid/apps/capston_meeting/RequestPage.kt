@@ -13,19 +13,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import com.makeramen.roundedimageview.RoundedDrawable
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.img_num
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_File_list
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_list
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
+import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
 import kotlinx.android.synthetic.main.fragment_request_page.view.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
+import okhttp3.*
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
@@ -39,10 +39,14 @@ class RequestPage : Fragment(), BottomSheetDialog.BottomsheetbuttonItemSelectedI
     lateinit var mrequest_img : ImageView
     lateinit var mbottomsheetdialog: BottomSheetDialog
     lateinit var retrofitService: ConnectRetrofit
+    lateinit var spinneradapter: ArrayAdapter<String>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         retrofitService = ConnectRetrofit(context)
+        val items = resources.getStringArray(R.array.location)
+        spinneradapter = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, items)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +59,11 @@ class RequestPage : Fragment(), BottomSheetDialog.BottomsheetbuttonItemSelectedI
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_request_page, container, false)
+
+
+
+        view.request_location.adapter = spinneradapter
+        view.request_location.prompt = "지역을 선택하세요"
 
         request_Image_list.clear()
         request_Image_list.add(view.request_img1)
@@ -88,53 +97,67 @@ class RequestPage : Fragment(), BottomSheetDialog.BottomsheetbuttonItemSelectedI
 
         val request_btn = view.request_button.apply {
             setOnClickListener {
-val input: HashMap<String, RequestBody> = HashMap()
+                val data: HashMap<String, Any> = HashMap()
                 val connect_server = retrofitService.retrofitService()
 
-                input["title"] = RequestBody.create(MultipartBody.FORM, view.request_title.text.toString())
-                input["keyword"] = RequestBody.create(MultipartBody.FORM, view.request_keyword.text.toString())
-                input["location"] = RequestBody.create(MultipartBody.FORM, view.request_location.text.toString())
-                input["num_type"] = RequestBody.create(MultipartBody.FORM, view.request_num_type.text.toString())
-                input["gender"] = RequestBody.create(MultipartBody.FORM, "여자")
-                input["user"] = RequestBody.create(MultipartBody.FORM, "22")
+//                data["title"] = RequestBody.create(MultipartBody.FORM, view.request_title.text.toString())
+//                data["keyword"] = RequestBody.create(MultipartBody.FORM, view.request_keyword.text.toString())
+//                data["location"] = RequestBody.create(MultipartBody.FORM, view.request_location.selectedItem.toString())
+//                data["num_type"] = RequestBody.create(MultipartBody.FORM, view.request_num_type.text.toString())
+//                data["gender"] = RequestBody.create(MultipartBody.FORM, "여자")
+//                data["user"] = RequestBody.create(MultipartBody.FORM, "22")
+//                data["age"] = RequestBody.create(MultipartBody.FORM, "23")
 
-                val originalFile = File(request_Image_File_list[0].path)
-                val originalFile1 = File(request_Image_File_list[1].path)
-                val originalFile2 = File(request_Image_File_list[2].path)
+                data["title"] = view.request_title.text.toString()
+                data["keyword"] = view.request_keyword.text.toString()
+                data["location"] = view.request_location.selectedItem.toString()
+                data["num_type"] = view.request_num_type.text.toString()
+                data["gender"] = "여자"
+                data["user"] =  "22"
+                data["age"] = "23"
 
-                val filePart: RequestBody = RequestBody.create(
-                    MediaType.parse("image/*"),
-                    originalFile
-                )
+
+                val originalFile1 = File(request_Image_File_list[0].path)
+                val originalFile2 = File(request_Image_File_list[1].path)
+                val originalFile3 = File(request_Image_File_list[2].path)
+
+                Log.d("test", originalFile1.toString())
 
                 val filePart1: RequestBody = RequestBody.create(
                     MediaType.parse("image/*"),
                     originalFile1
                 )
 
+                Log.d("test", filePart1.toString())
+
+
                 val filePart2: RequestBody = RequestBody.create(
                     MediaType.parse("image/*"),
                     originalFile2
                 )
 
-                val file: MultipartBody.Part = MultipartBody.Part.createFormData("img1", originalFile.name, filePart)
-                val file1: MultipartBody.Part = MultipartBody.Part.createFormData("img2", originalFile.name, filePart1)
-                val file2: MultipartBody.Part = MultipartBody.Part.createFormData("img3", originalFile.name, filePart2)
+                val filePart3: RequestBody = RequestBody.create(
+                    MediaType.parse("image/*"),
+                    originalFile3
+                )
+                val datapart = ResponseBody.create(MediaType.parse("txt/plain"), "data")
 
+                val file1: MultipartBody.Part = MultipartBody.Part.createFormData("img1", originalFile1.name, filePart1)
+                val file2: MultipartBody.Part = MultipartBody.Part.createFormData("img2", originalFile2.name, filePart2)
+                val file3: MultipartBody.Part = MultipartBody.Part.createFormData("img3", originalFile3.name, filePart3)
 
-                val inputimg = listOf<MultipartBody.Part>(file, file1, file2)
+                Log.d("test", file1.toString())
 
-
-                connect_server.sendBoard(inputimg).enqueue(object:
+                connect_server.sendBoard(file1, file2, file3).enqueue(object:
                     Callback<String> {
                     override fun onFailure(call: Call<String>, t: Throwable) {
                         Log.d("test","서버연결 실패")
                     }
 
                     override fun onResponse(call: Call<String>, response: Response<String>) {
-                        val board:String = response.body()!!
+                        //val board:String = response.body()!!
                         Log.d("test", "서버 연결 성공")
-                        Log.d("test", board)
+                        //Log.d("test", board)
                     }
                 })
 
@@ -160,20 +183,5 @@ val input: HashMap<String, RequestBody> = HashMap()
 
     }
 
-
-    fun bitmaptoByteArray(img: ImageView): ByteArray{
-        val stream = ByteArrayOutputStream()
-        val drawable = (img.drawable as BitmapDrawable)
-        Log.d("test_img", img.toString())
-        Log.d("test_drawable", drawable.toString())
-        Log.d("test_drawable_bitmap", drawable.bitmap.toString())
-        drawable.bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val byteArray: ByteArray = stream.toByteArray()
-        Log.d("test", "$byteArray")
-//        for(i in byteArray.indices){
-//            Log.d("test", "$i + ${byteArray[i]}")
-//        }
-        return byteArray
-    }
 
 }

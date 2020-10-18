@@ -1,6 +1,8 @@
 package com.professionalandroid.apps.capston_meeting
 
 import android.app.Activity
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -13,16 +15,18 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
-import java.io.FileOutputStream
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -162,13 +166,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
             val bitmap : Bitmap
             val file = File(currentPhotoPath)
             if(Build.VERSION.SDK_INT < 28){//안드로이드 9.0 보다 버전이 낮을 경우
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver,Uri.fromFile(file))
                 request_Image_list[img_num].setImageBitmap(bitmap)
+                request_Image_File_list[img_num] = Uri.fromFile(file)
+                Log.d("test", Uri.fromFile(file).toString())
+
             }else{//안드로이드 9.0 보다 버전이 높을 경우
                 val decode = ImageDecoder.createSource(
                     this.contentResolver,
@@ -176,46 +182,40 @@ class MainActivity : AppCompatActivity() {
                 )
                 bitmap = ImageDecoder.decodeBitmap(decode)
                 request_Image_list[img_num].setImageBitmap(bitmap)
+                request_Image_File_list[img_num] = Uri.fromFile(file)
+                Log.d("test", Uri.fromFile(file).toString())
             }
-            savePhoto(bitmap)
         }
 
         if(requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK){
             val bitmap : Bitmap
             if(Build.VERSION.SDK_INT < 28){//안드로이드 9.0 보다 버전이 낮을 경우
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver,data?.data)
-                request_Image_File_list[img_num] = Uri.parse("file : //"+ getPath(data?.data!!) )
-                Log.d("test", "$request_Image_File_list[img_num]")
+                request_Image_File_list[img_num] = Uri.parse("file://"+ getPath(data?.data!!) )
+                Log.d("test", "android 9.0 미만 ${request_Image_File_list[img_num]}")
                 request_Image_list[img_num].setImageBitmap(bitmap)
-            }else{//안드로이드 9.0 보다 버전이 높을 경우
+            }
+            else if(Build.VERSION.SDK_INT >= 29) {//안드로이드 10.0 보다 버전이 높은 경우
                 val decode = ImageDecoder.createSource(
                     this.contentResolver,
                     data?.data!!
                 )
                 bitmap = ImageDecoder.decodeBitmap(decode)
-                request_Image_File_list[img_num] = Uri.parse("file://"+ getPath(data.data!!) )
-                Log.d("test", "${request_Image_File_list[img_num]}")
+                request_Image_File_list[img_num] =  Uri.fromFile(createCopy(this, data.data!!))
+                request_Image_list[img_num].setImageBitmap(bitmap)
+            }
+            else{//안드로이드 9.0 인 경우
+                val decode = ImageDecoder.createSource(
+                    this.contentResolver,
+                    data?.data!!
+                )
+                bitmap = ImageDecoder.decodeBitmap(decode)
+                request_Image_File_list[img_num] =  Uri.parse("file://" + getPath(data.data!!))
+                Log.d("안드로이드 9.0 test", "${request_Image_File_list[img_num]}")
 
                 request_Image_list[img_num].setImageBitmap(bitmap)
             }
         }
-    }
-
-    private fun savePhoto(bitmap: Bitmap) {
-        //사진 폴더에 저장하기 위한 경로 선언
-        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
-        val timestamp : String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val fileName = "${timestamp}.jpeg"
-        val folder = File(folderPath)
-        if(!folder.isDirectory){//해당 경로에 폴더가 존재하지
-            folder.mkdir() // make directory의 줄임말로 해당경로에 폴더 자동으로
-        }
-        //실제적인 저장 처리
-        val out = FileOutputStream(folderPath + fileName)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-        request_Image_File_list[img_num] = Uri.fromFile(File("$folderPath/$fileName/"))
-        Log.d("test", "${Uri.fromFile(File("$folderPath/$fileName/"))}")
-        Toast.makeText(this,"사진이 앨범에 저장되었습니다.",Toast.LENGTH_SHORT).show()
     }
 
     fun getPath(uri: Uri): String?{
@@ -231,8 +231,39 @@ class MainActivity : AppCompatActivity() {
             cursor.close()
         }
 
-
         return result
+    }
+
+
+    @Nullable
+    fun createCopy(
+        @NonNull context: Context, @NonNull uri: Uri
+    ): File? {
+        val imageUrl = getPath(uri)
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        val extension = MimeTypeMap.getFileExtensionFromUrl(imageUrl)
+        val mimeType = mimeTypeMap.getMimeTypeFromExtension(extension)
+
+        val mimetype = "." + StringBuffer(mimeType!!).substring(6).toString()
+        Log.d("test", mimetype)
+        val storageDir : File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val contentResolver: ContentResolver = context.contentResolver ?: return null
+        // Create temporary
+        val file = File.createTempFile( "${System.currentTimeMillis()}",mimetype,storageDir).apply {
+            currentPhotoPath = absolutePath
+        }
+        try {
+            val inputStream: InputStream = contentResolver.openInputStream(uri) ?: return null
+            val outputStream: OutputStream = FileOutputStream(file)
+            val buf = ByteArray(1024)
+            var len: Int
+            while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
+            outputStream.close()
+            inputStream.close()
+        } catch (ignore: IOException) {
+            return null
+        }
+        return file
     }
 
 

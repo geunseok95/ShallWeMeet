@@ -35,11 +35,13 @@ interface RetrofitService {
 
     //새로운 글 작성
     @Multipart
-    @POST("/img/upload")
+    @POST("/api/boards/upload")
     fun sendBoard(
         //인풋을 정의하는 곳
-        //@PartMap partMap: HashMap<String, RequestBody>,
-        @Part partMapImg: List<MultipartBody.Part>
-        //@Part files: MutableList<MultipartBody.Part>
+        @Part img1: MultipartBody.Part,
+        @Part img2: MultipartBody.Part,
+        @Part img3: MultipartBody.Part
+        //@Part data: HashMap<String, Any>
+        //@Part data: ResponseBody
     ): Call<String>
 }
