@@ -75,7 +75,6 @@ class RequestPage : Fragment(), BottomSheetDialog.BottomsheetbuttonItemSelectedI
         request_Image_File_list.add(uri)
         request_Image_File_list.add(uri)
 
-
         val request_img1 = view.request_img1.apply {
             setOnClickListener {
                 mrequest_img = this
@@ -97,25 +96,25 @@ class RequestPage : Fragment(), BottomSheetDialog.BottomsheetbuttonItemSelectedI
 
         val request_btn = view.request_button.apply {
             setOnClickListener {
-                val data: HashMap<String, Any> = HashMap()
+                val data: HashMap<String, RequestBody> = HashMap()
                 val connect_server = retrofitService.retrofitService()
 
-//                data["title"] = RequestBody.create(MultipartBody.FORM, view.request_title.text.toString())
-//                data["keyword"] = RequestBody.create(MultipartBody.FORM, view.request_keyword.text.toString())
-//                data["location"] = RequestBody.create(MultipartBody.FORM, view.request_location.selectedItem.toString())
-//                data["num_type"] = RequestBody.create(MultipartBody.FORM, view.request_num_type.text.toString())
-//                data["gender"] = RequestBody.create(MultipartBody.FORM, "여자")
-//                data["user"] = RequestBody.create(MultipartBody.FORM, "22")
-//                data["age"] = RequestBody.create(MultipartBody.FORM, "23")
+//
+//                data["title"] = view.request_title.text.toString()
+//                data["keyword"] = view.request_keyword.text.toString()
+//                data["location"] = view.request_location.selectedItem.toString()
+//                data["num_type"] = view.request_num_type.text.toString()
+//                data["gender"] = "여자"
+//                data["user"] =  "22"
+//                data["age"] = "23"
+//
 
-                data["title"] = view.request_title.text.toString()
-                data["keyword"] = view.request_keyword.text.toString()
-                data["location"] = view.request_location.selectedItem.toString()
-                data["num_type"] = view.request_num_type.text.toString()
-                data["gender"] = "여자"
-                data["user"] =  "22"
-                data["age"] = "23"
-
+                data["title"] = RequestBody.create(MediaType.parse("text/plain"),view.request_title.text.toString())
+                data["keyword"] =  RequestBody.create(MediaType.parse("text/plain"),view.request_keyword.text.toString())
+                data["location"] = RequestBody.create(MediaType.parse("text/plain"), view.request_location.selectedItem.toString())
+                data["num_type"] =  RequestBody.create(MediaType.parse("text/plain"),view.request_num_type.text.toString())
+                data["gender"] = RequestBody.create(MediaType.parse("text/plain"),"여자")
+                data["age"] =  RequestBody.create(MediaType.parse("text/plain"),"23")
 
                 val originalFile1 = File(request_Image_File_list[0].path)
                 val originalFile2 = File(request_Image_File_list[1].path)
@@ -140,7 +139,6 @@ class RequestPage : Fragment(), BottomSheetDialog.BottomsheetbuttonItemSelectedI
                     MediaType.parse("image/*"),
                     originalFile3
                 )
-                val datapart = ResponseBody.create(MediaType.parse("txt/plain"), "data")
 
                 val file1: MultipartBody.Part = MultipartBody.Part.createFormData("img1", originalFile1.name, filePart1)
                 val file2: MultipartBody.Part = MultipartBody.Part.createFormData("img2", originalFile2.name, filePart2)
@@ -148,7 +146,7 @@ class RequestPage : Fragment(), BottomSheetDialog.BottomsheetbuttonItemSelectedI
 
                 Log.d("test", file1.toString())
 
-                connect_server.sendBoard(file1, file2, file3).enqueue(object:
+                connect_server.sendBoard(file1, file2, file3, data).enqueue(object:
                     Callback<String> {
                     override fun onFailure(call: Call<String>, t: Throwable) {
                         Log.d("test","서버연결 실패")

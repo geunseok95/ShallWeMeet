@@ -3,14 +3,17 @@ package com.professionalandroid.apps.capston_meeting
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
+import kotlinx.android.synthetic.main.list_item2.view.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,8 +57,6 @@ class DetailPage : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_detail_page, container, false)
 
-        // imageview 경로 저장
-
         // 전 fragment에서 데이터가 넘어왔는지 확인
         if(arguments != null){
             val href = arguments?.getString("href")
@@ -80,38 +81,23 @@ class DetailPage : Fragment() {
                     val image_path2 = board.img2
                     val image_path3 = board.img3
 
+                    Log.d("test", image_path1)
+
                     getimagefromserver(view.detail_img1, image_path1)
                     getimagefromserver(view.detail_img2, image_path2)
                     getimagefromserver(view.detail_img3, image_path3)
-
                 }
             })
-
-
         }
         return view
     }
 
     // 서버에서 이미지 받아오기
     fun getimagefromserver(imageveiw:RoundedImageView, image_path: String) {
-        val connect_server = retrofitService.retrofitService()
-        connect_server.requestSearchImage(image_path).enqueue(object :Callback<ResponseBody>{
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-
-                val ss: InputStream = response.body()!!.byteStream()
-                bitmap = BitmapFactory.decodeStream(ss)
-                imageveiw.setImageBitmap(bitmap)
-            }
-
-        })
-
-   //     Glide.with(this).load(image_path).override(250, 250).into(imageveiw)
-
-
-
+        Glide.with(this@DetailPage)
+            .load(image_path)
+            .centerCrop()
+            .into(imageveiw);
     }
 }

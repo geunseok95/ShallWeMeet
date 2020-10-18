@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
 import kotlinx.android.synthetic.main.list_item.view.*
@@ -46,8 +47,12 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
 
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
 
+
         holder.title?.text = items[position].title
-        //holder.img1?.setImageResource(Integer.parseInt(items[position].img1))
+        Glide.with(mContext!!)
+            .load(items[position].img1)
+            .centerCrop()
+            .into(holder.img1!!);
         holder.location?.text = items[position].location
         holder.num_type?.text = items[position].num_type
         holder.age?.text = items[position].age

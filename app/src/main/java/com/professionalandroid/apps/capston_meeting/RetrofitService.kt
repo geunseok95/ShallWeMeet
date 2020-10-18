@@ -27,12 +27,6 @@ interface RetrofitService {
         @Path("new_href") new_href: String
     ): Call<board>
 
-    // 특정 게시판 사진불러오기
-    @GET("/test/{image_path}")
-    fun requestSearchImage(
-        @Path("image_path") image_path: String
-    ): Call<ResponseBody>
-
     //새로운 글 작성
     @Multipart
     @POST("/api/boards/upload")
@@ -40,8 +34,13 @@ interface RetrofitService {
         //인풋을 정의하는 곳
         @Part img1: MultipartBody.Part,
         @Part img2: MultipartBody.Part,
-        @Part img3: MultipartBody.Part
-        //@Part data: HashMap<String, Any>
+        @Part img3: MultipartBody.Part,
+        //@Part("data") data: RequestBody
+
+        @PartMap data: HashMap<String, RequestBody>
         //@Part data: ResponseBody
     ): Call<String>
+
+
 }
+

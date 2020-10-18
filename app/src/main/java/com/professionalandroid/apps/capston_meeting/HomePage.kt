@@ -34,6 +34,9 @@ class HomePage : Fragment() {
         val requestpage = RequestPage()
 
         meet.setOnClickListener {
+            if(meetinglist.isNotEmpty()){
+                meetinglist.clear()
+            }
             (activity as MainActivity).move_next_fragment(applypage)
         }
 

@@ -71,11 +71,11 @@ fun getPinnedCertSslSocketFactory(context:Context):SSLSocketFactory? {
 
 class ConnectRetrofit(val context: Context) {
     fun retrofitService(): RetrofitService = retrofit.create(RetrofitService::class.java)
-
     // connect server
     private val retrofit = Retrofit.Builder().baseUrl("https://shallwemeet.co.kr:8080")
         .client(
             OkHttpClient.Builder().sslSocketFactory(getPinnedCertSslSocketFactory(context))
                 .hostnameVerifier(NullHostNameVerifier()).build()
         ).addConverterFactory(GsonConverterFactory.create()).build()
+
 }

@@ -116,6 +116,7 @@ class ApplyPage : Fragment(), RecyclerAdapter.OnListItemSelelctedInterface, Appl
         val bundle = Bundle()
         bundle.putString("href", meetinglist[viewholder.index!!]._links?.board?.href)
         detailpage.arguments = bundle
+        meetinglist.clear()
         (activity as MainActivity).move_next_fragment(detailpage)
     }
 
