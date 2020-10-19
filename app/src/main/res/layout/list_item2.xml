@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content"
-    android:layout_marginStart ="25dp"
+    android:layout_marginStart ="15dp"
     android:layout_marginTop="20dp">
 
     <FrameLayout
@@ -13,7 +13,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/item2_card_view"
-            android:layout_width="150dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
@@ -24,63 +24,72 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/imageview_img1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:scaleType="fitStart"
-                        app:riv_corner_radius_top_right="10dp"
-                        android:src="@drawable/watermelon"
-                        app:riv_border_color="#333333"
-                        app:riv_mutate_background="true"
-                        app:riv_oval="false" />
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageview_img1"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius_top_right="10dp"
+                    android:src="@drawable/watermelon"
+                    app:riv_border_color="#333333"
+                    app:riv_mutate_background="true"
+                    app:riv_oval="false" />
 
                 <TextView
                     android:id="@+id/imageview_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="제목"
+                    android:text="@string/title"
                     android:ems="13"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"/>
                 <TextView
                     android:id="@+id/imageview_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="나이"
-                    android:textColor="#000000" />
+                    android:text="@string/age"
+                    android:textColor="#000000"
+                    android:layout_marginStart="10dp"/>
                 <TextView
                     android:id="@+id/imageview_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="위치"
-                    android:textColor="#000000" />
+                    android:text="@string/location"
+                    android:textColor="#000000"
+                    android:layout_marginStart="10dp"/>
                 <TextView
                     android:id="@+id/imageview_num_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="사람 수"
-                    android:textColor="#000000" />
+                    android:text="@string/num_type"
+                    android:textColor="#000000"
+                    android:layout_marginStart="10dp"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="10dp">
                     <TextView
                         android:id="@+id/imageview_tag1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="tag1"
+                        android:text="@string/tag1"
                         android:textSize="8sp"/>
                     <TextView
                         android:id="@+id/imageview_tag2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/tag2"
                         android:textSize="8sp"/>
                     <TextView
                         android:id="@+id/imageview_tag3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/tag3"
                         android:textSize="8sp"/>
                 </LinearLayout>
 
@@ -95,5 +104,5 @@
         android:button="@drawable/custom_star_checkbox"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_gravity="left|top"/>
+        android:layout_gravity="start|top"/>
 </FrameLayout>

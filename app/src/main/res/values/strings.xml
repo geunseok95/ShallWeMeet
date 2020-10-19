@@ -11,5 +11,16 @@
 
     <string name="Logout"><u>로그아웃</u>.</string>
 
+    <!-- board element -->
+    <string name="title">title</string>
+    <string name="tag1">tag1</string>
+    <string name="tag2">tag2</string>
+    <string name="tag3">tag3</string>
+    <string name="location">location</string>
+    <string name="num_type">num_type</string>
+    <string name="age">age</string>
+    <string name="gender">gender</string>
+
+    <string name="nickname">nickname</string>
 
 </resources>

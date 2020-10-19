@@ -14,18 +14,20 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="105dp">
+            android:layout_marginTop="90dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
         <Button
             android:id="@+id/find"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:text="직접 구해볼래요"
+            android:text="만들어 볼래요"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/meet"
             android:background="@drawable/round_button"
-            android:elevation="20dp"/>
+            android:elevation="10dp"/>
 
         <Button
             android:id="@+id/meet"
@@ -37,7 +39,7 @@
             app:layout_constraintLeft_toRightOf="@id/find"
             app:layout_constraintRight_toRightOf="parent"
             android:background="@drawable/round_button"
-            android:elevation="20dp"/>
+            android:elevation="10dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

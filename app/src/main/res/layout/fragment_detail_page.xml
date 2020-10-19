@@ -75,25 +75,25 @@
             android:id="@+id/detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="게시물 제목"/>
+            android:text="@string/title"/>
 
         <TextView
             android:id="@+id/detail_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="유저"/>
+            android:text="@string/nickname"/>
 
         <TextView
             android:id="@+id/detail_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="지역"/>
+            android:text="@string/location"/>
 
         <TextView
             android:id="@+id/detail_num_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="인원 수"/>
+            android:text="@string/num_type"/>
 
 
         <LinearLayout
@@ -104,20 +104,20 @@
                 android:id="@+id/detail_tag1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="tag1"
+                android:hint="@string/tag1"
                 android:textSize="10sp"/>
             <TextView
                 android:id="@+id/detail_tag2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="tag2"
+                android:hint="@string/tag2"
                 android:textSize="10sp"/>
 
             <TextView
                 android:id="@+id/detail_tag3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="tag3"
+                android:hint="@string/tag3"
                 android:textSize="10sp"/>
 
         </LinearLayout>
