@@ -16,7 +16,6 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.NonNull
@@ -28,9 +27,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
-import com.professionalandroid.apps.capston_meeting.applyPage.ApplyPage
 import com.professionalandroid.apps.capston_meeting.homePage.HomePage
-import com.professionalandroid.apps.capston_meeting.homePage.SlideViewPager
 import com.professionalandroid.apps.capston_meeting.kakaoLoginService.LoginPage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
@@ -62,11 +59,9 @@ class MainActivity : AppCompatActivity() {
         // 권한 요청
         tedPermission()
 
-        val homepage =
-            HomePage()
-        val applypage =
-            ApplyPage()
-        val waitpage = WaitPage()
+        val homepage = HomePage()
+        val checkPage = CheckPage()
+        val favoritePage = FavoritePage()
         val successpage = SuccessPage()
         val myinfo = MyInfo()
 
@@ -78,8 +73,8 @@ class MainActivity : AppCompatActivity() {
 
             when(it.itemId){
                 R.id.navigation_bar_home -> ft.beginTransaction().replace(R.id.main_layout, homepage).commitAllowingStateLoss()
-                R.id.navigation_bar_apply -> ft.beginTransaction().replace(R.id.main_layout, applypage).commitAllowingStateLoss()
-                R.id.navigation_bar_favorite -> ft.beginTransaction().replace(R.id.main_layout, waitpage).commitAllowingStateLoss()
+                R.id.navigation_bar_check -> ft.beginTransaction().replace(R.id.main_layout, checkPage).commitAllowingStateLoss()
+                R.id.navigation_bar_favorite -> ft.beginTransaction().replace(R.id.main_layout, favoritePage).commitAllowingStateLoss()
                 R.id.navigation_bar_success -> ft.beginTransaction().replace(R.id.main_layout, successpage).commitAllowingStateLoss()
                 R.id.navigation_bar_myinfo -> ft.beginTransaction().replace(R.id.main_layout, myinfo).commitAllowingStateLoss()
             }

@@ -9,7 +9,7 @@
 
     <string name="kakao_app_key">b7461141098ffb733be004789035edb8</string>
 
-   <string name="Logout"><u>로그아웃</u>.</string>
+    <string name="Logout"><u>로그아웃</u>.</string>
 
 
-    </resources>
+</resources>

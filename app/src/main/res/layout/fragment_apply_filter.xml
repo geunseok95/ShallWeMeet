@@ -14,7 +14,7 @@
         android:background="@drawable/spinner_background"
         android:theme="@style/SpinnerTheme"
         android:spinnerMode="dialog"
-        android:layout_margin="30dp"/>
+        android:layout_margin="20dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -98,6 +98,7 @@
         android:layout_height="wrap_content"
         android:text="검색"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="30dp"/>
 
 </LinearLayout>

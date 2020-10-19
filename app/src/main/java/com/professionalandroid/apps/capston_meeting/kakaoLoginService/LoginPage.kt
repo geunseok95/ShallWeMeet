@@ -24,6 +24,7 @@ class LoginPage: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
+
         sessionCallback = SessionCallback()
         Session.getCurrentSession().addCallback(sessionCallback)
         Session.getCurrentSession().checkAndImplicitOpen()
@@ -45,7 +46,6 @@ class LoginPage: AppCompatActivity(){
         if (Session.getCurrentSession()
                 .handleActivityResult(requestCode, resultCode, data)
         ) {
-
             return
         }
         super.onActivityResult(requestCode, resultCode, data)

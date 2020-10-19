@@ -8,22 +8,20 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:enabled="true" />
     <item
-        android:id="@+id/navigation_bar_apply"
+        android:id="@+id/navigation_bar_check"
         android:icon="@drawable/ic_baseline_search_24"
         android:enabled="true"
-        android:title="요청" />
+        android:title="확인" />
     <item
         android:id="@+id/navigation_bar_favorite"
-        android:icon="@drawable/star_down"
+        android:icon="@drawable/ic_baseline_star_24"
         android:enabled="true"
-        android:title="찜"
-        app:actionViewClass="android.widget.SearchView" />
+        android:title="찜"/>
     <item
         android:id="@+id/navigation_bar_success"
         android:icon="@drawable/ic_baseline_favorite_24"
         android:enabled="true"
-        android:title="성공"
-        app:actionViewClass="android.widget.SearchView" />
+        android:title="성공"/>
     <item
         android:id="@+id/navigation_bar_myinfo"
         android:icon="@drawable/ic_baseline_person_pin_24"

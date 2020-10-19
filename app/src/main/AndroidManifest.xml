@@ -6,9 +6,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>  <!--카메라 기능 사용-->
 
-
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".GlobalApplication"
@@ -22,8 +23,8 @@
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.professionalandroid.apps.capston_meeting.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
@@ -33,19 +34,21 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
-        <activity android:name=".kakaoLoginService.LoginPage">
+        <activity
+            android:name=".kakaoLoginService.LoginPage"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

@@ -29,8 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:progressMode="true"
 
-        app:selectedDotColor="#3F3FFF"
-        android:layout_marginTop="5dp"/>
+        app:selectedDotColor="#3F3FFF"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
