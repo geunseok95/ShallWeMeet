@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.ApplyPage
+package com.professionalandroid.apps.capston_meeting.applyPage
 
 import android.content.Context
 import android.os.Bundle

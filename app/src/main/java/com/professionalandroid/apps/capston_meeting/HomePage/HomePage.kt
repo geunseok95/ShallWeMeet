@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.HomePage
+package com.professionalandroid.apps.capston_meeting.homePage
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.professionalandroid.apps.capston_meeting.*
-import com.professionalandroid.apps.capston_meeting.ApplyPage.ApplyPage
-import com.professionalandroid.apps.capston_meeting.RequestPage.RequestPage
+import com.professionalandroid.apps.capston_meeting.applyPage.ApplyPage
+import com.professionalandroid.apps.capston_meeting.requestPage.RequestPage
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
 
 

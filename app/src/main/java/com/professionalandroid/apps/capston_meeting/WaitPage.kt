@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.professionalandroid.apps.capston_meeting.ApplyPage.RecyclerAdapter
+import com.professionalandroid.apps.capston_meeting.applyPage.RecyclerAdapter
 
 class WaitPage : Fragment() {
 

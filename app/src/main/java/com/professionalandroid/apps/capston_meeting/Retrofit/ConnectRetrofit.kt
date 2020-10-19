@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.Retrofit
+package com.professionalandroid.apps.capston_meeting.retrofit
 
 import android.content.Context
 import android.content.res.AssetManager

@@ -25,9 +25,9 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import com.professionalandroid.apps.capston_meeting.ApplyPage.ApplyPage
-import com.professionalandroid.apps.capston_meeting.HomePage.HomePage
-import com.professionalandroid.apps.capston_meeting.HomePage.SlideViewPager
+import com.professionalandroid.apps.capston_meeting.applyPage.ApplyPage
+import com.professionalandroid.apps.capston_meeting.homePage.HomePage
+import com.professionalandroid.apps.capston_meeting.homePage.SlideViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.text.SimpleDateFormat

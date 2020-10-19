@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.RequestPage
+package com.professionalandroid.apps.capston_meeting.requestPage
 
 import android.content.Context
 import android.net.Uri
@@ -15,9 +15,11 @@ import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.img_n
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_File_list
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_list
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.Retrofit.ConnectRetrofit
+import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
+import kotlinx.android.synthetic.main.fragment_request_page.*
 import kotlinx.android.synthetic.main.fragment_request_page.view.*
+import kotlinx.android.synthetic.main.list_item2.view.*
 import okhttp3.*
 import retrofit2.Callback
 import retrofit2.Call
@@ -25,7 +27,7 @@ import retrofit2.Response
 import java.io.File
 
 class RequestPage : Fragment(),
-    BottomSheetDialog.BottomsheetbuttonItemSelectedInterface {
+    BottomSheetDialog.BottomsheetbuttonItemSelectedInterface, RequestPopUpWindow.MyDialogOKClickedListener {
 
 
     lateinit var mrequest_img : ImageView
@@ -41,7 +43,6 @@ class RequestPage : Fragment(),
             )
         val items = resources.getStringArray(R.array.location)
         spinneradapter = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, items)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,10 +56,14 @@ class RequestPage : Fragment(),
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_request_page, container, false)
 
-
-
+        // location
         view.request_location.adapter = spinneradapter
         view.request_location.prompt = "지역을 선택하세요"
+
+        view.request_img1.clipToOutline = true
+        view.request_img2.clipToOutline = true
+        view.request_img3.clipToOutline = true
+
 
         request_Image_list.clear()
         request_Image_list.add(view.request_img1)
@@ -99,61 +104,19 @@ class RequestPage : Fragment(),
                 mbottomsheetdialog.show((activity as MainActivity).supportFragmentManager, "bottom_sheet_dialog")} }
 
         view.request_button.apply {
+
             setOnClickListener {
-                val data: HashMap<String, RequestBody> = HashMap()
-                val connect_server = retrofitService.retrofitService()
 
-                data["title"] = RequestBody.create(MediaType.parse("text/plain"),view.request_title.text.toString())
-                data["keyword"] =  RequestBody.create(MediaType.parse("text/plain"),view.request_keyword.text.toString())
-                data["location"] = RequestBody.create(MediaType.parse("text/plain"), view.request_location.selectedItem.toString())
-                data["num_type"] =  RequestBody.create(MediaType.parse("text/plain"),view.request_num_type.text.toString())
-                data["gender"] = RequestBody.create(MediaType.parse("text/plain"),"여자")
-                data["age"] =  RequestBody.create(MediaType.parse("text/plain"),"23")
+                if (view.request_title.text.isNotEmpty() && view.request_num_type.text.isNotEmpty() && view.request_keyword.text.isNotEmpty()
+                ) {
+                    val popup = RequestPopUpWindow(context, this@RequestPage)
+                    popup.start("미팅을 만들까요?", 1)
 
-                val originalFile1 = File(request_Image_File_list[0].path)
-                val originalFile2 = File(request_Image_File_list[1].path)
-                val originalFile3 = File(request_Image_File_list[2].path)
-
-                Log.d("test", originalFile1.toString())
-
-                val filePart1: RequestBody = RequestBody.create(
-                    MediaType.parse("image/*"),
-                    originalFile1
-                )
-
-                Log.d("test", filePart1.toString())
-
-
-                val filePart2: RequestBody = RequestBody.create(
-                    MediaType.parse("image/*"),
-                    originalFile2
-                )
-
-                val filePart3: RequestBody = RequestBody.create(
-                    MediaType.parse("image/*"),
-                    originalFile3
-                )
-
-                val file1: MultipartBody.Part = MultipartBody.Part.createFormData("img1", originalFile1.name, filePart1)
-                val file2: MultipartBody.Part = MultipartBody.Part.createFormData("img2", originalFile2.name, filePart2)
-                val file3: MultipartBody.Part = MultipartBody.Part.createFormData("img3", originalFile3.name, filePart3)
-
-                Log.d("test", file1.toString())
-
-                connect_server.sendBoard(file1, file2, file3, data).enqueue(object:
-                    Callback<String> {
-                    override fun onFailure(call: Call<String>, t: Throwable) {
-                        Log.d("test","서버연결 실패")
-                    }
-
-                    override fun onResponse(call: Call<String>, response: Response<String>) {
-                        //val board:String = response.body()!!
-                        Log.d("test", "서버 연결 성공")
-                        //Log.d("test", board)
-                    }
-                })
-
-                (activity as MainActivity).close_fragment(this@RequestPage)
+                }
+                else{
+                    val popup = RequestPopUpWindow(context, this@RequestPage)
+                    popup.start("내용을 모두 입력해주세요", 0)
+                }
             }
         }
         return view
@@ -171,6 +134,82 @@ class RequestPage : Fragment(),
 
         bottom_sheet_dialog_camera.setOnClickListener {
             (activity as MainActivity).takeCapture()
+        }
+
+    }
+
+    override fun onOKClicked(success:Int) {
+        if(success == 1){
+
+            val data: HashMap<String, RequestBody> = HashMap()
+            val connect_server = retrofitService.retrofitService()
+
+            data["title"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_title.text.toString()
+            )
+            data["keyword"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_keyword.text.toString()
+            )
+            data["location"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_location.selectedItem.toString()
+            )
+            data["num_type"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_num_type.text.toString()
+            )
+            data["gender"] = RequestBody.create(MediaType.parse("text/plain"), "여자")
+            data["age"] = RequestBody.create(MediaType.parse("text/plain"), "23")
+
+            val originalFile1 = File(request_Image_File_list[0].path)
+            val originalFile2 = File(request_Image_File_list[1].path)
+            val originalFile3 = File(request_Image_File_list[2].path)
+
+            Log.d("test", originalFile1.toString())
+
+            val filePart1: RequestBody = RequestBody.create(
+                MediaType.parse("image/*"),
+                originalFile1
+            )
+
+            Log.d("test", filePart1.toString())
+
+
+            val filePart2: RequestBody = RequestBody.create(
+                MediaType.parse("image/*"),
+                originalFile2
+            )
+
+            val filePart3: RequestBody = RequestBody.create(
+                MediaType.parse("image/*"),
+                originalFile3
+            )
+
+            val file1: MultipartBody.Part =
+                MultipartBody.Part.createFormData("img1", originalFile1.name, filePart1)
+            val file2: MultipartBody.Part =
+                MultipartBody.Part.createFormData("img2", originalFile2.name, filePart2)
+            val file3: MultipartBody.Part =
+                MultipartBody.Part.createFormData("img3", originalFile3.name, filePart3)
+
+            Log.d("test", file1.toString())
+
+            connect_server.sendBoard(file1, file2, file3, data).enqueue(object :
+                Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d("test", "서버연결 실패")
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    //val board:String = response.body()!!
+                    Log.d("test", "서버 연결 성공")
+                    //Log.d("test", board)
+                }
+            })
+
+            (activity as MainActivity).close_fragment(this@RequestPage)
         }
 
     }

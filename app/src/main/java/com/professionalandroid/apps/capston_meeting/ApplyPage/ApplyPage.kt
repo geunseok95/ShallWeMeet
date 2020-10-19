@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.ApplyPage
+package com.professionalandroid.apps.capston_meeting.applyPage
 
 import android.content.Context
 import android.os.Bundle
@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.*
-import com.professionalandroid.apps.capston_meeting.Retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.Retrofit.board
-import com.professionalandroid.apps.capston_meeting.Retrofit.boards
+import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
+import com.professionalandroid.apps.capston_meeting.retrofit.board
+import com.professionalandroid.apps.capston_meeting.retrofit.boards
 import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
 import kotlinx.android.synthetic.main.fragment_apply_page.view.*
 import retrofit2.Call

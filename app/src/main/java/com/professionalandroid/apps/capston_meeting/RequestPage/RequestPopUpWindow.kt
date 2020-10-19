@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.RequestPage
+package com.professionalandroid.apps.capston_meeting.requestPage
 
 import android.app.Dialog
 import android.content.Context
@@ -12,42 +12,27 @@ class RequestPopUpWindow(context : Context, mlistener: MyDialogOKClickedListener
     private lateinit var lblDesc : TextView
     private lateinit var btnOK : Button
     private lateinit var btnCancel : Button
-    private lateinit var listener : MyDialogOKClickedListener
-
-    fun start(message : String) {
+    private val listener = mlistener
+    fun start(message : String, success: Int) {
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)   //타이틀바 제거
         dlg.setContentView(R.layout.popup_window_request)     //다이얼로그에 사용할 xml 파일을 불러옴
         dlg.setCancelable(false)    //다이얼로그의 바깥 화면을 눌렀을 때 다이얼로그가 닫히지 않도록 함
 
-        lblDesc = dlg.findViewById(R.id.content)
+        lblDesc = dlg.findViewById(R.id.message)
         lblDesc.text = message
 
         btnOK = dlg.findViewById(R.id.ok)
         btnOK.setOnClickListener {
-            listener.onOKClicked("확인을 눌렀습니다")
             dlg.dismiss()
+            listener.onOKClicked(success)
         }
 
-
-        btnCancel = dlg.findViewById(R.id.cancel)
-        btnCancel.setOnClickListener {
-            dlg.dismiss()
-        }
 
         dlg.show()
     }
 
 
-    fun setOnOKClickedListener(listener: (String) -> Unit) {
-        this.listener = object: MyDialogOKClickedListener {
-            override fun onOKClicked(content: String) {
-                listener(content)
-            }
-        }
-    }
-
-
     interface MyDialogOKClickedListener {
-        fun onOKClicked(content : String)
+        fun onOKClicked(success: Int)
     }
 }

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
-import com.professionalandroid.apps.capston_meeting.Retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.Retrofit.board
+import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
+import com.professionalandroid.apps.capston_meeting.retrofit.board
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.Retrofit
+package com.professionalandroid.apps.capston_meeting.retrofit
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

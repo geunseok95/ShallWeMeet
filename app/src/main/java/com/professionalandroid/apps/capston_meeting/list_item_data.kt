@@ -1,6 +1,6 @@
 package com.professionalandroid.apps.capston_meeting
 
-import com.professionalandroid.apps.capston_meeting.Retrofit._links2
+import com.professionalandroid.apps.capston_meeting.retrofit._links2
 
 data class list_item_data(
     val idx: Long?,

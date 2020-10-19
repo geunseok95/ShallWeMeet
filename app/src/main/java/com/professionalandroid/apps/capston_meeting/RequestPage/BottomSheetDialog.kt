@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.RequestPage
+package com.professionalandroid.apps.capston_meeting.requestPage
 
 import android.os.Bundle
 import android.view.LayoutInflater

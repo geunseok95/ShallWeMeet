@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".RequestPage.RequestPage"
+    tools:context=".requestPage.RequestPage"
     android:background="@drawable/background_color">
 
     <ScrollView
@@ -31,7 +31,8 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:src="@drawable/happy"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/rounded_imageview" />
 
                     <ImageView
                         android:id="@+id/request_img2"
@@ -40,7 +41,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/happy"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/rounded_imageview"/>
 
                     <ImageView
                         android:id="@+id/request_img3"
@@ -49,7 +51,8 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:src="@drawable/happy"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/rounded_imageview"/>
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -84,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="인원수를 입력해주세요"
+                    android:maxLength="1"
                     android:inputType="number" />
 
                 <EditText
@@ -92,7 +96,6 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="키워드"
-                    android:maxLength="1"
                     android:inputType="textPersonName" />
 
                 <Button

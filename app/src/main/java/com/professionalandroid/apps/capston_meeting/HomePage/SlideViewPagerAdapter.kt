@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.HomePage
+package com.professionalandroid.apps.capston_meeting.homePage
 
 import android.view.LayoutInflater
 import android.view.View
