@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.professionalandroid.apps.capston_meeting.ApplyPage.RecyclerAdapter
 
 class WaitPage : Fragment() {
 
 
     lateinit var mRecyclerView: RecyclerView
-    private var mRecyclerAdapter:RecyclerAdapter = RecyclerAdapter(meetinglist!!)
+    private var mRecyclerAdapter: RecyclerAdapter =
+        RecyclerAdapter(
+            meetinglist!!
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

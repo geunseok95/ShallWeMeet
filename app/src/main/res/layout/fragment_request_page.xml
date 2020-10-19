@@ -4,101 +4,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".RequestPage"
+    tools:context=".RequestPage.RequestPage"
     android:background="@drawable/background_color">
 
-    <HorizontalScrollView
-        android:id="@+id/request_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/request_profile"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="60dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/request_img1"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/happy" />
-
-            <ImageView
-                android:id="@+id/request_img2"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/happy" />
-
-            <ImageView
-                android:id="@+id/request_img3"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/happy" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
-    <LinearLayout
-        android:id="@+id/request_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/request_img"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <EditText
-            android:id="@+id/request_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="제목"
-            android:inputType="textPersonName" />
-
-        <Spinner
-            android:id="@+id/request_location"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/spinner_background"
-            android:theme="@style/SpinnerTheme"
-            android:spinnerMode="dialog"/>
-
-        <EditText
-            android:id="@+id/request_num_type"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="인원수"
-            android:inputType="textPersonName" />
+            android:orientation="vertical">
+            <HorizontalScrollView
+                android:id="@+id/request_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/request_img1"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/happy"
+                        android:scaleType="centerCrop"/>
 
-        <EditText
-            android:id="@+id/request_keyword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="키워드"
-            android:inputType="textPersonName" />
+                    <ImageView
+                        android:id="@+id/request_img2"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/happy"
+                        android:scaleType="centerCrop"/>
 
-        <Button
-            android:id="@+id/request_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_gravity="center"
-            android:text="등록하기"/>
+                    <ImageView
+                        android:id="@+id/request_img3"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/happy"
+                        android:scaleType="centerCrop"/>
 
-    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+            <LinearLayout
+                android:id="@+id/request_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/request_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="제목"
+                    android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/request_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/spinner_background"
+                    android:theme="@style/SpinnerTheme"
+                    android:spinnerMode="dialog"/>
 
 
+                <EditText
+                    android:id="@+id/request_num_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="인원수를 입력해주세요"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/request_keyword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="키워드"
+                    android:maxLength="1"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/request_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="등록하기"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

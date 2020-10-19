@@ -25,6 +25,9 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.professionalandroid.apps.capston_meeting.ApplyPage.ApplyPage
+import com.professionalandroid.apps.capston_meeting.HomePage.HomePage
+import com.professionalandroid.apps.capston_meeting.HomePage.SlideViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.text.SimpleDateFormat
@@ -43,8 +46,6 @@ class MainActivity : AppCompatActivity() {
         var img_num = 0
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,23 +55,24 @@ class MainActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.statusBarColor = Color.TRANSPARENT
 
-
         // 권한 요청
         tedPermission()
 
-        val homepage = HomePage()
-        val applypage = ApplyPage()
+        val homepage =
+            HomePage()
+        val applypage =
+            ApplyPage()
         val waitpage = WaitPage()
         val successpage = SuccessPage()
         val myinfo = MyInfo()
-        val mfragment = SlideViewPager()
+        val mfragment =
+            SlideViewPager()
 
         val ft = supportFragmentManager
 
         ft.beginTransaction().replace(R.id.main_layout, homepage).commitAllowingStateLoss()
 
         bottom_navigation_bar.setOnNavigationItemSelectedListener {
-
 
             when(it.itemId){
                 R.id.navigation_bar_home -> ft.beginTransaction().replace(R.id.main_layout, homepage).commitAllowingStateLoss()
@@ -79,11 +81,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_bar_success -> ft.beginTransaction().replace(R.id.main_layout, successpage).commitAllowingStateLoss()
                 R.id.navigation_bar_myinfo -> ft.beginTransaction().replace(R.id.main_layout, myinfo).commitAllowingStateLoss()
             }
-
             return@setOnNavigationItemSelectedListener true
-
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("test", "start")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("test", "resume")
     }
 
     fun move_next_fragment(fragment: Fragment){
@@ -233,7 +242,6 @@ class MainActivity : AppCompatActivity() {
 
         return result
     }
-
 
     @Nullable
     fun createCopy(
