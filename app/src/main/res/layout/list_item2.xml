@@ -62,12 +62,27 @@
                     android:layout_height="wrap_content"
                     android:text="사람 수"
                     android:textColor="#000000" />
-                <TextView
-                    android:id="@+id/imageview_gender"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="성별"
-                    android:textColor="#000000" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/imageview_tag1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="tag1"
+                        android:textSize="8sp"/>
+                    <TextView
+                        android:id="@+id/imageview_tag2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"/>
+                    <TextView
+                        android:id="@+id/imageview_tag3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"/>
+                </LinearLayout>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

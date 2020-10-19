@@ -15,7 +15,7 @@ class WaitPage : Fragment() {
     lateinit var mRecyclerView: RecyclerView
     private var mRecyclerAdapter: RecyclerAdapter =
         RecyclerAdapter(
-            meetinglist!!
+            meetinglist
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class WaitPage : Fragment() {
 
     fun setmeeting(item:MutableList<list_item_data>){
         for(i in item){
-            if(!meetinglist!!.contains(i)){
+            if(!meetinglist.contains(i)){
                 meetinglist.add(i)
                 mRecyclerAdapter.notifyItemInserted(meetinglist.indexOf(i))
             }

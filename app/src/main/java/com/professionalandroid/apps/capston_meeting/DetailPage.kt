@@ -53,7 +53,9 @@ class DetailPage : Fragment() {
                 override fun onResponse(call: Call<board>, response: Response<board>) {
                     val board: board = response.body()!!
                     view.detail_title.text = board.title
-                    view.detail_keyword.text = board.keyword
+                    view.detail_tag1.text = board.tag1
+                    view.detail_tag2.text = board.tag2
+                    view.detail_tag3.text = board.tag3
                     view.detail_location.text = board.location
                     view.detail_num_type.text = board.num_type
                     view.detail_num_type.text = board.gender

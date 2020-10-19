@@ -107,7 +107,7 @@ class RequestPage : Fragment(),
 
             setOnClickListener {
 
-                if (view.request_title.text.isNotEmpty() && view.request_num_type.text.isNotEmpty() && view.request_keyword.text.isNotEmpty()
+                if (view.request_title.text.isNotEmpty() && view.request_num_type.text.isNotEmpty() && view.request_tag1.text.isNotEmpty() && view.request_tag2.text.isNotEmpty() && view.request_tag3.text.isNotEmpty()
                 ) {
                     val popup = RequestPopUpWindow(context, this@RequestPage)
                     popup.start("미팅을 만들까요?", 1)
@@ -148,9 +148,17 @@ class RequestPage : Fragment(),
                 MediaType.parse("text/plain"),
                 request_title.text.toString()
             )
-            data["keyword"] = RequestBody.create(
+            data["tag1"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                request_keyword.text.toString()
+                request_tag1.text.toString()
+            )
+            data["tag2"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_tag2.text.toString()
+            )
+            data["tag3"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_tag3.text.toString()
             )
             data["location"] = RequestBody.create(
                 MediaType.parse("text/plain"),
@@ -163,9 +171,9 @@ class RequestPage : Fragment(),
             data["gender"] = RequestBody.create(MediaType.parse("text/plain"), "여자")
             data["age"] = RequestBody.create(MediaType.parse("text/plain"), "23")
 
-            val originalFile1 = File(request_Image_File_list[0].path)
-            val originalFile2 = File(request_Image_File_list[1].path)
-            val originalFile3 = File(request_Image_File_list[2].path)
+            val originalFile1 = File(request_Image_File_list[0].path!!)
+            val originalFile2 = File(request_Image_File_list[1].path!!)
+            val originalFile3 = File(request_Image_File_list[2].path!!)
 
             Log.d("test", originalFile1.toString())
 
@@ -175,7 +183,6 @@ class RequestPage : Fragment(),
             )
 
             Log.d("test", filePart1.toString())
-
 
             val filePart2: RequestBody = RequestBody.create(
                 MediaType.parse("image/*"),
@@ -205,7 +212,6 @@ class RequestPage : Fragment(),
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     //val board:String = response.body()!!
                     Log.d("test", "서버 연결 성공")
-                    //Log.d("test", board)
                 }
             })
 

@@ -53,11 +53,23 @@
         <FrameLayout
             android:id="@+id/new_meeting"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-      />
+            android:layout_height="180dp" />
 
+        <TextView
+            android:id="@+id/near_meeting_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="당신 주변의 미팅"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp" />
+
+        <FrameLayout
+            android:id="@+id/near_meeting"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
     </LinearLayout>
-
 
 </ScrollView>
 

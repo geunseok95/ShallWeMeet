@@ -18,8 +18,14 @@ data class board(
     @SerializedName("img3")
     var img3:String,
 
-    @SerializedName("keyword")
-    var keyword:String,
+    @SerializedName("tag1")
+    var tag1:String,
+
+    @SerializedName("tag2")
+    var tag2:String,
+
+    @SerializedName("tag3")
+    var tag3:String,
 
     @SerializedName("location")
     var location:String,

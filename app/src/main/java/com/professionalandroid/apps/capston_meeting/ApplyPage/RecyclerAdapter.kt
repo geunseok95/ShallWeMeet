@@ -43,8 +43,6 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-
         holder.title?.text = items[position].title
         Glide.with(mContext!!)
             .load(items[position].img1)
@@ -53,7 +51,9 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
         holder.location?.text = items[position].location
         holder.num_type?.text = items[position].num_type
         holder.age?.text = items[position].age
-        holder.gender?.text = items[position].gender
+        holder.tag1?.text = items[position].tag1
+        holder.tag2?.text = items[position].tag2
+        holder.tag3?.text = items[position].tag3
         holder.index = position
     }
 
@@ -65,7 +65,9 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
         var location: TextView? = null
         var num_type: TextView? = null
         var age: TextView? = null
-        var gender: TextView? = null
+        var tag1: TextView? = null
+        var tag2: TextView? = null
+        var tag3: TextView? = null
         var index: Int? = null
 
         init {
@@ -74,6 +76,9 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
             location = view.imageview_location
             age = view.imageview_age
             num_type = view.imageview_num_type
+            tag1 = view.imageview_tag1
+            tag2 = view.imageview_tag2
+            tag3 = view.imageview_tag3
             index = 0
             parentview.item2_card_view.setOnClickListener {
                 mListener?.onItemSelected(view, adapterPosition)

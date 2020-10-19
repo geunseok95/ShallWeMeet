@@ -18,10 +18,10 @@ class HomePage : Fragment() {
         super.onCreate(savedInstanceState)
         Log.d("test", "onCreate")
 
-        var mslideviewpager: SlideViewPager? = null
-        mslideviewpager =
-            SlideViewPager()
-        (activity as MainActivity).replace_fragment(mslideviewpager)
+        val mslideviewpager1: SlideViewPager = SlideViewPager(viewpager_list)
+        val mslideviewpager2: SlideViewPager = SlideViewPager(viewpager_list2)
+        (activity as MainActivity).replace_fragment(R.id.new_meeting, mslideviewpager1)
+        (activity as MainActivity).replace_fragment(R.id.near_meeting, mslideviewpager2)
 
     }
 

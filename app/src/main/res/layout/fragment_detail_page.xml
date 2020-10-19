@@ -96,6 +96,31 @@
             android:text="인원 수"/>
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/detail_tag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="tag1"
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/detail_tag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="tag2"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:id="@+id/detail_tag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="tag3"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 

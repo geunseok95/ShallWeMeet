@@ -16,6 +16,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.NonNull
@@ -25,9 +26,12 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.kakao.usermgmt.UserManagement
+import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.professionalandroid.apps.capston_meeting.applyPage.ApplyPage
 import com.professionalandroid.apps.capston_meeting.homePage.HomePage
 import com.professionalandroid.apps.capston_meeting.homePage.SlideViewPager
+import com.professionalandroid.apps.capston_meeting.kakaoLoginService.LoginPage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.text.SimpleDateFormat
@@ -65,8 +69,6 @@ class MainActivity : AppCompatActivity() {
         val waitpage = WaitPage()
         val successpage = SuccessPage()
         val myinfo = MyInfo()
-        val mfragment =
-            SlideViewPager()
 
         val ft = supportFragmentManager
 
@@ -110,9 +112,9 @@ class MainActivity : AppCompatActivity() {
         manager.popBackStack()
     }
 
-    fun replace_fragment(fragment: Fragment){
+    fun replace_fragment(layout_id: Int, fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.new_meeting, fragment)
+        transaction.replace(layout_id, fragment)
         transaction.commit()
     }
 
@@ -274,7 +276,17 @@ class MainActivity : AppCompatActivity() {
         return file
     }
 
-
-
+    fun logoutService(){
+        Toast.makeText(applicationContext, "정상적으로 로그아웃되었습니다.", Toast.LENGTH_SHORT)
+            .show()
+        UserManagement.getInstance().requestLogout(object : LogoutResponseCallback() {
+            override fun onCompleteLogout() {
+                val intent = Intent(this@MainActivity, LoginPage::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }
+        })
+    }
 
 }

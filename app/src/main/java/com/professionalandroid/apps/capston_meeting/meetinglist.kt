@@ -12,6 +12,15 @@ var viewpager_list: MutableList<viewpager_list_item> =
 
     )
 
+var viewpager_list2: MutableList<viewpager_list_item> =
+    mutableListOf(
+        viewpager_list_item("잠실 3대3", R.drawable.watermelon.toString()),
+        viewpager_list_item("홍대 4대4", R.drawable.happy.toString()),
+        viewpager_list_item("천호 3대3", R.drawable.imyourxyz.toString())
+
+    )
+
+
 data class viewpager_list_item(
     var title:String,
     var img1: String
