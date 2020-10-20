@@ -6,17 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.professionalandroid.apps.capston_meeting.R
+import com.professionalandroid.apps.capston_meeting.RegisterPage
 
-class BottomSheetDialog(
-    bottombutton_listener: BottomsheetbuttonItemSelectedInterface
-    ) : BottomSheetDialogFragment() {
+class BottomSheetDialog() : BottomSheetDialogFragment() {
+    private var mbottombutton_listener: BottomsheetbuttonItemSelectedInterface? = null
+
+    constructor(bottombutton_listener: RequestPage) : this() {
+        mbottombutton_listener = bottombutton_listener
+    }
+    constructor(bottombutton_listener: RegisterPage) : this() {
+        mbottombutton_listener = bottombutton_listener
+
+    }
 
     interface BottomsheetbuttonItemSelectedInterface{
         fun bottombutton_listener(v: View)
     }
-
-    private var mbottombutton_listener: BottomsheetbuttonItemSelectedInterface? =
-        bottombutton_listener
 
     override fun onCreateView(
         inflater: LayoutInflater,

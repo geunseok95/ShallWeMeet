@@ -34,10 +34,8 @@ class HomePage : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home_page, container, false)
         val meet = view.meet
         val find = view.find
-        val applypage =
-            ApplyPage()
-        val requestpage =
-            RequestPage()
+        val applypage = ApplyPage()
+        val requestpage = RequestPage()
 
         meet.setOnClickListener {
             if(meetinglist.isNotEmpty()){

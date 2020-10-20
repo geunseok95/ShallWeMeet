@@ -32,22 +32,12 @@ class ApplyPage : Fragment(),
     private var mRecyclerAdapter: RecyclerAdapter? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mRecyclerAdapter =
-            RecyclerAdapter(
-                context,
-                this,
-                meetinglist
-            )
-        retrofitService =
-            ConnectRetrofit(
-                context
-            )
+        mRecyclerAdapter = RecyclerAdapter(context, this, meetinglist)
+        retrofitService = ConnectRetrofit(context)
     }
 
     var imageview_img1:RoundedImageView? = null
     var imageview_title:String? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,9 +124,10 @@ class ApplyPage : Fragment(),
         val detailpage =
             DetailPage()
         val bundle = Bundle()
+
+        Log.d("test", "${viewholder.index}")
         bundle.putString("href", meetinglist[viewholder.index!!]._links?.board?.href)
         detailpage.arguments = bundle
-        meetinglist.clear()
         (activity as MainActivity).move_next_fragment(detailpage)
     }
 

@@ -1,5 +1,6 @@
 package com.professionalandroid.apps.capston_meeting.kakaoLoginService
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,8 +16,14 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.OptionalBoolean
 import com.kakao.util.exception.KakaoException
-import com.professionalandroid.apps.capston_meeting.MainActivity
-import com.professionalandroid.apps.capston_meeting.R
+import com.professionalandroid.apps.capston_meeting.*
+import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
+import com.professionalandroid.apps.capston_meeting.retrofit.boards
+import com.professionalandroid.apps.capston_meeting.retrofit.user
+import com.professionalandroid.apps.capston_meeting.retrofit.user3
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginPage: AppCompatActivity(){
     private var sessionCallback: SessionCallback? = null
@@ -124,16 +131,41 @@ class LoginPage: AppCompatActivity(){
                                 // 프로필 획득 불가
                             }
                         }
-                        val intent = Intent(this@LoginPage, MainActivity::class.java)
-                        intent.putExtra("name", kakaoAccount.profile.nickname)
-                        intent.putExtra("profile", kakaoAccount.profile.profileImageUrl)
-                        startActivityForResult(intent, 0)
-                        finish()
 
+                        val retrofitService = ConnectRetrofit(this@LoginPage)
+                        val connect_server = retrofitService.retrofitService()
+
+                        // retrofit 서버연결
+                        connect_server.checkhMyID(kakaoAccount.email).enqueue(object: Callback<user3> {
+                            override fun onFailure(call: Call<user3>, t: Throwable) {
+                                Log.d("test","서버연결 실패 BoardActivity")
+                            }
+
+                            override fun onResponse(call: Call<user3>, response: Response<user3>) {
+                                val user = response.body()!!
+
+                                Log.d("test", "$user")
+
+                                if(user.code == "성공") {
+                                    val intent = Intent(this@LoginPage, MainActivity::class.java)
+                                    intent.putExtra("email", kakaoAccount.email)
+                                    intent.putExtra("new_id", user.id.toString())
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                else{
+                                    val intent = Intent(this@LoginPage, RegisterPage::class.java)
+                                    intent.putExtra("email", kakaoAccount.email)
+                                    Log.d("testid", user.id.toString())
+                                    intent.putExtra("new_id", user.id.toString())
+                                    startActivity(intent)
+                                    finish()
+                                }
+
+                            }
+                        })
                     }
-
                 })
         }
     }
-
 }

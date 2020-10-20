@@ -80,4 +80,5 @@ class DetailPage : Fragment() {
             .centerCrop()
             .into(imageveiw);
     }
+
 }

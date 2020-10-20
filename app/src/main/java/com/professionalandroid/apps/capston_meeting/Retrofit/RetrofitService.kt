@@ -26,6 +26,18 @@ interface RetrofitService {
         @Path("new_href") new_href: String
     ): Call<board>
 
+    // 로그인시 이메일 조회
+    @GET("/api/users/login")
+    fun checkhMyID(
+        @Query("email") email: String
+    ):Call<user3>
+
+    // 유저 정보 조회
+    @GET("api/users/{id}/")
+    fun getuserId(
+        @Path("id") id: String
+    )
+
     //새로운 글 작성
     @Multipart
     @POST("/api/boards/upload")
@@ -40,6 +52,13 @@ interface RetrofitService {
         //@Part data: ResponseBody
     ): Call<String>
 
-
+    // 회원가입
+    @Multipart
+    @POST("/api/users/{id}/upload")
+    fun registernewId(
+        @Part img: MultipartBody.Part,
+        @PartMap data: HashMap<String, RequestBody>,
+        @Path("id") id: String
+    ): Call<user4>
 }
 

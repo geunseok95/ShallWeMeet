@@ -63,6 +63,11 @@ data class board2(
     var href: String
 )
 
+data class user3(
+    var code: String,
+    var id: Long
+)
+
 data class user2(
     var href:String
 )
@@ -70,4 +75,9 @@ data class user2(
 data class user(
     var idx:Int
 )
+
+data class user4(
+    var id:String
+)
+
 

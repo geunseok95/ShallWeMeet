@@ -45,11 +45,14 @@ class MainActivity : AppCompatActivity() {
         val request_Image_list = mutableListOf<ImageView>()
         val request_Image_File_list = mutableListOf<Uri>()
         var img_num = 0
+        lateinit var id:String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        id = intent.getStringExtra("new_id")!!
 
         // 상태바 투명하게 만들기
         window?.decorView?.systemUiVisibility =
@@ -82,15 +85,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d("test", "start")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("test", "resume")
-    }
 
     fun move_next_fragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()

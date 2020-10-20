@@ -35,7 +35,6 @@
                     android:id="@+id/imageview_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
                     android:text="@string/location"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +42,6 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:gravity="center"/>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.img_num
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_File_list
@@ -19,7 +18,6 @@ import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_request_page.*
 import kotlinx.android.synthetic.main.fragment_request_page.view.*
-import kotlinx.android.synthetic.main.list_item2.view.*
 import okhttp3.*
 import retrofit2.Callback
 import retrofit2.Call
@@ -29,18 +27,13 @@ import java.io.File
 class RequestPage : Fragment(),
     BottomSheetDialog.BottomsheetbuttonItemSelectedInterface, RequestPopUpWindow.MyDialogOKClickedListener {
 
-
-    lateinit var mrequest_img : ImageView
     lateinit var mbottomsheetdialog: BottomSheetDialog
     lateinit var retrofitService: ConnectRetrofit
     lateinit var spinneradapter: ArrayAdapter<String>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        retrofitService =
-            ConnectRetrofit(
-                context
-            )
+        retrofitService = ConnectRetrofit(context)
         val items = resources.getStringArray(R.array.location)
         spinneradapter = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, items)
     }
@@ -64,20 +57,19 @@ class RequestPage : Fragment(),
         view.request_img2.clipToOutline = true
         view.request_img3.clipToOutline = true
 
-
         request_Image_list.clear()
         request_Image_list.add(view.request_img1)
         request_Image_list.add(view.request_img2)
         request_Image_list.add(view.request_img3)
 
         val uri = Uri.parse("android.resource://com.professionalandroid.apps.capston_meeting/drawable/happy.jpg")
+        request_Image_File_list.clear()
         request_Image_File_list.add(uri)
         request_Image_File_list.add(uri)
         request_Image_File_list.add(uri)
 
         view.request_img1.apply {
             setOnClickListener {
-                mrequest_img = this
                 img_num = 0
                 mbottomsheetdialog =
                     BottomSheetDialog(
@@ -86,7 +78,6 @@ class RequestPage : Fragment(),
                 mbottomsheetdialog.show((activity as MainActivity).supportFragmentManager, "bottom_sheet_dialog")} }
         view.request_img2.apply {
             setOnClickListener {
-                mrequest_img = this
                 img_num = 1
                 mbottomsheetdialog =
                     BottomSheetDialog(
@@ -95,7 +86,6 @@ class RequestPage : Fragment(),
                 mbottomsheetdialog.show((activity as MainActivity).supportFragmentManager, "bottom_sheet_dialog")} }
         view.request_img3.apply {
             setOnClickListener {
-                mrequest_img = this
                 img_num = 2
                 mbottomsheetdialog =
                     BottomSheetDialog(
@@ -138,9 +128,8 @@ class RequestPage : Fragment(),
 
     }
 
-    override fun onOKClicked(success:Int) {
+    override fun onOKClicked(success:Int, id: String) {
         if(success == 1){
-
             val data: HashMap<String, RequestBody> = HashMap()
             val connect_server = retrofitService.retrofitService()
 
