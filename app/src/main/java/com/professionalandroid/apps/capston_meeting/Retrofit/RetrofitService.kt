@@ -56,7 +56,7 @@ interface RetrofitService {
     @Multipart
     @POST("/api/users/{id}/upload")
     fun registernewId(
-        @Part img: MultipartBody.Part,
+        //@Part img: MultipartBody.Part,
         @PartMap data: HashMap<String, RequestBody>,
         @Path("id") id: String
     ): Call<user4>

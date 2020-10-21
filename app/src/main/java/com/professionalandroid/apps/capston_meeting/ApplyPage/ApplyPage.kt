@@ -121,8 +121,7 @@ class ApplyPage : Fragment(),
         imageview_img1 = viewholder.img1!!
         imageview_title  = viewholder.title?.text.toString()
 
-        val detailpage =
-            DetailPage()
+        val detailpage = DetailPage()
         val bundle = Bundle()
 
         Log.d("test", "${viewholder.index}")

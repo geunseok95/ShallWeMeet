@@ -131,7 +131,7 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
 
             Log.d("test", new_id)
 
-            connect_server.registernewId(file1, data, new_id).enqueue(object :
+            connect_server.registernewId(data, new_id).enqueue(object :
                 Callback<user4> {
                 override fun onFailure(call: Call<user4>, t: Throwable) {
                     Log.d("test", "서버연결 실패")

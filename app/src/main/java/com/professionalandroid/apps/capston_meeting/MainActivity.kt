@@ -59,8 +59,6 @@ class MainActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         window.statusBarColor = Color.TRANSPARENT
 
-        // 권한 요청
-        tedPermission()
 
         val homepage = HomePage()
         val checkPage = CheckPage()
@@ -105,26 +103,6 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(layout_id, fragment)
         transaction.commit()
-    }
-
-    // 권한 요청
-    private fun tedPermission(){
-        val permission = object : PermissionListener{
-            override fun onPermissionGranted() {//설정해 놓은 위험권한(카메라 접근 등)이 허용된 경우 이곳을 실행
-                Toast.makeText(this@MainActivity,"요청하신 권한이 허용되었습니다.",Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
-                Toast.makeText(this@MainActivity,"요청하신 권한이 거부되었습니다.",Toast.LENGTH_SHORT).show()            }
-
-        }
-
-        TedPermission.with(this)
-            .setPermissionListener(permission)
-            .setRationaleMessage("카메라 앱을 사용하시려면 권한을 허용해주세요.")
-            .setDeniedMessage("권한을 거부하셨습니다.앱을 사용하시려면 [앱 설정]-[권한] 항목에서 권한을 허용해주세요.")
-            .setPermissions(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA)
-            .check()
     }
 
     fun getPhotoFromMyGallary() {
