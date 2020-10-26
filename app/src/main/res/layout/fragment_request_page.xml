@@ -72,6 +72,14 @@
                     android:hint="제목"
                     android:inputType="textPersonName" />
 
+                <EditText
+                    android:id="@+id/average_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="평균나이를 입력해주세요"
+                    android:inputType="textPersonName" />
+
                 <Spinner
                     android:id="@+id/request_location"
                     android:layout_width="match_parent"

@@ -34,7 +34,7 @@ data class board(
     var num_type:String,
 
     @SerializedName("age")
-    var age:String,
+    var age:Int,
 
     @SerializedName("gender")
     var gender:String,
@@ -45,39 +45,44 @@ data class board(
     @SerializedName("updatedDate")
     var updatedDate:String,
 
-    @SerializedName("_links")
-    var _links: _links2,
-
     @SerializedName("user")
     var user: user
 )
 
-data class _links2(
-    var self: self,
-    @SerializedName("board")
-    var board: board2,
-    var user: user2
-)
-
-data class board2(
-    var href: String
-)
-
-data class user3(
-    var code: String,
-    var id: Long
-)
-
-data class user2(
-    var href:String
-)
-
 data class user(
-    var idx:Int
+    @SerializedName("idx")
+    var idx:Long,
+
+    @SerializedName("nickName")
+    var nickName:String,
+
+    @SerializedName("img")
+    var img:String,
+
+    @SerializedName("email")
+    var email:String,
+
+    @SerializedName("gender")
+    var gender:String,
+
+    @SerializedName("age_range")
+    var age_range:String,
+
+    @SerializedName("birth")
+    var birth:String
 )
 
-data class user4(
-    var id:String
+data class userid(
+    var code: Int,
+    var msg: String,
+    var _checked: Boolean,
+    var idx: Long
+)
+
+data class new_user(
+    var code: Int,
+    var msg: String,
+    var idx:Long
 )
 
 

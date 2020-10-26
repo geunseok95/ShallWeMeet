@@ -13,6 +13,7 @@ import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.img_num
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_File_list
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_list
+import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
@@ -128,7 +129,7 @@ class RequestPage : Fragment(),
 
     }
 
-    override fun onOKClicked(success:Int, id: String) {
+    override fun onOKClicked(success:Int) {
         if(success == 1){
             val data: HashMap<String, RequestBody> = HashMap()
             val connect_server = retrofitService.retrofitService()
@@ -137,6 +138,17 @@ class RequestPage : Fragment(),
                 MediaType.parse("text/plain"),
                 request_title.text.toString()
             )
+            data["location"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_location.selectedItem.toString()
+            )
+            data["num_type"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_num_type.text.toString()
+            )
+            data["gender"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                "여자")
             data["tag1"] = RequestBody.create(
                 MediaType.parse("text/plain"),
                 request_tag1.text.toString()
@@ -149,16 +161,14 @@ class RequestPage : Fragment(),
                 MediaType.parse("text/plain"),
                 request_tag3.text.toString()
             )
-            data["location"] = RequestBody.create(
+            data["average_age"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                request_location.selectedItem.toString()
+                average_age.text.toString()
             )
-            data["num_type"] = RequestBody.create(
+            data["user"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                request_num_type.text.toString()
+                user
             )
-            data["gender"] = RequestBody.create(MediaType.parse("text/plain"), "여자")
-            data["age"] = RequestBody.create(MediaType.parse("text/plain"), "23")
 
             val originalFile1 = File(request_Image_File_list[0].path!!)
             val originalFile2 = File(request_Image_File_list[1].path!!)
@@ -192,7 +202,7 @@ class RequestPage : Fragment(),
 
             Log.d("test", file1.toString())
 
-            connect_server.sendBoard(file1, file2, file3, data).enqueue(object :
+            connect_server.makeBoard(file1, file2, file3, data).enqueue(object :
                 Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d("test", "서버연결 실패")

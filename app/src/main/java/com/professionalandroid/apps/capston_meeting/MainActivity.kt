@@ -45,14 +45,14 @@ class MainActivity : AppCompatActivity() {
         val request_Image_list = mutableListOf<ImageView>()
         val request_Image_File_list = mutableListOf<Uri>()
         var img_num = 0
-        lateinit var id:String
+        lateinit var user:String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        id = intent.getStringExtra("new_id")!!
+        user = intent.getStringExtra("user")!!
 
         // 상태바 투명하게 만들기
         window?.decorView?.systemUiVisibility =
@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener true
         }
     }
-
 
     fun move_next_fragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()

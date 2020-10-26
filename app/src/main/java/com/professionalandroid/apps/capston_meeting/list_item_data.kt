@@ -1,7 +1,5 @@
 package com.professionalandroid.apps.capston_meeting
 
-import com.professionalandroid.apps.capston_meeting.retrofit._links2
-
 data class list_item_data(
     val idx: Long?,
     val title: String?,
@@ -15,7 +13,6 @@ data class list_item_data(
     val num_type: String?,
     val gender: String?,
     val createdDate: String?,
-    val updatedDate : String?,
-    val age: String?,
-    val _links: _links2?
+    val updatedDate : String?
+
 )

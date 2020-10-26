@@ -11,8 +11,14 @@ interface RetrofitService {
     // 게시판 불러오기
     @GET("/api/boards")
     fun requestSearchBoard(
-    ):Call<boards>
+        @Query("page") page: String,
+        @Query("size") size: String,
+        @Query("location") location: String,
+        @Query("num_type") num_type: String,
+        @Query("age") age: String
+    ):Call<List<board>>
 
+    // 필터로 게시판 불러오기
     @GET("/filter")
     fun requestSearchBoard2(
         @Query("location") location: String,
@@ -30,35 +36,32 @@ interface RetrofitService {
     @GET("/api/users/login")
     fun checkhMyID(
         @Query("email") email: String
-    ):Call<user3>
+    ):Call<userid>
 
     // 유저 정보 조회
-    @GET("api/users/{id}/")
+    @GET("/api/users/{idx}/")
     fun getuserId(
-        @Path("id") id: String
+        @Path("idx") idx: String
     )
 
-    //새로운 글 작성
+    // 새로운 미팅 만들기
     @Multipart
-    @POST("/api/boards/upload")
-    fun sendBoard(
+    @POST("/api/boards")
+    fun makeBoard(
         //인풋을 정의하는 곳
         @Part img1: MultipartBody.Part,
         @Part img2: MultipartBody.Part,
         @Part img3: MultipartBody.Part,
-        //@Part("data") data: RequestBody
 
         @PartMap data: HashMap<String, RequestBody>
-        //@Part data: ResponseBody
     ): Call<String>
 
     // 회원가입
     @Multipart
-    @POST("/api/users/{id}/upload")
+    @POST("/api/users")
     fun registernewId(
-        //@Part img: MultipartBody.Part,
-        @PartMap data: HashMap<String, RequestBody>,
-        @Path("id") id: String
-    ): Call<user4>
+        @Part img: MultipartBody.Part,
+        @PartMap data: HashMap<String, RequestBody>
+    ): Call<new_user>
 }
 

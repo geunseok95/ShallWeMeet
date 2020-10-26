@@ -13,7 +13,6 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.professionalandroid.apps.capston_meeting.kakaoLoginService.LoginPage
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.boards
 import kotlinx.android.synthetic.main.fragment_my_info.view.*
 import retrofit2.Call
 import retrofit2.Callback

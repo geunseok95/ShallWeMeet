@@ -42,10 +42,9 @@ class DetailPage : Fragment() {
 
         // 전 fragment에서 데이터가 넘어왔는지 확인
         if(arguments != null){
-            val href = arguments?.getString("href")
-            val new_href = StringBuffer(href!!).substring(42).toString()
+            val href = arguments?.getLong("href").toString()
             val connect_server = retrofitService.retrofitService()
-            connect_server.requestSearchSpecificBoard(new_href).enqueue(object: Callback<board> {
+            connect_server.requestSearchSpecificBoard(href).enqueue(object: Callback<board> {
                 override fun onFailure(call: Call<board>, t: Throwable) {
                     Log.d("test","서버연결 실패 BoardActivity")
                 }

@@ -16,6 +16,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
+import android.widget.ArrayAdapter
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.core.content.FileProvider
@@ -24,7 +25,7 @@ import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.reque
 import com.professionalandroid.apps.capston_meeting.requestPage.BottomSheetDialog
 import com.professionalandroid.apps.capston_meeting.requestPage.RequestPopUpWindow
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.user4
+import com.professionalandroid.apps.capston_meeting.retrofit.new_user
 import kotlinx.android.synthetic.main.activity_register_page.*
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import okhttp3.MediaType
@@ -40,9 +41,7 @@ import kotlin.collections.HashMap
 
 class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonItemSelectedInterface,  RequestPopUpWindow.MyDialogOKClickedListener {
 
-    companion object{
-        lateinit var new_id:String
-    }
+    lateinit var email: String
     private val REQUEST_IMAGE_CAPTURE = 1
     val REQUEST_IMAGE_PICK = 10
     lateinit var mbottomsheetdialog: BottomSheetDialog
@@ -50,14 +49,14 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
-        new_id = intent.getStringExtra("new_id")!!
+        email = intent.getStringExtra("email")!!
         request_Image_File_list.clear()
         val uri = Uri.parse("android.resource://com.professionalandroid.apps.capston_meeting/drawable/happy.jpg")
         request_Image_File_list.add(uri)
         request_Image_list.clear()
         request_Image_list.add(register_image)
 
-
+        // 이미지 촬영 및 선택
         register_image.apply {
             setOnClickListener {
                 MainActivity.img_num = 0
@@ -69,18 +68,22 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
             }
         }
 
+        // location
+        val items = resources.getStringArray(R.array.location)
+        val spinneradapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, items)
+        register_location.adapter = spinneradapter
+        register_location.prompt = "선호 지역을 선택하세요"
+
+
         register_btn.apply {
-
             setOnClickListener {
-
-                if (register_nickname_input.text.isNotEmpty() && register_age_input.text.isNotEmpty()) {
+                if (register_nickname_input.text.isNotEmpty() && register_age_input.text.isNotEmpty() && register_kakao_id_input.text.isNotEmpty()) {
                     val popup = RequestPopUpWindow(context, this@RegisterPage)
-                    popup.start("회원가입을 진행할까요?", 1, new_id)
-
+                    popup.start("회원가입을 진행할까요?", 1)
                 }
                 else{
                     val popup = RequestPopUpWindow(context, this@RegisterPage)
-                    popup.start("내용을 모두 입력해주세요", 0, new_id)
+                    popup.start("내용을 모두 입력해주세요", 0)
                 }
             }
         }
@@ -100,7 +103,7 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
         }
     }
 
-    override fun onOKClicked(success: Int, id: String) {
+    override fun onOKClicked(success: Int) {
         if(success == 1){
             val data: HashMap<String, RequestBody> = HashMap()
             val retrofitService = ConnectRetrofit(this)
@@ -110,10 +113,26 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
                 MediaType.parse("text/plain"),
                 register_nickname_input.text.toString()
             )
-
             data["age"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                register_age_input.text.toString())
+                register_age_input.text.toString()
+            )
+            data["email"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                email
+            )
+            data["kakao_id"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                register_kakao_id_input.text.toString()
+            )
+            data["gender"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                "남자"
+            )
+            data["location"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                register_location.selectedItem.toString()
+            )
 
             val originalFile1 = File(request_Image_File_list[0].path!!)
 
@@ -122,35 +141,30 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
                 originalFile1
             )
 
-            Log.d("test", filePart1.toString())
+            Log.d("test1", filePart1.toString())
 
             val file1: MultipartBody.Part =
-                MultipartBody.Part.createFormData("img1", originalFile1.name, filePart1)
+                MultipartBody.Part.createFormData("img", originalFile1.name, filePart1)
 
-            Log.d("test", file1.toString())
+            Log.d("test2", file1.toString())
 
-            Log.d("test", new_id)
-
-            connect_server.registernewId(data, new_id).enqueue(object :
-                Callback<user4> {
-                override fun onFailure(call: Call<user4>, t: Throwable) {
+            connect_server.registernewId(file1, data).enqueue(object :
+                Callback<new_user> {
+                override fun onFailure(call: Call<new_user>, t: Throwable) {
                     Log.d("test", "서버연결 실패")
-                    Log.d("test in retrofit2", new_id)
                 }
 
-                override fun onResponse(call: Call<user4>, response: Response<user4>) {
-                    //val board:String = response.body()!!
-                    //Log.d("testbody",board)
+                override fun onResponse(call: Call<new_user>, response: Response<new_user>) {
                     Log.d("test", "서버 연결 성공")
+                    val newUser:new_user = response.body()!!
                     val intent = Intent(this@RegisterPage, MainActivity::class.java)
-                    Log.d("test in retrofit2", new_id)
-                    intent.putExtra("id", new_id)
+                    Log.d("test in retrofit2", newUser.idx.toString())
+                    intent.putExtra("user", newUser.idx.toString())
                     startActivity(intent)
                 }
             })
         }
     }
-
 
     fun getPhotoFromMyGallary() {
         Intent(Intent.ACTION_PICK).apply{

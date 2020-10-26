@@ -1,6 +1,7 @@
 package com.professionalandroid.apps.capston_meeting.applyPage
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.list_item_data
+import com.professionalandroid.apps.capston_meeting.retrofit.board
 import kotlinx.android.synthetic.main.list_item2.view.*
 
-class RecyclerAdapter(private var items: MutableList<list_item_data>):
+class RecyclerAdapter(private val boards:MutableList<board?>):
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+
 
     // list와 연결할 listener
     interface OnListItemSelelctedInterface{
@@ -22,12 +24,10 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
 
     var mContext: Context? = null
     private var mListener: OnListItemSelelctedInterface? = null
-    var meetinglist: MutableList<list_item_data>? = null
 
-    constructor(context: Context, listener: OnListItemSelelctedInterface, meetinglist: MutableList<list_item_data>) : this(meetinglist) {
+    constructor(context: Context, listener: OnListItemSelelctedInterface,boards: MutableList<board?>) : this(boards) {
         this.mContext = context
         this.mListener = listener
-        this.meetinglist = meetinglist
     }
 
     override fun onCreateViewHolder(
@@ -39,24 +39,23 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return boards.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.title?.text = items[position].title
+        holder.title?.text = boards[position]?.title
         Glide.with(mContext!!)
-            .load(items[position].img1)
+            .load(boards[position]?.img1)
             .centerCrop()
-            .into(holder.img1!!);
-        holder.location?.text = items[position].location
-        holder.num_type?.text = items[position].num_type
-        holder.age?.text = items[position].age
-        holder.tag1?.text = items[position].tag1
-        holder.tag2?.text = items[position].tag2
-        holder.tag3?.text = items[position].tag3
+            .into(holder.img1!!)
+        holder.location?.text = boards[position]?.location
+        holder.num_type?.text = boards[position]?.num_type
+        holder.age?.text = boards[position]?.age.toString()
+        holder.tag1?.text = boards[position]?.tag1
+        holder.tag2?.text = boards[position]?.tag2
+        holder.tag3?.text = boards[position]?.tag3
         holder.index = position
     }
-
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var parentview = view
@@ -68,6 +67,7 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
         var tag1: TextView? = null
         var tag2: TextView? = null
         var tag3: TextView? = null
+        // index를 이용해서 상속받은 class에서
         var index: Int? = null
 
         init {
@@ -81,6 +81,7 @@ class RecyclerAdapter(private var items: MutableList<list_item_data>):
             tag3 = view.imageview_tag3
             index = 0
             parentview.item2_card_view.setOnClickListener {
+                Log.d("test", adapterPosition.toString())
                 mListener?.onItemSelected(view, adapterPosition)
             }
 

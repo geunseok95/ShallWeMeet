@@ -2,6 +2,8 @@ package com.professionalandroid.apps.capston_meeting.applyPage
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,9 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.*
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
+import com.professionalandroid.apps.capston_meeting.retrofit.RetrofitService
 import com.professionalandroid.apps.capston_meeting.retrofit.board
-import com.professionalandroid.apps.capston_meeting.retrofit.boards
 import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
+import kotlinx.android.synthetic.main.fragment_apply_page.*
 import kotlinx.android.synthetic.main.fragment_apply_page.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,14 +29,19 @@ class ApplyPage : Fragment(),
     RecyclerAdapter.OnListItemSelelctedInterface,
     ApplyFilter.ApplyFilterSelectedInterface {
 
-    lateinit var retrofitService: ConnectRetrofit
+    private var isNext = false // 다음페이지 유무
+    private var page = 0 // 현재 페이지
+    private var size = "10" // 한번에 가져올 아이템의 수
+    var boards = mutableListOf<board?>()
+
+    lateinit var connect_server: RetrofitService
     lateinit var mapplyfilter: ApplyFilter
     lateinit var mRecyclerView: RecyclerView
     private var mRecyclerAdapter: RecyclerAdapter? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mRecyclerAdapter = RecyclerAdapter(context, this, meetinglist)
-        retrofitService = ConnectRetrofit(context)
+        mRecyclerAdapter = RecyclerAdapter(context, this, boards)
+        connect_server = ConnectRetrofit(context).retrofitService()
     }
 
     var imageview_img1:RoundedImageView? = null
@@ -41,42 +49,8 @@ class ApplyPage : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("test", "onCreate")
 
-        val connect_server = retrofitService.retrofitService()
-        // retrofit 서버연결
-        connect_server.requestSearchBoard().enqueue(object: Callback<boards> {
-            override fun onFailure(call: Call<boards>, t: Throwable) {
-                Log.d("test","서버연결 실패 BoardActivity")
-            }
-
-            override fun onResponse(call: Call<boards>, response: Response<boards>) {
-                val boards: boards = response.body()!!
-
-                val templist = boards._embedded.board_list
-                for(i in templist.indices){
-                    meetinglist.add(
-                        list_item_data(
-                            templist[i].idx,
-                            templist[i].title,
-                            templist[i].img1,
-                            templist[i].img2,
-                            templist[i].img3,
-                            templist[i].tag1,
-                            templist[i].tag2,
-                            templist[i].tag3,
-                            templist[i].location,
-                            templist[i].num_type,
-                            templist[i].gender,
-                            templist[i].createdDate,
-                            templist[i].updatedDate,
-                            templist[i].age,
-                            templist[i]._links
-                        )
-                    )
-                }
-                mRecyclerAdapter?.notifyDataSetChanged()
-            }
-        })
     }
 
     override fun onCreateView(
@@ -85,9 +59,13 @@ class ApplyPage : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_apply_page, container, false)
-        mRecyclerView = view.findViewById(R.id.recyclerview) as RecyclerView
+        mRecyclerView = view.recyclerview
         mRecyclerView.layoutManager = GridLayoutManager(context,2)
         mRecyclerView.adapter = mRecyclerAdapter
+        page = 0
+
+        loadPosts("상관없음", "상관없음", "상관없음")
+        initScrollListener()
 
         view.apply_filter.apply {
             setOnClickListener {
@@ -107,14 +85,113 @@ class ApplyPage : Fragment(),
         mRecyclerAdapter?.notifyDataSetChanged()
     }
 
-    fun setmeeting(item:MutableList<list_item_data>){
-        for(i in item){
-            if(!meetinglist.contains(i)){
-                meetinglist.add(i)
-                mRecyclerAdapter?.notifyItemInserted(meetinglist.indexOf(i))
+
+    // 최초로 넣어줄 데이터를 load 한다
+    private fun loadPosts(location: String, num_type :String, age: String){
+        // retrofit 서버연결
+        connect_server.requestSearchBoard(getPage(), size, location, num_type, age).enqueue(object: Callback<List<board>> {
+            override fun onFailure(call: Call<List<board>>, t: Throwable) {
+                Log.d("test","서버연결 실패 BoardActivity")
             }
-        }
+
+            override fun onResponse(call: Call<List<board>>, response: Response<List<board>>) {
+                if(response.body()?.size != 0) {
+                    val new_boards: List<board> = response.body()!!
+                    setBoard(new_boards)
+                }
+                else{
+                    Toast.makeText(activity as MainActivity, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
+
     }
+
+    // 리사이클러뷰에 더 보여줄 데이터를 로드하는 경우
+    private fun loadMorePosts(){
+        //mRecyclerAdapter.setLoadingView(true)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            connect_server.requestSearchBoard(getPage(), size, "상관없음", "상관없음", "상관없음")
+                .enqueue(object : Callback<List<board>> {
+                    override fun onFailure(call: Call<List<board>>, t: Throwable) {
+                        Log.d("test", "서버연결 실패 BoardActivity")
+                    }
+
+                    override fun onResponse(
+                        call: Call<List<board>>,
+                        response: Response<List<board>>
+                    ) {
+                        val boards: List<board> = response.body()!!
+                        addBoards(boards)
+                    }
+                })
+        },1000)
+    }
+
+    //
+    private fun initScrollListener(){
+        mRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                Log.d("test", "paging")
+
+                val layoutManager = recyclerview.layoutManager
+
+                // 다음페이지가 있는 경우
+                if(hasNextPage()){
+                    val lastVisibleItem = (layoutManager as GridLayoutManager)
+                        .findLastCompletelyVisibleItemPosition()
+                    // 마지막으로 보여진 아이템 position 이 전체 아이템 개수보다 5개 모자란경우, 데이터를 loadMore한다
+                    if(layoutManager.itemCount <= lastVisibleItem + 5){
+                        loadMorePosts()
+                        setHasNextPage(false)
+                    }
+                }
+            }
+
+        })
+    }
+
+
+    private fun setBoard(new_boards:List<board>){
+        this.boards.apply {
+            clear()
+            addAll(new_boards)
+        }
+        mRecyclerAdapter?.notifyDataSetChanged()
+    }
+
+
+    fun addBoards(boards: List<board>){
+        this.boards.addAll(boards)
+        mRecyclerAdapter?.notifyDataSetChanged()
+    }
+//
+//    fun setLoadingView(b:Boolean){
+//        if(b){
+//            Handler(Looper.getMainLooper()).post {
+//                boards.add(null)
+//                mRecyclerAdapter?.notifyItemInserted()
+//            }
+//        }
+//    }
+
+    private fun getPage(): String{
+        page++
+        return page.toString()
+    }
+
+    private fun hasNextPage(): Boolean{
+        return isNext
+    }
+
+    private fun setHasNextPage(b: Boolean){
+        isNext = b
+    }
+
 
     override fun onItemSelected(v: View, position: Int) {
         val viewholder: RecyclerAdapter.ViewHolder = mRecyclerView.findViewHolderForAdapterPosition(position) as RecyclerAdapter.ViewHolder
@@ -124,8 +201,9 @@ class ApplyPage : Fragment(),
         val detailpage = DetailPage()
         val bundle = Bundle()
 
+        Log.d("test_position", position.toString())
         Log.d("test", "${viewholder.index}")
-        bundle.putString("href", meetinglist[viewholder.index!!]._links?.board?.href)
+        bundle.putLong("href", boards[viewholder.index!!]!!.idx)
         detailpage.arguments = bundle
         (activity as MainActivity).move_next_fragment(detailpage)
     }
@@ -136,53 +214,10 @@ class ApplyPage : Fragment(),
             val spinner_location = v.spinner_location.selectedItem.toString()
             val radiobutton_num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()[0].toString()
             val seekbar_age = v.filter_age.text.toString()
-            Log.d("test", radiobutton_num_type)
-            meetinglist.clear()
 
-            Log.d("test", "meetinglist 초기화")
-            Log.d("test", seekbar_age)
-            val connect_server = retrofitService.retrofitService()
             // retrofit 서버연결
-            connect_server.requestSearchBoard2(spinner_location, radiobutton_num_type, seekbar_age).enqueue(object: Callback<List<board>> {
-                override fun onFailure(call: Call<List<board>>, t: Throwable) {
-                    Log.d("test","서버연결 실패 BoardActivity")
-                }
-
-                override fun onResponse(call: Call<List<board>>, response: Response<List<board>>) {
-                    if (response.body()?.size != 0) {
-                        val boards: List<board> = response.body()!!
-                        Log.d("test", "${response.body()}")
-                        Log.d("test", "${boards}, ${boards[0].title}")
-                        val templist = boards
-                        for (i in templist.indices) {
-                            meetinglist.add(
-                                list_item_data(
-                                    templist[i].idx,
-                                    templist[i].title,
-                                    templist[i].img1,
-                                    templist[i].img2,
-                                    templist[i].img3,
-                                    templist[i].img1,
-                                    templist[i].img2,
-                                    templist[i].img3,
-                                    templist[i].location,
-                                    templist[i].num_type,
-                                    templist[i].gender,
-                                    templist[i].createdDate,
-                                    templist[i].updatedDate,
-                                    templist[i].age,
-                                    templist[i]._links
-                                )
-                            )
-                        }
-                        mRecyclerAdapter?.notifyDataSetChanged()
-                    }
-                    else{
-                        Toast.makeText(activity as MainActivity, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
-
+            page = 0
+            loadPosts(spinner_location, radiobutton_num_type, seekbar_age)
         }
     }
 
