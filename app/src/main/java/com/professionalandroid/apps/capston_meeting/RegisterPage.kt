@@ -87,7 +87,6 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
                 }
             }
         }
-
     }
 
     override fun bottombutton_listener(v: View) {

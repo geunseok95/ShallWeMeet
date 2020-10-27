@@ -71,7 +71,7 @@ class ConnectRetrofit(val context: Context) {
     fun retrofitService(): RetrofitService = retrofit.create(
         RetrofitService::class.java)
     // connect server
-    private val retrofit = Retrofit.Builder().baseUrl("https://192.168.0.8:8080")
+    private val retrofit = Retrofit.Builder().baseUrl("https://shallwemeet.co.kr:8080")
         .client(
             OkHttpClient.Builder().sslSocketFactory(
                 getPinnedCertSslSocketFactory(

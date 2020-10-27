@@ -40,9 +40,9 @@ interface RetrofitService {
 
     // 유저 정보 조회
     @GET("/api/users/{idx}/")
-    fun getuserId(
+    fun getuserinfo(
         @Path("idx") idx: String
-    )
+    ):Call<user_info>
 
     // 새로운 미팅 만들기
     @Multipart
@@ -55,6 +55,8 @@ interface RetrofitService {
 
         @PartMap data: HashMap<String, RequestBody>
     ): Call<String>
+
+    // 즐겨찾기 추가
 
     // 회원가입
     @Multipart

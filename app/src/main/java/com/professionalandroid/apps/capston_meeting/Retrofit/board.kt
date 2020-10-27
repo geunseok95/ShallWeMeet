@@ -46,10 +46,10 @@ data class board(
     var updatedDate:String,
 
     @SerializedName("user")
-    var user: user
+    var user: user_info
 )
 
-data class user(
+data class user_info(
     @SerializedName("idx")
     var idx:Long,
 
@@ -65,11 +65,20 @@ data class user(
     @SerializedName("gender")
     var gender:String,
 
-    @SerializedName("age_range")
-    var age_range:String,
+    @SerializedName("age")
+    var age:String,
 
     @SerializedName("birth")
-    var birth:String
+    var birth:String,
+
+    @SerializedName("location")
+    var location:String,
+
+    @SerializedName("kakao_id")
+    var kakao_id:String,
+
+    @SerializedName("point")
+    var point:String
 )
 
 data class userid(

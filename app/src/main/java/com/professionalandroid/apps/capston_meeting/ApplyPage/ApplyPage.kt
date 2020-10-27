@@ -208,6 +208,10 @@ class ApplyPage : Fragment(),
         (activity as MainActivity).move_next_fragment(detailpage)
     }
 
+    override fun onStarChecked(position: Int) {
+        TODO("Not yet implemented")
+    }
+
     override fun applyfilter_listener(v: View) {
         v.filter_btn.setOnClickListener {
 

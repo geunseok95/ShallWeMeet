@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,6 +21,7 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
     // list와 연결할 listener
     interface OnListItemSelelctedInterface{
         fun onItemSelected(v: View, position: Int)
+        fun onStarChecked(position: Int)
     }
 
     var mContext: Context? = null
@@ -67,6 +69,7 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
         var tag1: TextView? = null
         var tag2: TextView? = null
         var tag3: TextView? = null
+
         // index를 이용해서 상속받은 class에서
         var index: Int? = null
 
@@ -81,8 +84,10 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
             tag3 = view.imageview_tag3
             index = 0
             parentview.item2_card_view.setOnClickListener {
-                Log.d("test", adapterPosition.toString())
                 mListener?.onItemSelected(view, adapterPosition)
+            }
+            parentview.star_btn.setOnClickListener{
+                mListener?.onStarChecked(adapterPosition)
             }
 
         }
