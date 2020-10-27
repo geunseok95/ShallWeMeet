@@ -13,14 +13,19 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.*
-import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.RetrofitService
-import com.professionalandroid.apps.capston_meeting.retrofit.board
+import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
+import com.professionalandroid.apps.capston_meeting.retrofit.*
 import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
 import kotlinx.android.synthetic.main.fragment_apply_page.*
 import kotlinx.android.synthetic.main.fragment_apply_page.view.*
+import kotlinx.android.synthetic.main.fragment_request_page.*
+import kotlinx.android.synthetic.main.list_item2.view.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -208,13 +213,42 @@ class ApplyPage : Fragment(),
         (activity as MainActivity).move_next_fragment(detailpage)
     }
 
-    override fun onStarChecked(position: Int) {
-        TODO("Not yet implemented")
+    override fun onStarChecked(v: View, position: Int) {
+        val viewholder: RecyclerAdapter.ViewHolder = mRecyclerView.findViewHolderForAdapterPosition(position) as RecyclerAdapter.ViewHolder
+
+        // 체크시 즐겨찾기 추가, 체크 해제시 즐겨찾기 제거
+        if(v.star_btn.isChecked){
+
+            val data = Jsonbody(user.toLong(), boards[viewholder.index!!]?.idx!!)
+            Log.d("test", data.toString())
+
+            connect_server.addFavorite(data).enqueue(object : Callback<favorite>{
+                override fun onFailure(call: Call<favorite>, t: Throwable) {
+                    Log.d("test", "실패")
+                }
+
+                override fun onResponse(call: Call<favorite>, response: Response<favorite>) {
+                    Log.d("test", "성공")
+                }
+            })
+        }
+        else{
+
+            connect_server.deleteFavorite(user.toLong(), boards[viewholder.index!!]?.idx!!).enqueue(object : Callback<favorite>{
+                override fun onFailure(call: Call<favorite>, t: Throwable) {
+                    Log.d("test", "실패")
+                }
+
+                override fun onResponse(call: Call<favorite>, response: Response<favorite>) {
+                    Log.d("test", "성공")
+                }
+
+            })
+        }
     }
 
     override fun applyfilter_listener(v: View) {
         v.filter_btn.setOnClickListener {
-
             val spinner_location = v.spinner_location.selectedItem.toString()
             val radiobutton_num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()[0].toString()
             val seekbar_age = v.filter_age.text.toString()
@@ -224,5 +258,4 @@ class ApplyPage : Fragment(),
             loadPosts(spinner_location, radiobutton_num_type, seekbar_age)
         }
     }
-
 }

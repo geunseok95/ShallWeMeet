@@ -21,7 +21,7 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
     // list와 연결할 listener
     interface OnListItemSelelctedInterface{
         fun onItemSelected(v: View, position: Int)
-        fun onStarChecked(position: Int)
+        fun onStarChecked(v: View, position: Int)
     }
 
     var mContext: Context? = null
@@ -87,7 +87,7 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
                 mListener?.onItemSelected(view, adapterPosition)
             }
             parentview.star_btn.setOnClickListener{
-                mListener?.onStarChecked(adapterPosition)
+                mListener?.onStarChecked(view, adapterPosition)
             }
 
         }

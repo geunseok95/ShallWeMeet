@@ -1,5 +1,6 @@
 package com.professionalandroid.apps.capston_meeting.retrofit
 
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 data class board(
@@ -94,4 +95,13 @@ data class new_user(
     var idx:Long
 )
 
+data class favorite(
+    var cod: Int,
+    var msg: String
+)
+
+data class  Jsonbody(
+    var userId: Long,
+    var boardId: Long
+)
 

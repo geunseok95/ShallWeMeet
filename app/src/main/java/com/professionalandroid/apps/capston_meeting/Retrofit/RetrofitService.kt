@@ -2,6 +2,7 @@ package com.professionalandroid.apps.capston_meeting.retrofit
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 import kotlin.collections.HashMap
@@ -52,11 +53,21 @@ interface RetrofitService {
         @Part img1: MultipartBody.Part,
         @Part img2: MultipartBody.Part,
         @Part img3: MultipartBody.Part,
-
         @PartMap data: HashMap<String, RequestBody>
     ): Call<String>
 
     // 즐겨찾기 추가
+    @POST("/api/bookmark")
+    fun addFavorite(
+        @Body data:Jsonbody
+    ): Call<favorite>
+
+    // 즐겨찾기 제거
+    @DELETE("api/bookmark/{userId}/{boardId}/")
+    fun deleteFavorite(
+        @Path("userId") userId: Long,
+        @Path("boardId") boardId: Long
+    ): Call<favorite>
 
     // 회원가입
     @Multipart
