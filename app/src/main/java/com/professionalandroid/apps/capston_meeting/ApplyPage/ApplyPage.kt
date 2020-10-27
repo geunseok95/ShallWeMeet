@@ -234,7 +234,7 @@ class ApplyPage : Fragment(),
         }
         else{
 
-            connect_server.deleteFavorite(user.toLong(), boards[viewholder.index!!]?.idx!!).enqueue(object : Callback<favorite>{
+            connect_server.deleteFavorite(user, boards[viewholder.index!!]?.idx!!).enqueue(object : Callback<favorite>{
                 override fun onFailure(call: Call<favorite>, t: Throwable) {
                     Log.d("test", "실패")
                 }

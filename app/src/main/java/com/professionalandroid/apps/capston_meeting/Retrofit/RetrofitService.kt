@@ -39,6 +39,12 @@ interface RetrofitService {
         @Query("email") email: String
     ):Call<userid>
 
+    // 즐겨찾기 조회
+    @GET("/api/bookmark/{idx}")
+    fun getFavorite(
+        @Path("idx") idx: String
+    ):Call<List<board>>
+
     // 유저 정보 조회
     @GET("/api/users/{idx}/")
     fun getuserinfo(
@@ -65,7 +71,7 @@ interface RetrofitService {
     // 즐겨찾기 제거
     @DELETE("api/bookmark/{userId}/{boardId}/")
     fun deleteFavorite(
-        @Path("userId") userId: Long,
+        @Path("userId") userId: String,
         @Path("boardId") boardId: Long
     ): Call<favorite>
 
