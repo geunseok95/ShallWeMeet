@@ -4,7 +4,7 @@
 
 
 
-![UI flow](ShallWeMeet/readmefile/UI flow.jpg)
+![UI flow](readmefile/UI flow.jpg)
 
 
 * #### 간편한 소셜 로그인 기능
