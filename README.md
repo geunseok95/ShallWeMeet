@@ -4,7 +4,7 @@
 
 
 
-![UI flow](readmefile/UI flow.jpg)
+![UI flow](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/UI%20flow.jpg?raw=true)
 
 
 * #### 간편한 소셜 로그인 기능
