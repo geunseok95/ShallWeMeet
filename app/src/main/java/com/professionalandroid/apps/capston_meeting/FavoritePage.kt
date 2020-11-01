@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.applyPage.RecyclerAdapter
-import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.RetrofitService
-import com.professionalandroid.apps.capston_meeting.retrofit.board
-import com.professionalandroid.apps.capston_meeting.retrofit.favorite
+import com.professionalandroid.apps.capston_meeting.retrofit.*
 import kotlinx.android.synthetic.main.fragment_favorite_page.view.*
 import kotlinx.android.synthetic.main.list_item2.view.*
 import retrofit2.Call
@@ -48,12 +45,18 @@ class FavoritePage : Fragment(),RecyclerAdapter.OnListItemSelelctedInterface {
         mRecyclerView.layoutManager = GridLayoutManager(context,2)
         mRecyclerView.adapter = mRecyclerAdapter
 
-        connect_server.getFavorite(user).enqueue(object : Callback<List<board>>{
-            override fun onFailure(call: Call<List<board>>, t: Throwable) {
+        connect_server.getFavorite(user).enqueue(object : Callback<List<favoriteboard>>{
+            override fun onFailure(call: Call<List<favoriteboard>>, t: Throwable) {
             }
 
-            override fun onResponse(call: Call<List<board>>, response: Response<List<board>>) {
-                boards.addAll(response.body()!!)
+            override fun onResponse(call: Call<List<favoriteboard>>, response: Response<List<favoriteboard>>) {
+                val body = response.body()
+
+                boards.clear()
+                for(i in body!!){
+                    boards.add(i.board)
+                }
+
                 for(i in boards){
                     i?.check = true
                 }

@@ -1,6 +1,5 @@
 package com.professionalandroid.apps.capston_meeting.retrofit
 
-import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 data class board(
@@ -110,4 +109,13 @@ data class  bookmark(
 
 data class email(
     var email: String
+)
+
+data class favoriteboard(
+    @SerializedName("idx")
+    var idx: Long,
+    @SerializedName("user")
+    var user: user_info,
+    @SerializedName("board")
+    var board: board
 )

@@ -37,7 +37,7 @@ interface RetrofitService {
     @GET("/api/bookmark/{idx}")
     fun getFavorite(
         @Path("idx") idx: String
-    ):Call<List<board>>
+    ):Call<List<favoriteboard>>
 
     // 유저 정보 조회
     @GET("/api/users/{idx}/")
