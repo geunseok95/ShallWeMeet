@@ -19,6 +19,7 @@ import com.kakao.util.OptionalBoolean
 import com.kakao.util.exception.KakaoException
 import com.professionalandroid.apps.capston_meeting.*
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
+import com.professionalandroid.apps.capston_meeting.retrofit.email
 import com.professionalandroid.apps.capston_meeting.retrofit.userid
 import retrofit2.Call
 import retrofit2.Callback
@@ -157,9 +158,10 @@ class LoginPage: AppCompatActivity(){
 
                         val retrofitService = ConnectRetrofit(this@LoginPage)
                         val connect_server = retrofitService.retrofitService()
+                        val data = email(kakaoAccount.email)
 
                         // retrofit 서버연결
-                        connect_server.checkhMyID(kakaoAccount.email).enqueue(object: Callback<userid> {
+                        connect_server.checkhMyID(data).enqueue(object: Callback<userid> {
                             override fun onFailure(call: Call<userid>, t: Throwable) {
                                 Log.d("test","서버연결 실패 BoardActivity")
                             }

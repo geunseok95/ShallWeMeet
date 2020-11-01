@@ -6,10 +6,9 @@
     tools:context=".FavoritePage"
     android:background="@drawable/background_color">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorite_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="찜한 미팅 확인" />
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>

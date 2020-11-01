@@ -33,12 +33,6 @@ interface RetrofitService {
         @Path("new_href") new_href: String
     ): Call<board>
 
-    // 로그인시 이메일 조회
-    @GET("/api/users/login")
-    fun checkhMyID(
-        @Query("email") email: String
-    ):Call<userid>
-
     // 즐겨찾기 조회
     @GET("/api/bookmark/{idx}")
     fun getFavorite(
@@ -50,6 +44,12 @@ interface RetrofitService {
     fun getuserinfo(
         @Path("idx") idx: String
     ):Call<user_info>
+
+    // 로그인시 이메일 조회
+    @POST("/api/users/login")
+    fun checkhMyID(
+        @Body email: email
+    ):Call<userid>
 
     // 새로운 미팅 만들기
     @Multipart
@@ -65,7 +65,7 @@ interface RetrofitService {
     // 즐겨찾기 추가
     @POST("/api/bookmark")
     fun addFavorite(
-        @Body data:Jsonbody
+        @Body data:bookmark
     ): Call<favorite>
 
     // 즐겨찾기 제거

@@ -47,7 +47,10 @@ data class board(
     var updatedDate:String,
 
     @SerializedName("user")
-    var user: user_info
+    var user: user_info,
+
+    @SerializedName("check")
+    var check: Boolean
 )
 
 data class user_info(
@@ -100,8 +103,11 @@ data class favorite(
     var msg: String
 )
 
-data class  Jsonbody(
+data class  bookmark(
     var userId: Long,
     var boardId: Long
 )
 
+data class email(
+    var email: String
+)

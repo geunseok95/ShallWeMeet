@@ -2,6 +2,7 @@ package com.professionalandroid.apps.capston_meeting.applyPage
 
 import android.content.Context
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +18,13 @@ import kotlinx.android.synthetic.main.list_item2.view.*
 class RecyclerAdapter(private val boards:MutableList<board?>):
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
 
-
     // list와 연결할 listener
     interface OnListItemSelelctedInterface{
         fun onItemSelected(v: View, position: Int)
         fun onStarChecked(v: View, position: Int)
     }
+
+    val mSelectedItems: SparseBooleanArray = SparseBooleanArray(0)
 
     var mContext: Context? = null
     private var mListener: OnListItemSelelctedInterface? = null
@@ -57,6 +59,8 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
         holder.tag2?.text = boards[position]?.tag2
         holder.tag3?.text = boards[position]?.tag3
         holder.index = position
+        holder.parentview.star_btn.isChecked = boards[position]!!.check
+
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -87,6 +91,9 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
                 mListener?.onItemSelected(view, adapterPosition)
             }
             parentview.star_btn.setOnClickListener{
+                val position = adapterPosition
+                toggleItemSelectied(position)
+                boards[position]?.check = !boards[position]!!.check
                 mListener?.onStarChecked(view, adapterPosition)
             }
 
@@ -95,5 +102,15 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
         override fun toString(): String {
             return super.toString() + " '" + title!!.text + "'"
         }
+    }
+
+    fun toggleItemSelectied(position:Int){
+        if(mSelectedItems[position, false]){
+            mSelectedItems.delete(position)
+        }
+        else{
+            mSelectedItems.put(position, true)
+        }
+        notifyItemChanged(position)
     }
 }

@@ -13,19 +13,13 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
-import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.*
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.retrofit.*
 import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
 import kotlinx.android.synthetic.main.fragment_apply_page.*
 import kotlinx.android.synthetic.main.fragment_apply_page.view.*
-import kotlinx.android.synthetic.main.fragment_request_page.*
 import kotlinx.android.synthetic.main.list_item2.view.*
-import okhttp3.MediaType
-import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,13 +43,8 @@ class ApplyPage : Fragment(),
         connect_server = ConnectRetrofit(context).retrofitService()
     }
 
-    var imageview_img1:RoundedImageView? = null
-    var imageview_title:String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("test", "onCreate")
-
     }
 
     override fun onCreateView(
@@ -200,8 +189,6 @@ class ApplyPage : Fragment(),
 
     override fun onItemSelected(v: View, position: Int) {
         val viewholder: RecyclerAdapter.ViewHolder = mRecyclerView.findViewHolderForAdapterPosition(position) as RecyclerAdapter.ViewHolder
-        imageview_img1 = viewholder.img1!!
-        imageview_title  = viewholder.title?.text.toString()
 
         val detailpage = DetailPage()
         val bundle = Bundle()
@@ -219,7 +206,7 @@ class ApplyPage : Fragment(),
         // 체크시 즐겨찾기 추가, 체크 해제시 즐겨찾기 제거
         if(v.star_btn.isChecked){
 
-            val data = Jsonbody(user.toLong(), boards[viewholder.index!!]?.idx!!)
+            val data = bookmark(user.toLong(), boards[viewholder.index!!]?.idx!!)
             Log.d("test", data.toString())
 
             connect_server.addFavorite(data).enqueue(object : Callback<favorite>{
@@ -233,7 +220,6 @@ class ApplyPage : Fragment(),
             })
         }
         else{
-
             connect_server.deleteFavorite(user, boards[viewholder.index!!]?.idx!!).enqueue(object : Callback<favorite>{
                 override fun onFailure(call: Call<favorite>, t: Throwable) {
                     Log.d("test", "실패")

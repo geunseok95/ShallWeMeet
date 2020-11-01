@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import com.professionalandroid.apps.capston_meeting.retrofit.user_info
@@ -46,11 +47,15 @@ class MyInfo : Fragment() {
 
             override fun onResponse(call: Call<user_info>, response: Response<user_info>) {
                 val info: user_info = response.body()!!
-                Log.d("test", info.toString())
+                view.my_info_nickname.text = info.nickName
+                Glide.with(context!!)
+                    .load(info.img)
+                    .centerCrop()
+                    .into(view.my_info_image)
+                view.my_info_location.text = info.location
 
             }
         })
-
 
         view.logout.setOnClickListener {
             (activity as MainActivity).logoutService()
