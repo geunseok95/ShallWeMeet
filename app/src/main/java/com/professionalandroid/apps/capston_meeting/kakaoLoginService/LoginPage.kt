@@ -168,7 +168,6 @@ class LoginPage: AppCompatActivity(){
 
                             override fun onResponse(call: Call<userid>, response: Response<userid>) {
                                 val user = response.body()!!
-
                                 Log.d("test", "$user")
 
                                 if(user._checked) {

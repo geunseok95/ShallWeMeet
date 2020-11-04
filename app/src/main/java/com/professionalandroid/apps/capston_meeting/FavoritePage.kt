@@ -51,7 +51,7 @@ class FavoritePage : Fragment(),RecyclerAdapter.OnListItemSelelctedInterface {
 
             override fun onResponse(call: Call<List<favoriteboard>>, response: Response<List<favoriteboard>>) {
                 val body = response.body()
-
+                Log.d("test", body.toString())
                 boards.clear()
                 for(i in body!!){
                     boards.add(i.board)

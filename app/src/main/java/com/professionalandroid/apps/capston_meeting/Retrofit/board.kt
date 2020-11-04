@@ -98,11 +98,11 @@ data class new_user(
 )
 
 data class favorite(
-    var cod: Int,
+    var code: Int,
     var msg: String
 )
 
-data class  bookmark(
+data class bookmark(
     var userId: Long,
     var boardId: Long
 )

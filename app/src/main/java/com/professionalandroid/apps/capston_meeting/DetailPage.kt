@@ -51,6 +51,7 @@ class DetailPage : Fragment() {
 
                 override fun onResponse(call: Call<board>, response: Response<board>) {
                     val board: board = response.body()!!
+                    Log.d("test", board.toString())
                     view.detail_title.text = board.title
                     view.detail_tag1.text = board.tag1
                     view.detail_tag2.text = board.tag2

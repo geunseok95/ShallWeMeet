@@ -16,7 +16,6 @@ class HomePage : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("test", "onCreate")
 
         val mslideviewpager1: SlideViewPager = SlideViewPager(viewpager_list)
         val mslideviewpager2: SlideViewPager = SlideViewPager(viewpager_list2)
@@ -29,7 +28,6 @@ class HomePage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("test", "onCreateView")
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home_page, container, false)
         val meet = view.meet
