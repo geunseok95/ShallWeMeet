@@ -81,7 +81,15 @@
                     android:inputType="textPersonName" />
 
                 <Spinner
-                    android:id="@+id/request_location"
+                    android:id="@+id/request_location1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/spinner_background"
+                    android:theme="@style/SpinnerTheme"
+                    android:spinnerMode="dialog"/>
+
+                <Spinner
+                    android:id="@+id/request_location2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/spinner_background"

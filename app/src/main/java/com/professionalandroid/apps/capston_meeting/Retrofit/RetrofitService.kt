@@ -13,10 +13,12 @@ interface RetrofitService {
     fun requestSearchBoard(
         @Query("page") page: String,
         @Query("size") size: String,
-        @Query("location") location: String,
+        @Query("location1") location1: String,
+        @Query("location2") location2: String,
         @Query("num_type") num_type: String,
         @Query("age") age: String,
-        @Query("userId") userId: String
+        @Query("userId") userId: String,
+        @Query("date") date: String
     ):Call<List<board>>
 
     // 필터로 게시판 불러오기
@@ -60,7 +62,7 @@ interface RetrofitService {
         @Part img2: MultipartBody.Part,
         @Part img3: MultipartBody.Part,
         @PartMap data: HashMap<String, RequestBody>
-    ): Call<String>
+    ): Call<favorite>
 
     // 즐겨찾기 추가
     @POST("/api/bookmark")

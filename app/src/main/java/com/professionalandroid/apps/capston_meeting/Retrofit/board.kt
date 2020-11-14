@@ -27,8 +27,11 @@ data class board(
     @SerializedName("tag3")
     var tag3:String,
 
-    @SerializedName("location")
-    var location:String,
+    @SerializedName("location1")
+    var location1:String,
+
+    @SerializedName("location2")
+    var location2: String,
 
     @SerializedName("num_type")
     var num_type:String,
@@ -38,6 +41,9 @@ data class board(
 
     @SerializedName("gender")
     var gender:String,
+
+    @SerializedName("date")
+    var date: String,
 
     @SerializedName("createdDate")
     var createdDate:String,
@@ -70,9 +76,6 @@ data class user_info(
 
     @SerializedName("age")
     var age:String,
-
-    @SerializedName("birth")
-    var birth:String,
 
     @SerializedName("location")
     var location:String,

@@ -56,7 +56,7 @@ class DetailPage : Fragment() {
                     view.detail_tag1.text = board.tag1
                     view.detail_tag2.text = board.tag2
                     view.detail_tag3.text = board.tag3
-                    view.detail_location.text = board.location
+                    view.detail_location.text = board.location1
                     view.detail_num_type.text = board.num_type
                     view.detail_num_type.text = board.gender
 

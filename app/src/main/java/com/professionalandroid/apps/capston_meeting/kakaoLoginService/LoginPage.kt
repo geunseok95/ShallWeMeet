@@ -170,16 +170,20 @@ class LoginPage: AppCompatActivity(){
                                 val user = response.body()!!
                                 Log.d("test", "$user")
 
+                                // 이미 회원가입된 경우
                                 if(user._checked) {
                                     val intent = Intent(this@LoginPage, MainActivity::class.java)
                                     intent.putExtra("email", kakaoAccount.email)
                                     intent.putExtra("user", user.idx.toString())
+                                    intent.putExtra("gender", "male") // 임시 성별 카카오 검수 후 추가
                                     startActivity(intent)
                                     finish()
                                 }
+                                // 회원가입을 새로할 경우
                                 else{
                                     val intent = Intent(this@LoginPage, RegisterPage::class.java)
                                     intent.putExtra("email", kakaoAccount.email)
+                                    intent.putExtra("gender", "male") // 임시 성별 카카오 검수 후 추가
                                     startActivity(intent)
                                     finish()
                                 }

@@ -2,15 +2,30 @@
 <resources>
     <string-array name="location">
         <item>상관없음</item>
+        <item>서울특별시</item>
+        <item>광주광역시</item>
+    </string-array>
+
+    <string-array name="Seoul">
         <item>홍대입구</item>
         <item>신촌</item>
         <item>강남</item>
-        <item>건대입구</item>
-        <item>잠실</item>
-        <item>천호</item>
         <item>이태원</item>
+        <item>잠실</item>
+        <item>건대입구</item>
+        <item>연남</item>
         <item>성수</item>
-        <item>연남동</item>
+        <item>망우</item>
+        <item>신사</item>
+        <item>천호</item>
+        <item>상봉</item>
+        <item>회기</item>
+        <item>안암</item>
+    </string-array>
+
+    <string-array name="Gwangju">
+        <item>상관없음</item>
+        <item>상무지구</item>
     </string-array>
 
 </resources>

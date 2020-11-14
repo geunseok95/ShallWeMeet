@@ -58,7 +58,7 @@ class ApplyPage : Fragment(),
         mRecyclerView.adapter = mRecyclerAdapter
         page = 0
 
-        loadPosts("상관없음", "상관없음", "상관없음")
+        loadPosts("상관없음", "상관없음", "상관없음", "상관없음", "상관없음")
         initScrollListener()
 
         view.apply_filter.apply {
@@ -81,9 +81,9 @@ class ApplyPage : Fragment(),
 
 
     // 최초로 넣어줄 데이터를 load 한다
-    private fun loadPosts(location: String, num_type :String, age: String){
+    private fun loadPosts(location1: String, location2: String, num_type :String, age: String, date: String){
         // retrofit 서버연결
-        connect_server.requestSearchBoard(getPage(), size, location, num_type, age, user).enqueue(object: Callback<List<board>> {
+        connect_server.requestSearchBoard(getPage(), size, location1, location2, num_type, age, user, date).enqueue(object: Callback<List<board>> {
             override fun onFailure(call: Call<List<board>>, t: Throwable) {
                 Log.d("test","서버연결 실패 BoardActivity")
             }
@@ -107,7 +107,7 @@ class ApplyPage : Fragment(),
         //mRecyclerAdapter.setLoadingView(true)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            connect_server.requestSearchBoard(getPage(), size, "상관없음", "상관없음", "상관없음", user)
+            connect_server.requestSearchBoard(getPage(), size, "상관없음", "상관없음", "상관없음", "상관업음", user, "상관없음")
                 .enqueue(object : Callback<List<board>> {
                     override fun onFailure(call: Call<List<board>>, t: Throwable) {
                         Log.d("test", "서버연결 실패 BoardActivity")
@@ -235,13 +235,13 @@ class ApplyPage : Fragment(),
 
     override fun applyfilter_listener(v: View) {
         v.filter_btn.setOnClickListener {
-            val spinner_location = v.spinner_location.selectedItem.toString()
+            val spinner_location1 = v.spinner_location.selectedItem.toString()
             val radiobutton_num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()[0].toString()
             val seekbar_age = v.filter_age.text.toString()
 
             // retrofit 서버연결
             page = 0
-            loadPosts(spinner_location, radiobutton_num_type, seekbar_age)
+            loadPosts(spinner_location1, "상관없음", radiobutton_num_type, seekbar_age, "상관없음")
         }
     }
 }

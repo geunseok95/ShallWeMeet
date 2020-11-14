@@ -42,6 +42,7 @@ import kotlin.collections.HashMap
 class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonItemSelectedInterface,  RequestPopUpWindow.MyDialogOKClickedListener {
 
     lateinit var email: String
+    lateinit var gender: String
     private val REQUEST_IMAGE_CAPTURE = 1
     val REQUEST_IMAGE_PICK = 10
     lateinit var mbottomsheetdialog: BottomSheetDialog
@@ -50,6 +51,7 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
         email = intent.getStringExtra("email")!!
+        gender = intent.getStringExtra("gender")!!
         request_Image_File_list.clear()
         val uri = Uri.parse("android.resource://com.professionalandroid.apps.capston_meeting/drawable/happy.jpg")
         request_Image_File_list.add(uri)
@@ -126,7 +128,7 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                "남자"
+                gender
             )
             data["location"] = RequestBody.create(
                 MediaType.parse("text/plain"),
@@ -268,7 +270,6 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
             result = cursor.getString(idx)
             cursor.close()
         }
-
         return result
     }
 

@@ -1,5 +1,6 @@
 package com.professionalandroid.apps.capston_meeting
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
@@ -45,7 +46,8 @@ class MainActivity : AppCompatActivity() {
         val request_Image_list = mutableListOf<ImageView>()
         val request_Image_File_list = mutableListOf<Uri>()
         var img_num = 0
-        lateinit var user:String
+        lateinit var user: String
+        lateinit var gender: String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         user = intent.getStringExtra("user")!!
+        user = intent.getStringExtra("gender")!!
 
         // 상태바 투명하게 만들기
         window?.decorView?.systemUiVisibility =
@@ -111,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     fun takeCapture() {
         //기본 카메라 앱 실행
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->

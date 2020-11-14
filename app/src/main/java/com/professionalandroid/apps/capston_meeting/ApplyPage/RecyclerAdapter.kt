@@ -50,7 +50,7 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
             .load(boards[position]?.img1)
             .centerCrop()
             .into(holder.img1!!)
-        holder.location?.text = boards[position]?.location
+        holder.location?.text = boards[position]?.location1
         holder.num_type?.text = boards[position]?.num_type
         holder.age?.text = boards[position]?.age.toString()
         holder.tag1?.text = boards[position]?.tag1

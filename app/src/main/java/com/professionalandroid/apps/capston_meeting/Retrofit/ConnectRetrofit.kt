@@ -26,7 +26,7 @@ fun getPinnedCertSslSocketFactory(context:Context):SSLSocketFactory? {
     try {
         val am: AssetManager = context.resources.assets
         val cf: CertificateFactory = CertificateFactory.getInstance("X.509")
-        val caInput: InputStream = am.open("public_key.crt")
+        val caInput: InputStream = am.open("swm.cer")
         var ca: Certificate? = null
         try {
             ca = cf.generateCertificate(caInput)
@@ -71,15 +71,15 @@ class ConnectRetrofit(val context: Context) {
     fun retrofitService(): RetrofitService = retrofit.create(
         RetrofitService::class.java)
     // connect server
-    private val retrofit = Retrofit.Builder().baseUrl("http://shallwemeet.co.kr:8080")
-//        .client(
-//            OkHttpClient.Builder().sslSocketFactory(
-//                getPinnedCertSslSocketFactory(
-//                    context
-//                )
-//            )
-//                .hostnameVerifier(NullHostNameVerifier()).build()
-//        )
+    private val retrofit = Retrofit.Builder().baseUrl("https://shallwemeet.co.kr")
+        .client(
+            OkHttpClient.Builder().sslSocketFactory(
+                getPinnedCertSslSocketFactory(
+                    context
+                )
+            )
+                .hostnameVerifier(NullHostNameVerifier()).build()
+        )
         .addConverterFactory(GsonConverterFactory.create()).build()
 
 }

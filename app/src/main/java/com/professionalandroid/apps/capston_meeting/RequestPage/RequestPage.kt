@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.img_num
@@ -16,6 +17,7 @@ import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.reque
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
+import com.professionalandroid.apps.capston_meeting.retrofit.favorite
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_request_page.*
 import kotlinx.android.synthetic.main.fragment_request_page.view.*
@@ -30,13 +32,19 @@ class RequestPage : Fragment(),
 
     lateinit var mbottomsheetdialog: BottomSheetDialog
     lateinit var retrofitService: ConnectRetrofit
-    lateinit var spinneradapter: ArrayAdapter<String>
+    lateinit var spinneradapter1: ArrayAdapter<String>
+    lateinit var spinneradapter2: ArrayAdapter<String>
+    var location2Array = arrayOf<String>()
+    var location1: String? = null
+    var location2: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         retrofitService = ConnectRetrofit(context)
-        val items = resources.getStringArray(R.array.location)
-        spinneradapter = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, items)
+        val location1Array = resources.getStringArray(R.array.location)
+        location2Array = arrayOf("상관없음")
+        spinneradapter1 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location1Array)
+        spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +59,49 @@ class RequestPage : Fragment(),
         val view = inflater.inflate(R.layout.fragment_request_page, container, false)
 
         // location
-        view.request_location.adapter = spinneradapter
-        view.request_location.prompt = "지역을 선택하세요"
+        view.request_location1.apply {
+            adapter = spinneradapter1
+            prompt = "지역을 선택하세요"
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    if(spinneradapter1.getItem(p2).equals("상관없음")){
+                        location2 = "상관없음"
+                        location2Array = arrayOf("상관없음")
+                        spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+                        view.request_location2.apply {
+                            adapter = spinneradapter2
+                            prompt = "상세주소를 선택하세요"
+                        }
+                    }
+
+                    else if(spinneradapter1.getItem(p2).equals("서울특별시")){
+                        location1 = "서울특별시"
+                        location2Array = resources.getStringArray(R.array.Seoul)
+                        Log.d("test", location2Array.joinToString())
+                        spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+                        view.request_location2.apply {
+                            adapter = spinneradapter2
+                            prompt = "상세주소를 선택하세요"
+                        }
+                    }
+                    else if(spinneradapter1.getItem(p2).equals("광주광역시")){
+                        location1 = "광주광역시"
+                        location2Array = resources.getStringArray(R.array.Gwangju)
+                        Log.d("test", location2Array.joinToString())
+                        spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+                        view.request_location2.apply {
+                            adapter = spinneradapter2
+                            prompt = "상세주소를 선택하세요"
+                        }
+                    }
+                }
+            }
+        }
+
 
         view.request_img1.clipToOutline = true
         view.request_img2.clipToOutline = true
@@ -113,8 +162,6 @@ class RequestPage : Fragment(),
         return view
     }
 
-
-
     override fun bottombutton_listener(v: View) {
         val bottom_sheet_dialog_camera = v.bottom_sheet_dialog_camera
         val bottom_sheet_dialog_gallery = v.bottom_sheet_dialog_gallery
@@ -138,9 +185,13 @@ class RequestPage : Fragment(),
                 MediaType.parse("text/plain"),
                 request_title.text.toString()
             )
-            data["location"] = RequestBody.create(
+            data["location1"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                request_location.selectedItem.toString()
+                request_location1.selectedItem.toString()
+            )
+            data["location2"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                request_location2.selectedItem.toString()
             )
             data["num_type"] = RequestBody.create(
                 MediaType.parse("text/plain"),
@@ -148,7 +199,7 @@ class RequestPage : Fragment(),
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                "여자")
+                "female")
             data["tag1"] = RequestBody.create(
                 MediaType.parse("text/plain"),
                 request_tag1.text.toString()
@@ -203,12 +254,12 @@ class RequestPage : Fragment(),
             Log.d("test", file1.toString())
 
             connect_server.makeBoard(file1, file2, file3, data).enqueue(object :
-                Callback<String> {
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                Callback<favorite> {
+                override fun onFailure(call: Call<favorite>, t: Throwable) {
                     Log.d("test", "서버연결 실패")
                 }
 
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+                override fun onResponse(call: Call<favorite>, response: Response<favorite>) {
                     //val board:String = response.body()!!
                     Log.d("test", "서버 연결 성공")
                 }

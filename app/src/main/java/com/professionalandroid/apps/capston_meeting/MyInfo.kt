@@ -60,10 +60,6 @@ class MyInfo : Fragment() {
         view.logout.setOnClickListener {
             (activity as MainActivity).logoutService()
         }
-
         return view
     }
-
-
-
 }
