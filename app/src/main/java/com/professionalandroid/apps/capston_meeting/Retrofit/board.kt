@@ -45,6 +45,9 @@ data class board(
     @SerializedName("date")
     var date: String,
 
+    @SerializedName("date2")
+    var date2: String,
+
     @SerializedName("createdDate")
     var createdDate:String,
 

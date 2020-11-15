@@ -18,7 +18,8 @@ interface RetrofitService {
         @Query("num_type") num_type: String,
         @Query("age") age: String,
         @Query("userId") userId: String,
-        @Query("date") date: String
+        @Query("date") date: String,
+        @Query("gender") gender: String
     ):Call<List<board>>
 
     // 필터로 게시판 불러오기
