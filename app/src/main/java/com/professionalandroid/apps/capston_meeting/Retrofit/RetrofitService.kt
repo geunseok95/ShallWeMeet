@@ -16,19 +16,6 @@ interface RetrofitService {
         @Query("age") age: String
     ):Call<List<board>>
 
-    // 번호로 특정 게시판 불러오기
-    @GET("/api/boards/{boardId}/{userId}/")
-    fun requestSearchSpecificBoard(
-        @Path("boardId") boardId: String,
-        @Path("userId") userId: Long
-    ): Call<board>
-
-    // 유저 정보 조회
-    @GET("/api/users/{idx}/")
-    fun getuserinfo(
-        @Path("idx") idx: Long
-    ):Call<user_info>
-
     // 로그인시 이메일 조회
     @POST("/api/users/login")
     fun checkhMyID(

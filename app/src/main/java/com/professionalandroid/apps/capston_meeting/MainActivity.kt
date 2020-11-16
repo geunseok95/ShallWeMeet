@@ -29,6 +29,7 @@ import com.professionalandroid.apps.capston_meeting.src.homePage.HomePage
 import com.professionalandroid.apps.capston_meeting.kakaoLoginService.LoginPage
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.BookmarkPage
+import com.professionalandroid.apps.capston_meeting.src.myInfoPage.MyInfoPage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.text.SimpleDateFormat
@@ -67,7 +68,8 @@ class MainActivity : BaseActivity() {
         val bookmarkPage =
             BookmarkPage()
         val successpage = SuccessPage()
-        val myinfo = MyInfoPage()
+        val myinfo =
+            MyInfoPage()
 
         val ft = supportFragmentManager
 
