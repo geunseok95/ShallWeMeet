@@ -102,7 +102,22 @@ class GlobalApplication : Application() {
         //날짜 형식
         var DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
 
-
+        var retrofit: Retrofit? = null
+        fun retrofitService(context: Context): Retrofit? {
+            // connect server
+            if(retrofit == null) {
+                retrofit = Retrofit.Builder().baseUrl("https://shallwemeet.co.kr")
+                    .client(
+                        OkHttpClient.Builder().sslSocketFactory(
+                            getPinnedCertSslSocketFactory(
+                                context
+                            )
+                        )
+                            .hostnameVerifier(NullHostNameVerifier()).build()
+                    )
+                    .addConverterFactory(GsonConverterFactory.create()).build()
+            }
+            return retrofit
 
     }
 
@@ -125,12 +140,12 @@ class GlobalApplication : Application() {
             val keyStoreType: String = KeyStore.getDefaultType()
             val keyStore: KeyStore = KeyStore.getInstance(keyStoreType)
             keyStore.load(null, null)
-            if (ca == null){
+            if (ca == null) {
                 return null
             }
             keyStore.setCertificateEntry("ca", ca)
 
-            val tmfAlgorithm:String = TrustManagerFactory.getDefaultAlgorithm()
+            val tmfAlgorithm: String = TrustManagerFactory.getDefaultAlgorithm()
             val tmf: TrustManagerFactory = TrustManagerFactory.getInstance(tmfAlgorithm)
             tmf.init(keyStore)
 
@@ -138,34 +153,21 @@ class GlobalApplication : Application() {
             sslContext.init(null, tmf.trustManagers, null)
 
             return sslContext.socketFactory
-        }catch (e: NoSuchAlgorithmException){
+        } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
-        }catch (e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
-        }catch (e: KeyStoreException){
+        } catch (e: KeyStoreException) {
             e.printStackTrace()
-        }catch (e: KeyManagementException){
+        } catch (e: KeyManagementException) {
             e.printStackTrace()
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return null
     }
 
-    class ConnectRetrofit(val context: Context) {
-        fun retrofitService(): RetrofitService = retrofit.create(
-            RetrofitService::class.java)
-        // connect server
-        private val retrofit = Retrofit.Builder().baseUrl("https://shallwemeet.co.kr")
-            .client(
-                OkHttpClient.Builder().sslSocketFactory(
-                    getPinnedCertSslSocketFactory(
-                        context
-                    )
-                )
-                    .hostnameVerifier(NullHostNameVerifier()).build()
-            )
-            .addConverterFactory(GsonConverterFactory.create()).build()
+
 
     }
 

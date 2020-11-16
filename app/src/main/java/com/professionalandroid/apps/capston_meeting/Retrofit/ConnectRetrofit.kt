@@ -80,6 +80,7 @@ class ConnectRetrofit(val context: Context) {
             )
                 .hostnameVerifier(NullHostNameVerifier()).build()
         )
-        .addConverterFactory(GsonConverterFactory.create()).build()
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
 }

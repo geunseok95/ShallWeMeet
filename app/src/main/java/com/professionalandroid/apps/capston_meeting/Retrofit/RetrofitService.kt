@@ -8,20 +8,6 @@ import kotlin.collections.HashMap
 
 interface RetrofitService {
 
-    // 게시판 불러오기
-    @GET("/api/boards")
-    fun requestSearchBoard(
-        @Query("page") page: String,
-        @Query("size") size: String,
-        @Query("location1") location1: String,
-        @Query("location2") location2: String,
-        @Query("num_type") num_type: String,
-        @Query("age") age: String,
-        @Query("userId") userId: Long,
-        @Query("date") date: String,
-        @Query("gender") gender: String
-    ):Call<List<board>>
-
     // 필터로 게시판 불러오기
     @GET("/filter")
     fun requestSearchBoard2(
@@ -36,12 +22,6 @@ interface RetrofitService {
         @Path("boardId") boardId: String,
         @Path("userId") userId: Long
     ): Call<board>
-
-    // 즐겨찾기 조회
-    @GET("/api/bookmark/{idx}")
-    fun getFavorite(
-        @Path("idx") idx: Long
-    ):Call<List<favoriteboard>>
 
     // 유저 정보 조회
     @GET("/api/users/{idx}/")
@@ -64,19 +44,6 @@ interface RetrofitService {
         @Part img2: MultipartBody.Part,
         @Part img3: MultipartBody.Part,
         @PartMap data: HashMap<String, RequestBody>
-    ): Call<favorite>
-
-    // 즐겨찾기 추가
-    @POST("/api/bookmark")
-    fun addFavorite(
-        @Body data:bookmark
-    ): Call<favorite>
-
-    // 즐겨찾기 제거
-    @DELETE("api/bookmark/{userId}/{boardId}/")
-    fun deleteFavorite(
-        @Path("userId") userId: Long,
-        @Path("boardId") boardId: Long
     ): Call<favorite>
 
     // 회원가입
