@@ -30,13 +30,14 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.professionalandroid.apps.capston_meeting.homePage.HomePage
 import com.professionalandroid.apps.capston_meeting.kakaoLoginService.LoginPage
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     companion object{
         const val TAG_LIST_HOMEPAGE = "TAG_LIST_HOMEPAGE"
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         val request_Image_list = mutableListOf<ImageView>()
         val request_Image_File_list = mutableListOf<Uri>()
         var img_num = 0
-        lateinit var user: String
+        var user: Long = -1
         lateinit var gender: String
     }
 
@@ -54,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        user = intent.getStringExtra("user")!!
-        user = intent.getStringExtra("gender")!!
+        user = intent.getLongExtra("user", -1)
+        gender = intent.getStringExtra("gender")!!
 
         // 상태바 투명하게 만들기
         window?.decorView?.systemUiVisibility =

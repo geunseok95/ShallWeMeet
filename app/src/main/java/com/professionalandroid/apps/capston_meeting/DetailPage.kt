@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
+import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import com.professionalandroid.apps.capston_meeting.retrofit.board
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
@@ -42,9 +43,9 @@ class DetailPage : Fragment() {
 
         // 전 fragment에서 데이터가 넘어왔는지 확인
         if(arguments != null){
-            val href = arguments?.getLong("href").toString()
+            val boardId = arguments?.getLong("href").toString()
             val connect_server = retrofitService.retrofitService()
-            connect_server.requestSearchSpecificBoard(href).enqueue(object: Callback<board> {
+            connect_server.requestSearchSpecificBoard(boardId, user).enqueue(object: Callback<board> {
                 override fun onFailure(call: Call<board>, t: Throwable) {
                     Log.d("test","서버연결 실패 BoardActivity")
                 }
@@ -58,7 +59,6 @@ class DetailPage : Fragment() {
                     view.detail_tag3.text = board.tag3
                     view.detail_location.text = board.location1
                     view.detail_num_type.text = board.num_type
-                    view.detail_num_type.text = board.gender
 
                     val image_path1 = board.img1
                     val image_path2 = board.img2

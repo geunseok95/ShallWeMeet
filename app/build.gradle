@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -46,7 +47,8 @@ dependencies {
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    kapt "android.arch.lifecycle:compiler:1.0.0"
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
     // Marshmallow 이상 권한요청
     implementation "gun0912.ted:tedpermission:2.1.0"

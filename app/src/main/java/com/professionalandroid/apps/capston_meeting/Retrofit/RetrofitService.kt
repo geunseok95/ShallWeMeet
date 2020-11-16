@@ -17,7 +17,7 @@ interface RetrofitService {
         @Query("location2") location2: String,
         @Query("num_type") num_type: String,
         @Query("age") age: String,
-        @Query("userId") userId: String,
+        @Query("userId") userId: Long,
         @Query("date") date: String,
         @Query("gender") gender: String
     ):Call<List<board>>
@@ -31,21 +31,22 @@ interface RetrofitService {
     ):Call<List<board>>
 
     // 번호로 특정 게시판 불러오기
-    @GET("/api/boards/{new_href}/")
+    @GET("/api/boards/{boardId}/{userId}/")
     fun requestSearchSpecificBoard(
-        @Path("new_href") new_href: String
+        @Path("boardId") boardId: String,
+        @Path("userId") userId: Long
     ): Call<board>
 
     // 즐겨찾기 조회
     @GET("/api/bookmark/{idx}")
     fun getFavorite(
-        @Path("idx") idx: String
+        @Path("idx") idx: Long
     ):Call<List<favoriteboard>>
 
     // 유저 정보 조회
     @GET("/api/users/{idx}/")
     fun getuserinfo(
-        @Path("idx") idx: String
+        @Path("idx") idx: Long
     ):Call<user_info>
 
     // 로그인시 이메일 조회
@@ -74,7 +75,7 @@ interface RetrofitService {
     // 즐겨찾기 제거
     @DELETE("api/bookmark/{userId}/{boardId}/")
     fun deleteFavorite(
-        @Path("userId") userId: String,
+        @Path("userId") userId: Long,
         @Path("boardId") boardId: Long
     ): Call<favorite>
 

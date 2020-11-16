@@ -251,7 +251,7 @@ class RequestPage : Fragment(),
             )
             data["user"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                user
+                user.toString()
             )
 
             val originalFile1 = File(request_Image_File_list[0].path!!)

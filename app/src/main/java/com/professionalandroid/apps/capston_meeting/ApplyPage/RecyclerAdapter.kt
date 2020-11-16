@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.with
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.retrofit.board
+import com.professionalandroid.apps.capston_meeting.src.GlideApp
+import com.professionalandroid.apps.capston_meeting.src.MyGlideApp
 import kotlinx.android.synthetic.main.list_item2.view.*
 
 class RecyclerAdapter(private val boards:MutableList<board?>):
@@ -46,10 +50,11 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title?.text = boards[position]?.title
-        Glide.with(mContext!!)
+        GlideApp.with(mContext!!)
             .load(boards[position]?.img1)
             .centerCrop()
             .into(holder.img1!!)
+
         holder.location?.text = boards[position]?.location1
         holder.num_type?.text = boards[position]?.num_type
         holder.age?.text = boards[position]?.age.toString()
@@ -58,7 +63,6 @@ class RecyclerAdapter(private val boards:MutableList<board?>):
         holder.tag3?.text = boards[position]?.tag3
         holder.index = position
         holder.parentview.star_btn.isChecked = boards[position]!!.check
-
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

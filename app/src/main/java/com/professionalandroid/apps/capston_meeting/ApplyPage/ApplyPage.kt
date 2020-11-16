@@ -83,7 +83,7 @@ class ApplyPage : Fragment(),
     // 최초로 넣어줄 데이터를 load 한다
     private fun loadPosts(location1: String, location2: String, num_type :String, age: String, date: String){
         // retrofit 서버연결
-        connect_server.requestSearchBoard(getPage(), size, location1, location2, num_type, age, user, date, "남").enqueue(object: Callback<List<board>> {
+        connect_server.requestSearchBoard(getPage(), size, location1, location2, num_type, age, user, date, "female").enqueue(object: Callback<List<board>> {
             override fun onFailure(call: Call<List<board>>, t: Throwable) {
                 Log.d("test","서버연결 실패 BoardActivity")
             }
@@ -108,7 +108,7 @@ class ApplyPage : Fragment(),
         //mRecyclerAdapter.setLoadingView(true)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            connect_server.requestSearchBoard(getPage(), size, "상관없음", "상관없음", "상관없음", "상관업음", user, "상관없음", "남")
+            connect_server.requestSearchBoard(getPage(), size, "상관없음", "상관없음", "상관없음", "상관업음", user, "상관없음", "female")
                 .enqueue(object : Callback<List<board>> {
                     override fun onFailure(call: Call<List<board>>, t: Throwable) {
                         Log.d("test", "서버연결 실패 BoardActivity")

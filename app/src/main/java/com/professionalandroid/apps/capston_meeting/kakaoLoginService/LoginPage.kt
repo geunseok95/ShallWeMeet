@@ -174,7 +174,7 @@ class LoginPage: AppCompatActivity(){
                                 if(user._checked) {
                                     val intent = Intent(this@LoginPage, MainActivity::class.java)
                                     intent.putExtra("email", kakaoAccount.email)
-                                    intent.putExtra("user", user.idx.toString())
+                                    intent.putExtra("user", user.idx)
                                     intent.putExtra("gender", "male") // 임시 성별 카카오 검수 후 추가
                                     startActivity(intent)
                                     finish()
