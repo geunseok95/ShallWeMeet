@@ -19,7 +19,7 @@ interface RetrofitService {
     // 로그인시 이메일 조회
     @POST("/api/users/login")
     fun checkhMyID(
-        @Body email: email
+        @Body verification: Verification
     ):Call<userid>
 
     // 새로운 미팅 만들기

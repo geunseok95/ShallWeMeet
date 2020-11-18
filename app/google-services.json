@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "567206792278",
+    "firebase_url": "https://shallwemeet-edb8e.firebaseio.com",
+    "project_id": "shallwemeet-edb8e",
+    "storage_bucket": "shallwemeet-edb8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567206792278:android:0125464b9c76b1bc24fff7",
+        "android_client_info": {
+          "package_name": "com.professionalandroid.apps.capston_meeting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567206792278-h44nvk6s3tc1uk17dbk4msdc97pdva73.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.professionalandroid.apps.capston_meeting",
+            "certificate_hash": "f29fd409e0051320ccdb8b253ea8f07d4465bae4"
+          }
+        },
+        {
+          "client_id": "567206792278-m6eq5gi303ess3m0gg4ifgg4etb0tplq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5NC-oBMt_pU4WyAkcoJqHVXtlb-0NCto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567206792278-m6eq5gi303ess3m0gg4ifgg4etb0tplq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "567206792278-4nse5ggm1uo6dojubgfhnesbc57r8p2k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ios.meetingApplication"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

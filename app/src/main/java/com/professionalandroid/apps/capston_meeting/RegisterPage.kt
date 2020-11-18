@@ -22,8 +22,8 @@ import androidx.annotation.Nullable
 import androidx.core.content.FileProvider
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_File_list
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_list
-import com.professionalandroid.apps.capston_meeting.requestPage.BottomSheetDialog
-import com.professionalandroid.apps.capston_meeting.requestPage.RequestPopUpWindow
+import com.professionalandroid.apps.capston_meeting.src.requestPage.BottomSheetDialog
+import com.professionalandroid.apps.capston_meeting.src.requestPage.RequestPopUpWindow
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import com.professionalandroid.apps.capston_meeting.retrofit.new_user
 import kotlinx.android.synthetic.main.activity_register_page.*

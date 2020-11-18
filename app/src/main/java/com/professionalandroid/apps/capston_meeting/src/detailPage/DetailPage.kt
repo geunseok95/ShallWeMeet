@@ -2,27 +2,18 @@ package com.professionalandroid.apps.capston_meeting.src.detailPage
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.requestPage.RequestPopUpWindow
-import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.board
 import com.professionalandroid.apps.capston_meeting.src.detailPage.interfaces.DetailPageView
 import com.professionalandroid.apps.capston_meeting.src.detailPage.models.ApplyBody
 import com.professionalandroid.apps.capston_meeting.src.detailPage.models.DetailResponse
 import kotlinx.android.synthetic.main.fragment_detail_page.*
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DetailPage : Fragment(), DetailPageView, DetailPopUpWindow.MyDialogOKClickedListener {
 

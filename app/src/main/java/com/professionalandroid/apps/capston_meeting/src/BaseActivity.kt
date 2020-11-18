@@ -21,6 +21,6 @@ open class BaseActivity: AppCompatActivity() {
     }
 
     fun makeToast(toast: String){
-        Toast.makeText(this, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(baseContext, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show()
     }
 }

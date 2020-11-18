@@ -21,6 +21,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".RegisterPage"></activity>
 
+        <service
+            android:name=".src.splash.SWMFireBaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.professionalandroid.apps.capston_meeting.fileprovider"
@@ -36,10 +44,10 @@
             android:value="@string/kakao_app_key" />
 
         <activity
-            android:name=".kakaoLoginService.LoginPage"
+            android:name="com.professionalandroid.apps.capston_meeting.src.kakaoLoginService.LoginPage"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".src.splash.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

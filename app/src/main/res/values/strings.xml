@@ -9,6 +9,8 @@
 
     <string name="kakao_app_key">b7461141098ffb733be004789035edb8</string>
 
+    <string name="msg_token_fmt">%s</string>
+
     <string name="Logout"><u>로그아웃</u>.</string>
 
     <!-- board element -->
@@ -20,7 +22,6 @@
     <string name="num_type">num_type</string>
     <string name="age">age</string>
     <string name="gender">gender</string>
-
     <string name="nickname">nickname</string>
 
 </resources>

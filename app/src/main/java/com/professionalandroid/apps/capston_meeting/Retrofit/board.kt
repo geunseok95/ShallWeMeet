@@ -107,8 +107,9 @@ data class bookmark(
     var boardId: Long
 )
 
-data class email(
-    var email: String
+data class Verification(
+    var email: String,
+    var token: String
 )
 
 data class favoriteboard(

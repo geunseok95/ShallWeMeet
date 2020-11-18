@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.professionalandroid.apps.capston_meeting.*
 import com.professionalandroid.apps.capston_meeting.src.applyPage.ApplyPage
-import com.professionalandroid.apps.capston_meeting.requestPage.RequestPage
+import com.professionalandroid.apps.capston_meeting.src.requestPage.RequestPage
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
 
 

@@ -26,7 +26,7 @@ import androidx.fragment.app.Fragment
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.professionalandroid.apps.capston_meeting.src.homePage.HomePage
-import com.professionalandroid.apps.capston_meeting.kakaoLoginService.LoginPage
+import com.professionalandroid.apps.capston_meeting.src.kakaoLoginService.LoginPage
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.BookmarkPage
 import com.professionalandroid.apps.capston_meeting.src.myInfoPage.MyInfoPage
