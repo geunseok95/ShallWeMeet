@@ -14,8 +14,6 @@ data class ApplyResponse (
     val num_type: String,
     val age: Long,
     val gender: String,
-    val date: String,
-    val date2: String,
     val createdDate: String,
     val updatedDate: String,
     val user: User,

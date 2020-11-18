@@ -1,6 +1,5 @@
 package com.professionalandroid.apps.capston_meeting.requestPage
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.DatePicker
 import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.img_num
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_File_list
@@ -28,7 +26,6 @@ import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
 import java.io.File
-import java.util.*
 import kotlin.collections.HashMap
 
 class RequestPage : Fragment(),
@@ -109,24 +106,6 @@ class RequestPage : Fragment(),
             }
         }
 
-
-        val calendar = Calendar.getInstance()
-        val calendar2 = Calendar.getInstance().apply{   add(Calendar.DATE, 7)   }
-        view.request_calender.setOnClickListener {
-            DatePickerDialog(context!!,
-                DatePickerDialog.OnDateSetListener { p0, p1, p2, p3 ->
-                    year = p1
-                    month = p2 + 1
-                    date = p3
-                    val selectDate = "${month}월 ${date}일"
-                    request_calender.text = selectDate
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) ,calendar.get(Calendar.DAY_OF_MONTH)).apply{
-                datePicker.minDate = calendar.timeInMillis
-                datePicker.maxDate = calendar2.timeInMillis
-            }.show()
-        }
-
-
         view.request_img1.clipToOutline = true
         view.request_img2.clipToOutline = true
         view.request_img3.clipToOutline = true
@@ -173,12 +152,20 @@ class RequestPage : Fragment(),
 
                 if (view.request_title.text.isNotEmpty() && view.request_num_type.text.isNotEmpty() && view.request_tag1.text.isNotEmpty() && view.request_tag2.text.isNotEmpty() && view.request_tag3.text.isNotEmpty()
                 ) {
-                    val popup = RequestPopUpWindow(context, this@RequestPage)
+                    val popup =
+                        RequestPopUpWindow(
+                            context,
+                            this@RequestPage
+                        )
                     popup.start("미팅을 만들까요?", 1)
 
                 }
                 else{
-                    val popup = RequestPopUpWindow(context, this@RequestPage)
+                    val popup =
+                        RequestPopUpWindow(
+                            context,
+                            this@RequestPage
+                        )
                     popup.start("내용을 모두 입력해주세요", 0)
                 }
             }

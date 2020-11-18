@@ -4,4 +4,6 @@ import com.professionalandroid.apps.capston_meeting.src.detailPage.models.Detail
 
 interface DetailPageView {
     fun getDetail(body: DetailResponse)
+    fun apply()
+    fun fail(message: String)
 }

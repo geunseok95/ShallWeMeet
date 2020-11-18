@@ -80,11 +80,19 @@ class RegisterPage : AppCompatActivity(), BottomSheetDialog.BottomsheetbuttonIte
         register_btn.apply {
             setOnClickListener {
                 if (register_nickname_input.text.isNotEmpty() && register_age_input.text.isNotEmpty() && register_kakao_id_input.text.isNotEmpty()) {
-                    val popup = RequestPopUpWindow(context, this@RegisterPage)
+                    val popup =
+                        RequestPopUpWindow(
+                            context,
+                            this@RegisterPage
+                        )
                     popup.start("회원가입을 진행할까요?", 1)
                 }
                 else{
-                    val popup = RequestPopUpWindow(context, this@RegisterPage)
+                    val popup =
+                        RequestPopUpWindow(
+                            context,
+                            this@RegisterPage
+                        )
                     popup.start("내용을 모두 입력해주세요", 0)
                 }
             }

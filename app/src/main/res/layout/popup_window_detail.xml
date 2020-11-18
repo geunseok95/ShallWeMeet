@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/popup_dialog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="230dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_layout" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#00000000"  >
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="잠깐!\n미팅 비용을 지불하시겠습니까?"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/pay"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:backgroundTint="#D3EEf9"
+                android:background="@drawable/round_button"
+                android:layout_margin="5dp"
+                android:text="제가 낼께요"
+                android:layout_gravity="center"
+                android:elevation="10dp"/>
+            <Button
+                android:id="@+id/none_pay"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:backgroundTint="#D3EEf9"
+                android:background="@drawable/round_button"
+                android:layout_margin="5dp"
+                android:text="아니오, 상대방이 내는게 좋겠어요"
+                android:layout_gravity="center"
+                android:elevation="10dp"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

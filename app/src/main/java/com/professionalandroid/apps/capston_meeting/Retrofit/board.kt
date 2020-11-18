@@ -42,12 +42,6 @@ data class board(
     @SerializedName("gender")
     var gender:String,
 
-    @SerializedName("date")
-    var date: String,
-
-    @SerializedName("date2")
-    var date2: String,
-
     @SerializedName("createdDate")
     var createdDate:String,
 

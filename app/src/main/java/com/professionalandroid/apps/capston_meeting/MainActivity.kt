@@ -90,7 +90,7 @@ class MainActivity : BaseActivity() {
 
     fun move_next_fragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.main_layout, fragment)
+        transaction.replace(R.id.main_layout, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -112,7 +112,7 @@ class MainActivity : BaseActivity() {
     fun getPhotoFromMyGallary() {
         Intent(Intent.ACTION_PICK).apply{
             type = "image/*"
-            startActivityForResult(this,REQUEST_IMAGE_PICK)
+            startActivityForResult(this, REQUEST_IMAGE_PICK)
         }
     }
 
@@ -195,7 +195,6 @@ class MainActivity : BaseActivity() {
                 bitmap = ImageDecoder.decodeBitmap(decode)
                 request_Image_File_list[img_num] =  Uri.parse("file://" + getPath(data.data!!))
                 Log.d("안드로이드 9.0 test", "${request_Image_File_list[img_num]}")
-
                 request_Image_list[img_num].setImageBitmap(bitmap)
             }
         }

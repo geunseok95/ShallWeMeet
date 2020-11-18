@@ -12,9 +12,11 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
+import com.professionalandroid.apps.capston_meeting.requestPage.RequestPopUpWindow
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import com.professionalandroid.apps.capston_meeting.retrofit.board
 import com.professionalandroid.apps.capston_meeting.src.detailPage.interfaces.DetailPageView
+import com.professionalandroid.apps.capston_meeting.src.detailPage.models.ApplyBody
 import com.professionalandroid.apps.capston_meeting.src.detailPage.models.DetailResponse
 import kotlinx.android.synthetic.main.fragment_detail_page.*
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
@@ -22,10 +24,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailPage : Fragment(), DetailPageView {
+class DetailPage : Fragment(), DetailPageView, DetailPopUpWindow.MyDialogOKClickedListener {
 
     lateinit var mDetailPageService: DetailPageService
-
+    var boardId: Long = 0
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mDetailPageService = DetailPageService(this, context)
@@ -45,9 +47,14 @@ class DetailPage : Fragment(), DetailPageView {
 
         // 전 fragment에서 데이터가 넘어왔는지 확인
         if(arguments != null){
-            val boardId = arguments?.getLong("href", 0)
-            mDetailPageService.getDetail(user, boardId!!)
+            boardId = arguments?.getLong("href", 0)!!
+            mDetailPageService.getDetail(user, boardId)
 
+        }
+
+        view.detail_submit_btn.setOnClickListener {
+            val popUp = DetailPopUpWindow(context!!, this)
+            popUp.start()
         }
         return view
     }
@@ -64,6 +71,25 @@ class DetailPage : Fragment(), DetailPageView {
         (activity as MainActivity).displayImg(context!!, body.img2 ,detail_img2)
         (activity as MainActivity).displayImg(context!!, body.img3 ,detail_img3)
 
+    }
+
+    override fun apply() {
+        (activity as MainActivity).makeToast("요청을 완료하였습니다! 상대방에게 알림을 성공적으로 보냈습니다.")
+        (activity as MainActivity).close_fragment(this)
+    }
+
+    override fun fail(message: String) {
+        (activity as MainActivity).makeToast(message)
+    }
+
+    override fun onPayClicked() {
+        val applyBody = ApplyBody(boardId, user, true)
+        mDetailPageService.apply(applyBody)
+    }
+
+    override fun onNonePayClicked() {
+        val applyBody = ApplyBody(boardId, user, false)
+        mDetailPageService.apply(applyBody)
     }
 
 }
