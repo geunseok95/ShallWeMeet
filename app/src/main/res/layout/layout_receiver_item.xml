@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/receiver_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:riv_corner_radius="10dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/receiver_nickNave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="닉네임"/>
+
+        <TextView
+            android:id="@+id/receiver_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나이"/>
+
+        <TextView
+            android:id="@+id/receiver_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="결제 여부"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/receiver_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="요청 수락"/>
+</LinearLayout>

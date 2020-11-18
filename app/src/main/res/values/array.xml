@@ -2,8 +2,8 @@
 <resources>
     <string-array name="location">
         <item>상관없음</item>
-        <item>서울특별시</item>
-        <item>광주광역시</item>
+        <item>서울</item>
+        <item>광주</item>
     </string-array>
 
     <string-array name="Seoul">

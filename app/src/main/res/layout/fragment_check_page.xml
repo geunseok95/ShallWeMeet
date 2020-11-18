@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_color"
-    tools:context=".CheckPage">
+    tools:context=".src.checkPage.CheckPage">
 
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/check_tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="자신이 만든 미팅, 신청한 미팅 확인"
-        android:gravity="center"/>
+        android:layout_height="50dp"
+        app:tabIndicatorHeight="6dp"
+        app:tabIndicatorColor="#2AC1BC"
+        app:tabTextColor="#000000"
+        app:tabSelectedTextColor="#2AC1BC"
+        app:tabRippleColor="@null">
 
-</FrameLayout>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/check_receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="받은 요청"
+            android:textSize="20sp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/check_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="보낸 요청"
+            android:textSize="17sp"
+            />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/check_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

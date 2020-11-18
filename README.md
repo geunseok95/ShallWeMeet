@@ -11,9 +11,13 @@
 
 * #### 간편한 회원가입
 
-* #### 즐겨찾기 기능 
-![bookmark](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/bookmark1.png?raw=true)
-![bookmark](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/bookmark2.png?raw=true)
+* #### push 알림
+ 
+* #### 즐겨찾기 기능
+  ![bookmark](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/bookmark1.png?raw=true)
+  ![bookmark](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/bookmark2.png?raw=true)
+
 * #### 사용자의 정보를 기반한 추천 기능
-![recommend](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/recommend.png?raw=true)
+  ![recommend](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/recommend.png?raw=true)
+
 * #### unique한 해시태그를 통해 자신을 어필

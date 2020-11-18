@@ -29,6 +29,7 @@ import com.professionalandroid.apps.capston_meeting.src.homePage.HomePage
 import com.professionalandroid.apps.capston_meeting.src.kakaoLoginService.LoginPage
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.BookmarkPage
+import com.professionalandroid.apps.capston_meeting.src.checkPage.CheckPage
 import com.professionalandroid.apps.capston_meeting.src.myInfoPage.MyInfoPage
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
@@ -64,7 +65,8 @@ class MainActivity : BaseActivity() {
 
 
         val homepage = HomePage()
-        val checkPage = CheckPage()
+        val checkPage =
+            CheckPage()
         val bookmarkPage =
             BookmarkPage()
         val successpage = SuccessPage()

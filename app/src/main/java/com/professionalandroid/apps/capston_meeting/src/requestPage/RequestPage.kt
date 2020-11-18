@@ -82,7 +82,7 @@ class RequestPage : Fragment(),
                         }
                     }
 
-                    else if(spinneradapter1.getItem(p2).equals("서울특별시")){
+                    else if(spinneradapter1.getItem(p2).equals("서울")){
                         location1 = "서울특별시"
                         location2Array = resources.getStringArray(R.array.Seoul)
                         Log.d("test", location2Array.joinToString())
@@ -92,7 +92,7 @@ class RequestPage : Fragment(),
                             prompt = "상세주소를 선택하세요"
                         }
                     }
-                    else if(spinneradapter1.getItem(p2).equals("광주광역시")){
+                    else if(spinneradapter1.getItem(p2).equals("광주")){
                         location1 = "광주광역시"
                         location2Array = resources.getStringArray(R.array.Gwangju)
                         Log.d("test", location2Array.joinToString())

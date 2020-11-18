@@ -40,7 +40,6 @@ class DetailPage : Fragment(), DetailPageView, DetailPopUpWindow.MyDialogOKClick
         if(arguments != null){
             boardId = arguments?.getLong("href", 0)!!
             mDetailPageService.getDetail(user, boardId)
-
         }
 
         view.detail_submit_btn.setOnClickListener {
