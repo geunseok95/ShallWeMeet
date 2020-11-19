@@ -1,28 +1,32 @@
 package com.professionalandroid.apps.capston_meeting.src.homePage
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-
 import androidx.viewpager.widget.ViewPager
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.viewpager_list_item
+import com.professionalandroid.apps.capston_meeting.src.homePage.models.RecommendationResponse
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.android.synthetic.main.fragment_slide_view_page.view.*
 
-class SlideViewPager(viewPagerlist: MutableList<viewpager_list_item>): Fragment() {
+class SlideViewPager(val viewPagerlist: MutableList<RecommendationResponse>): Fragment() {
 
     private lateinit var mViewPager: ViewPager
     lateinit var mdots_indicator: DotsIndicator
-    private var adapter =
-        SlideViewPagerAdapter(
-            viewPagerlist
-        )
+    lateinit var adapter :SlideViewPagerAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        adapter = SlideViewPagerAdapter(viewPagerlist, context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -35,6 +39,7 @@ class SlideViewPager(viewPagerlist: MutableList<viewpager_list_item>): Fragment(
         mViewPager.adapter = adapter
         mdots_indicator = view.dots_indicator
         mdots_indicator.setViewPager(mViewPager)
+
         return view
     }
 

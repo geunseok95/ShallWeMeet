@@ -26,7 +26,14 @@ class ApplyPageService (val mApplyPageView: ApplyPageView, val context: Context)
                 call: Call<List<ApplyResponse>>,
                 response: Response<List<ApplyResponse>>
             ) {
-                mApplyPageView.setBoard(response.body())
+                val body = response.body()
+                Log.d("test", body.toString())
+                if(body != null){
+                    if(body.isNotEmpty()){
+                        mApplyPageView.setBoard(body)
+
+                    }
+                }
             }
 
         })

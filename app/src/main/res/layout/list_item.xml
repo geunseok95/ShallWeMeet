@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true"
         app:cardBackgroundColor="#ffffff">
@@ -15,12 +15,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#ffffff">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageview_image"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
+                android:id="@+id/hot_image"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/watermelon"
                 app:riv_border_color="#333333"
@@ -32,16 +33,53 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/imageview_description"
-                    android:layout_width="match_parent"
+                    android:id="@+id/hot_location1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/location"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@id/hot_age"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/hot_location2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/hot_location2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@id/hot_age"
+                    app:layout_constraintLeft_toRightOf="@id/hot_location1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/hot_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="나이"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@id/hot_num_type"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hot_location1"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/hot_num_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="사람 수"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hot_age"
                     android:gravity="center"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

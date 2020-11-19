@@ -1,21 +1,29 @@
 package com.professionalandroid.apps.capston_meeting.src.homePage
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.viewpager_list_item
+import com.professionalandroid.apps.capston_meeting.src.GlideApp
+import com.professionalandroid.apps.capston_meeting.src.homePage.models.RecommendationResponse
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class SlideViewPagerAdapter(private val list: MutableList<viewpager_list_item>):PagerAdapter(){
+class SlideViewPagerAdapter(private val list: MutableList<RecommendationResponse>, val context: Context): PagerAdapter(){
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(container.context)
         val view = inflater.inflate(R.layout.list_item, container, false)
 
-        view.imageview_image.setImageResource(Integer.parseInt(list[position].img1))
-        view.imageview_description.text = list[position].title
+        GlideApp.with(context)
+            .load(list[position].img1)
+            .centerCrop()
+            .into(view.hot_image)
+        view.hot_location1.text = list[position].location1
+        view.hot_location2.text = list[position].location2
+        view.hot_age.text = list[position].age.toString()
+        view.hot_num_type.text = list[position].num_type
 
         container.addView(view)
         return view
