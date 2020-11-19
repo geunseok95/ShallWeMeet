@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.src.kakaoLoginService.LoginPage
+import com.professionalandroid.apps.capston_meeting.src.loginPage.LoginPage
 
 
 class SplashScreenActivity:AppCompatActivity() {

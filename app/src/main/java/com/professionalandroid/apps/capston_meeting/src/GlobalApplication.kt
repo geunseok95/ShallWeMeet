@@ -5,9 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.AssetManager
 import com.kakao.auth.*
-import com.professionalandroid.apps.capston_meeting.retrofit.NullHostNameVerifier
-import com.professionalandroid.apps.capston_meeting.retrofit.RetrofitService
-import com.professionalandroid.apps.capston_meeting.retrofit.getPinnedCertSslSocketFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -118,58 +115,51 @@ class GlobalApplication : Application() {
                     .addConverterFactory(GsonConverterFactory.create()).build()
             }
             return retrofit
-
     }
 
-
-    fun getPinnedCertSslSocketFactory(context: Context): SSLSocketFactory? {
-        try {
-            val am: AssetManager = context.resources.assets
-            val cf: CertificateFactory = CertificateFactory.getInstance("X.509")
-            val caInput: InputStream = am.open("swm.cer")
-            var ca: Certificate? = null
+        private fun getPinnedCertSslSocketFactory(context: Context): SSLSocketFactory? {
             try {
-                ca = cf.generateCertificate(caInput)
-                System.out.println("ca=" + ((ca) as X509Certificate).subjectDN)
-            } catch (e: CertificateException) {
+                val am: AssetManager = context.resources.assets
+                val cf: CertificateFactory = CertificateFactory.getInstance("X.509")
+                val caInput: InputStream = am.open("swm.cer")
+                var ca: Certificate? = null
+                try {
+                    ca = cf.generateCertificate(caInput)
+                    println("ca=" + ((ca) as X509Certificate).subjectDN)
+                } catch (e: CertificateException) {
+                    e.printStackTrace()
+                } finally {
+                    caInput.close()
+                }
+
+                val keyStoreType: String = KeyStore.getDefaultType()
+                val keyStore: KeyStore = KeyStore.getInstance(keyStoreType)
+                keyStore.load(null, null)
+                if (ca == null) {
+                    return null
+                }
+                keyStore.setCertificateEntry("ca", ca)
+
+                val tmfAlgorithm: String = TrustManagerFactory.getDefaultAlgorithm()
+                val tmf: TrustManagerFactory = TrustManagerFactory.getInstance(tmfAlgorithm)
+                tmf.init(keyStore)
+
+                val sslContext: SSLContext = SSLContext.getInstance("TLS")
+                sslContext.init(null, tmf.trustManagers, null)
+
+                return sslContext.socketFactory
+            } catch (e: NoSuchAlgorithmException) {
                 e.printStackTrace()
-            } finally {
-                caInput.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } catch (e: KeyStoreException) {
+                e.printStackTrace()
+            } catch (e: KeyManagementException) {
+                e.printStackTrace()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-
-            val keyStoreType: String = KeyStore.getDefaultType()
-            val keyStore: KeyStore = KeyStore.getInstance(keyStoreType)
-            keyStore.load(null, null)
-            if (ca == null) {
-                return null
-            }
-            keyStore.setCertificateEntry("ca", ca)
-
-            val tmfAlgorithm: String = TrustManagerFactory.getDefaultAlgorithm()
-            val tmf: TrustManagerFactory = TrustManagerFactory.getInstance(tmfAlgorithm)
-            tmf.init(keyStore)
-
-            val sslContext: SSLContext = SSLContext.getInstance("TLS")
-            sslContext.init(null, tmf.trustManagers, null)
-
-            return sslContext.socketFactory
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: KeyStoreException) {
-            e.printStackTrace()
-        } catch (e: KeyManagementException) {
-            e.printStackTrace()
-        } catch (e: Exception) {
-            e.printStackTrace()
+            return null
         }
-        return null
     }
-
-
-
-    }
-
-
 }

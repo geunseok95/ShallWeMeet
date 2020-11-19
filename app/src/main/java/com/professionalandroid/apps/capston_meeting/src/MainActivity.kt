@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting
+package com.professionalandroid.apps.capston_meeting.src
 
 import android.content.Intent
 import android.graphics.Color
@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.LogoutResponseCallback
+import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.homePage.HomePage
-import com.professionalandroid.apps.capston_meeting.src.kakaoLoginService.LoginPage
-import com.professionalandroid.apps.capston_meeting.src.BaseActivity
+import com.professionalandroid.apps.capston_meeting.src.loginPage.LoginPage
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.BookmarkPage
 import com.professionalandroid.apps.capston_meeting.src.checkPage.CheckPage
 import com.professionalandroid.apps.capston_meeting.src.myInfoPage.MyInfoPage
@@ -55,11 +55,16 @@ class MainActivity : BaseActivity() {
         bottom_navigation_bar.setOnNavigationItemSelectedListener {
 
             when(it.itemId){
-                R.id.navigation_bar_home -> ft.beginTransaction().replace(R.id.main_layout, homepage).commitAllowingStateLoss()
-                R.id.navigation_bar_check -> ft.beginTransaction().replace(R.id.main_layout, checkPage).commitAllowingStateLoss()
-                R.id.navigation_bar_favorite -> ft.beginTransaction().replace(R.id.main_layout, bookmarkPage).commitAllowingStateLoss()
-                R.id.navigation_bar_success -> ft.beginTransaction().replace(R.id.main_layout, successpage).commitAllowingStateLoss()
-                R.id.navigation_bar_myinfo -> ft.beginTransaction().replace(R.id.main_layout, myinfo).commitAllowingStateLoss()
+                R.id.navigation_bar_home -> ft.beginTransaction().replace(
+                    R.id.main_layout, homepage).commitAllowingStateLoss()
+                R.id.navigation_bar_check -> ft.beginTransaction().replace(
+                    R.id.main_layout, checkPage).commitAllowingStateLoss()
+                R.id.navigation_bar_favorite -> ft.beginTransaction().replace(
+                    R.id.main_layout, bookmarkPage).commitAllowingStateLoss()
+                R.id.navigation_bar_success -> ft.beginTransaction().replace(
+                    R.id.main_layout, successpage).commitAllowingStateLoss()
+                R.id.navigation_bar_myinfo -> ft.beginTransaction().replace(
+                    R.id.main_layout, myinfo).commitAllowingStateLoss()
             }
             return@setOnNavigationItemSelectedListener true
         }
@@ -85,8 +90,6 @@ class MainActivity : BaseActivity() {
         transaction.replace(layout_id, fragment)
         transaction.commit()
     }
-
-
 
     fun logoutService(){
         Toast.makeText(applicationContext, "정상적으로 로그아웃되었습니다.", Toast.LENGTH_SHORT)

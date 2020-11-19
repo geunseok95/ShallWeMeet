@@ -1,11 +1,10 @@
-package com.professionalandroid.apps.capston_meeting.src.kakaoLoginService
+package com.professionalandroid.apps.capston_meeting.src.loginPage
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.Nullable
-import androidx.appcompat.app.AppCompatActivity
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.kakao.auth.ApiErrorCode
@@ -18,22 +17,27 @@ import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.OptionalBoolean
 import com.kakao.util.exception.KakaoException
 import com.professionalandroid.apps.capston_meeting.*
-import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.Verification
-import com.professionalandroid.apps.capston_meeting.retrofit.userid
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.loginPage.interfaces.LoginPageView
+import com.professionalandroid.apps.capston_meeting.src.loginPage.models.LoginResponse
+import com.professionalandroid.apps.capston_meeting.src.loginPage.models.Verification
 import com.professionalandroid.apps.capston_meeting.src.registerPage.RegisterPage
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.ArrayList
 
-class LoginPage: AppCompatActivity(){
+class LoginPage: BaseActivity(), LoginPageView{
+
+    lateinit var email: String
+    lateinit var gender: String
+    lateinit var token: String
     private var sessionCallback: SessionCallback? = null
+
+    lateinit var mLoginPageService : LoginPageService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
-
+        mLoginPageService = LoginPageService(this, applicationContext)
         // 권한 요청
         tedPermission()
 
@@ -158,44 +162,34 @@ class LoginPage: AppCompatActivity(){
                             }
                         }
 
-                        val retrofitService = ConnectRetrofit(this@LoginPage)
-                        val connect_server = retrofitService.retrofitService()
-                        val token = intent.getStringExtra("fmc_token")
-                        val data = Verification(kakaoAccount.email, token!!)
+                        email = kakaoAccount.email
+                        gender = "male"
+                        token = intent.getStringExtra("fmc_token")!!
+                        val data = Verification(kakaoAccount.email, token)
 
-                        // retrofit 서버연결
-                        connect_server.checkhMyID(data).enqueue(object: Callback<userid> {
-                            override fun onFailure(call: Call<userid>, t: Throwable) {
-                                Log.d("test","서버연결 실패 BoardActivity")
-                            }
+                        mLoginPageService.validate(data)
 
-                            override fun onResponse(call: Call<userid>, response: Response<userid>) {
-                                val user = response.body()!!
-                                Log.d("test", "$user")
-
-                                // 이미 회원가입된 경우
-                                if(user._checked) {
-                                    val intent = Intent(this@LoginPage, MainActivity::class.java)
-                                    intent.putExtra("email", kakaoAccount.email)
-                                    intent.putExtra("user", user.idx)
-                                    intent.putExtra("gender", "male") // 임시 성별 카카오 검수 후 추가
-                                    startActivity(intent)
-                                    finish()
-                                }
-                                // 회원가입을 새로할 경우
-                                else{
-                                    val intent = Intent(this@LoginPage, RegisterPage::class.java)
-                                    intent.putExtra("email", kakaoAccount.email)
-                                    intent.putExtra("gender", "male") // 임시 성별 카카오 검수 후 추가
-                                    startActivity(intent)
-                                    finish()
-                                }
-
-                            }
-                        })
                     }
                 })
         }
     }
 
+    override fun successValidation(body: LoginResponse) {
+        val intent = Intent(this@LoginPage, MainActivity::class.java).apply {
+            putExtra("email", email)
+            putExtra("user", body.idx)
+            putExtra("gender", gender) // 임시 성별 카카오 검수 후 추가
+        }
+        startActivity(intent)
+        finish()
+    }
+
+    override fun failValidation() {
+        val intent = Intent(this@LoginPage, RegisterPage::class.java).apply {
+            putExtra("email", email)
+            putExtra("gender", gender) // 임시 성별 카카오 검수 후 추가
+        }
+        startActivity(intent)
+        finish()
+    }
 }

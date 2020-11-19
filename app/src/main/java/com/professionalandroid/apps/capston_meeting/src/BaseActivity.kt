@@ -20,7 +20,6 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.professionalandroid.apps.capston_meeting.MainActivity
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*

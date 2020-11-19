@@ -5,7 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import com.professionalandroid.apps.capston_meeting.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.requestPage.BottomSheetDialog
 import com.professionalandroid.apps.capston_meeting.src.requestPage.RequestPopUpWindow
@@ -25,11 +25,13 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
     lateinit var gender: String
 
     lateinit var mbottomsheetdialog: BottomSheetDialog
-    val mRegisterPageService =  RegisterPageService(this, this)
+    lateinit var mRegisterPageService: RegisterPageService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
+
+        mRegisterPageService =  RegisterPageService(this, applicationContext)
 
         email = intent.getStringExtra("email")!!
         gender = intent.getStringExtra("gender")!!

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.interfaces.ReceivePageView
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.Permit

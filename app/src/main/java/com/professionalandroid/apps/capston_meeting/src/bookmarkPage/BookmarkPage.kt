@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.professionalandroid.apps.capston_meeting.src.detailPage.DetailPage
-import com.professionalandroid.apps.capston_meeting.MainActivity
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.interfaces.BookmarkPageView
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.models.BookmarkResponse

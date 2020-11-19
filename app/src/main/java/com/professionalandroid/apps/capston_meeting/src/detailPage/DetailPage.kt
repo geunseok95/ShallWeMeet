@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.professionalandroid.apps.capston_meeting.MainActivity
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.detailPage.interfaces.DetailPageView
 import com.professionalandroid.apps.capston_meeting.src.detailPage.models.ApplyBody

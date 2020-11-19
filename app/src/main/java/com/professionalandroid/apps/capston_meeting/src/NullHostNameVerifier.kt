@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.retrofit
+package com.professionalandroid.apps.capston_meeting.src
 
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession

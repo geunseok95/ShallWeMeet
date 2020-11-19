@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayout
-import com.professionalandroid.apps.capston_meeting.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.ReceivePage
 import com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage.SendPage

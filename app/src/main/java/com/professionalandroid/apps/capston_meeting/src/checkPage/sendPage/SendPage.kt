@@ -8,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.professionalandroid.apps.capston_meeting.MainActivity
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage.interfaces.SendPageView
 import com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage.models.SendResponse
 import com.professionalandroid.apps.capston_meeting.src.detailPage.DetailPage
-import com.professionalandroid.apps.capston_meeting.src.detailPage.DetailPageService
 import kotlinx.android.synthetic.main.fragment_send.view.*
 
 class SendPage : Fragment(), SendPageView, SendPageRecyclerViewAdapter.OnSendItemClicked {

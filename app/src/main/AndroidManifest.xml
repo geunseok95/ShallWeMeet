@@ -44,7 +44,7 @@
             android:value="@string/kakao_app_key" />
 
         <activity
-            android:name="com.professionalandroid.apps.capston_meeting.src.kakaoLoginService.LoginPage"
+            android:name="com.professionalandroid.apps.capston_meeting.src.loginPage.LoginPage"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".src.splash.SplashScreenActivity"
@@ -56,7 +56,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".src.MainActivity"
             android:windowSoftInputMode="adjustPan" />
 
     </application>

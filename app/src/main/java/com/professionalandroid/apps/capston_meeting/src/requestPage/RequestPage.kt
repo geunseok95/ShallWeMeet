@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.professionalandroid.apps.capston_meeting.MainActivity
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.img_num
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_File_list

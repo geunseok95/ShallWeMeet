@@ -12,7 +12,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.professionalandroid.apps.capston_meeting.*
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.src.applyPage.interfaces.ApplyPageView
 import com.professionalandroid.apps.capston_meeting.src.applyPage.models.ApplyResponse
 import com.professionalandroid.apps.capston_meeting.src.applyPage.models.Bookmark
