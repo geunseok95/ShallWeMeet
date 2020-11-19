@@ -32,12 +32,6 @@ class MainActivity : BaseActivity() {
         user = intent.getLongExtra("user", -1)
         gender = intent.getStringExtra("gender")!!
 
-        // 상태바 투명하게 만들기
-        window?.decorView?.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        window.statusBarColor = Color.TRANSPARENT
-
-
         val homepage = HomePage()
         val checkPage =
             CheckPage()

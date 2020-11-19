@@ -29,7 +29,12 @@ class ApplyPage : Fragment(),
 
     lateinit var mApplyPageService: ApplyPageService
 
-    private var isNext = false // 다음페이지 유무
+    var location1 = "상관없음"
+    var location2 = "상관없음"
+    var num_type = "상관없음"
+    var age = "상관없음"
+    var date = "상관없음"
+
     private var page = 0 // 현재 페이지
     private var size = "10" // 한번에 가져올 아이템의 수
     var boards = mutableListOf<ApplyResponse?>()
@@ -37,9 +42,9 @@ class ApplyPage : Fragment(),
     lateinit var mapplyfilter: ApplyFilter
     lateinit var mRecyclerView: RecyclerView
     private var mRecyclerAdapter: RecyclerAdapter? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mRecyclerAdapter = RecyclerAdapter(context, this, boards)
         mApplyPageService = ApplyPageService(this, context)
     }
 
@@ -53,12 +58,15 @@ class ApplyPage : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_apply_page, container, false)
+        val gm = GridLayoutManager(context,2)
         mRecyclerView = view.recyclerview
-        mRecyclerView.layoutManager = GridLayoutManager(context,2)
+        mRecyclerView.layoutManager = gm
+        mRecyclerAdapter = RecyclerAdapter(context!!, this, boards, gm)
+        mRecyclerAdapter?.setRecyclerView(mRecyclerView)
         mRecyclerView.adapter = mRecyclerAdapter
         page = 0
 
-        loadPosts("상관없음", "상관없음", "상관없음", "상관없음", "상관없음")
+        loadPosts()
 
         view.apply_filter.apply {
             setOnClickListener {
@@ -80,10 +88,9 @@ class ApplyPage : Fragment(),
 
 
     // 최초로 넣어줄 데이터를 load 한다
-    private fun loadPosts(location1: String, location2: String, num_type :String, age: String, date: String){
+    private fun loadPosts(){
         mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, "female")
     }
-
 
 
     override fun setBoard(new_boards:List<ApplyResponse>?){
@@ -106,26 +113,20 @@ class ApplyPage : Fragment(),
         mRecyclerAdapter?.notifyDataSetChanged()
     }
 
-
     private fun getPage(): String{
         page++
         return page.toString()
     }
 
-    private fun hasNextPage(): Boolean{
-        return isNext
-    }
-
-    private fun setHasNextPage(b: Boolean){
-        isNext = b
+    override fun onLoadMore() {
+        mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, "female")
     }
 
 
     override fun onItemSelected(v: View, position: Int) {
         val viewholder: RecyclerAdapter.ViewHolder = mRecyclerView.findViewHolderForAdapterPosition(position) as RecyclerAdapter.ViewHolder
 
-        val detailpage =
-            DetailPage()
+        val detailpage = DetailPage()
         val bundle = Bundle()
 
         Log.d("test_position", position.toString())
@@ -157,7 +158,7 @@ class ApplyPage : Fragment(),
 
             // retrofit 서버연결
             page = 0
-            loadPosts(spinner_location1, "상관없음", radiobutton_num_type, seekbar_age, "상관없음")
+            loadPosts()
         }
     }
 }

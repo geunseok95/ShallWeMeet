@@ -1,11 +1,13 @@
 package com.professionalandroid.apps.capston_meeting.src.applyPage
 
 import android.content.Context
+import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.R
@@ -13,23 +15,34 @@ import com.professionalandroid.apps.capston_meeting.src.applyPage.models.ApplyRe
 import com.professionalandroid.apps.capston_meeting.src.GlideApp
 import kotlinx.android.synthetic.main.list_item2.view.*
 
-class RecyclerAdapter(private val boards:MutableList<ApplyResponse?>):
+class RecyclerAdapter():
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+
+    var isMoreLoading = false // 다음 페이지 유무
+    var visibleThreshold = 1
+    var firstVisibleItem = 0
+    var visibleItemCount = 0
+    var totalItemCount = 0
+    var lastVisibleItem = 0
+    lateinit var gridLayoutManager: GridLayoutManager
+    lateinit var boards :MutableList<ApplyResponse?>
+    lateinit var mContext: Context
+    private var mListener: OnListItemSelelctedInterface? = null
 
     // list와 연결할 listener
     interface OnListItemSelelctedInterface{
         fun onItemSelected(v: View, position: Int)
         fun onStarChecked(v: View, position: Int)
+        fun onLoadMore()
     }
 
     val mSelectedItems: SparseBooleanArray = SparseBooleanArray(0)
 
-    var mContext: Context? = null
-    private var mListener: OnListItemSelelctedInterface? = null
-
-    constructor(context: Context, listener: OnListItemSelelctedInterface,boards: MutableList<ApplyResponse?>) : this(boards) {
+    constructor(context: Context, listener: OnListItemSelelctedInterface, boards: MutableList<ApplyResponse?>, gridLayoutManager: GridLayoutManager) : this() {
         this.mContext = context
         this.mListener = listener
+        this.boards = boards
+        this.gridLayoutManager = gridLayoutManager
     }
 
     override fun onCreateViewHolder(
@@ -110,5 +123,29 @@ class RecyclerAdapter(private val boards:MutableList<ApplyResponse?>):
             mSelectedItems.put(position, true)
         }
         notifyItemChanged(position)
+    }
+
+    fun setRecyclerView(view:RecyclerView){
+        view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItemCount = recyclerView.getChildCount();
+                totalItemCount = gridLayoutManager.itemCount
+                firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition()
+                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition()
+                Log.d("total", totalItemCount.toString());
+                Log.d("visible", visibleItemCount.toString());
+
+                Log.d("first", firstVisibleItem.toString());
+                Log.d("last", lastVisibleItem.toString());
+
+                if (!isMoreLoading && (totalItemCount - visibleItemCount)<= (firstVisibleItem + visibleThreshold)) {
+                    if (mListener != null) {
+                        mListener?.onLoadMore();
+                    }
+                    isMoreLoading = true;
+                }
+            }
+        })
     }
 }
