@@ -9,7 +9,6 @@ import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.requestPage.BottomSheetDialog
 import com.professionalandroid.apps.capston_meeting.src.requestPage.RequestPopUpWindow
-import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.registerPage.interfaces.RegisterPageView
 import kotlinx.android.synthetic.main.activity_register_page.*
@@ -58,7 +57,6 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
         register_location1.adapter = spinneradapter
         register_location1.prompt = "선호 지역을 선택하세요"
 
-
         register_btn.apply {
             setOnClickListener {
                 if (register_nickname_input.text.isNotEmpty() && register_age_input.text.isNotEmpty() && register_kakao_id_input.text.isNotEmpty()) {
@@ -97,8 +95,6 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
     override fun onOKClicked(success: Int) {
         if(success == 1){
             val data: HashMap<String, RequestBody> = HashMap()
-            val retrofitService = ConnectRetrofit(this)
-            val connect_server = retrofitService.retrofitService()
 
             data["nickName"] = RequestBody.create(
                 MediaType.parse("text/plain"),

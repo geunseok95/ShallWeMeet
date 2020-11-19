@@ -1,10 +1,13 @@
 package com.professionalandroid.apps.capston_meeting.src.splash
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.media.RingtoneManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -28,18 +31,41 @@ class SWMFireBaseMessagingService: FirebaseMessagingService() {
     private fun sendNotification(title: String?, body: String){
         //어떤 모양으로 알림을 할지 설정한 다음 실제 폰 상단에 표시하도록 한다.
         //pendingIntent를 이용 알림을 클릭하면 열 앱의 액티비티를 설정해 준다.
-        val intent = Intent(this, SplashScreenActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val intent = Intent(this, SplashScreenActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra("Notification", body)
+        }
+
+        val CHANNEL_ID = "CollocNotification"
+        val CHANNEL_NAME = "CollocChannel"
+        val description = "This is Colloc channel"
+        val importance = NotificationManager.IMPORTANCE_HIGH
+
+        val notificationManager: NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
+            channel.description = description
+            channel.enableLights(true)
+            channel.lightColor = Color.RED
+            channel.enableVibration(true)
+            channel.setShowBadge(false)
+            notificationManager.createNotificationChannel(channel)
+        }
+
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
-        val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(title)
+        val notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentTitle("Colloc Notification")
             .setContentText(body)
-            .setSound(defaultSound)
+            .setAutoCancel(true)
+            .setSound(notificationSound)
             .setContentIntent(pendingIntent)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(0, notificationBuilder.build())
+
     }
 }

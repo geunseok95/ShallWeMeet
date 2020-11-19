@@ -12,7 +12,7 @@ import com.professionalandroid.apps.capston_meeting.src.kakaoLoginService.LoginP
 
 
 class SplashScreenActivity:AppCompatActivity() {
-    private val TAG = "LoginActivity"
+    private val TAG = "test"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
