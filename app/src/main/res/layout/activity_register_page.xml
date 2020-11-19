@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterPage"
+    tools:context=".src.registerPage.RegisterPage"
     android:background="@drawable/background_color">
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -50,7 +50,15 @@
             android:hint="카카오 아이디를 입력해주세요" />
 
         <Spinner
-            android:id="@+id/register_location"
+            android:id="@+id/register_location1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/spinner_background"
+            android:theme="@style/SpinnerTheme"
+            android:spinnerMode="dialog"/>
+
+        <Spinner
+            android:id="@+id/register_location2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/spinner_background"

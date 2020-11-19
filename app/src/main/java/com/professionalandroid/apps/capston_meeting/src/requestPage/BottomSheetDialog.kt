@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.RegisterPage
+import com.professionalandroid.apps.capston_meeting.src.registerPage.RegisterPage
 
 class BottomSheetDialog() : BottomSheetDialogFragment() {
     private var mbottombutton_listener: BottomsheetbuttonItemSelectedInterface? = null

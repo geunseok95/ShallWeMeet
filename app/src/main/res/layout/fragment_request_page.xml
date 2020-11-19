@@ -78,13 +78,6 @@
                 android:hint="평균나이를 입력해주세요"
                 android:inputType="textPersonName" />
 
-            <TextView
-                android:id="@+id/request_calender"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="15sp"
-                android:text="날짜를 선택해주세요"/>
-
             <Spinner
                 android:id="@+id/request_location1"
                 android:layout_width="match_parent"

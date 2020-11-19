@@ -2,24 +2,17 @@ package com.professionalandroid.apps.capston_meeting.src.myInfoPage
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.professionalandroid.apps.capston_meeting.MainActivity
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.user_info
 import com.professionalandroid.apps.capston_meeting.src.myInfoPage.interfaces.MyInfoPageView
 import com.professionalandroid.apps.capston_meeting.src.myInfoPage.models.MyInfoResponse
 import kotlinx.android.synthetic.main.fragment_my_info_page.*
 import kotlinx.android.synthetic.main.fragment_my_info_page.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MyInfoPage : Fragment(), MyInfoPageView {
 
@@ -54,6 +47,8 @@ class MyInfoPage : Fragment(), MyInfoPageView {
 
         my_info_nickname.text = body.nickName
         (activity as MainActivity).displayImg(context!!, body.img, my_info_image)
-        my_info_location.text = body.location
+        my_info_location1.text = body.location1
+        my_info_location2.text = body.location2
+
     }
 }

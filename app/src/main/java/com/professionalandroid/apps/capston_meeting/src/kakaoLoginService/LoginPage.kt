@@ -21,6 +21,7 @@ import com.professionalandroid.apps.capston_meeting.*
 import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
 import com.professionalandroid.apps.capston_meeting.retrofit.Verification
 import com.professionalandroid.apps.capston_meeting.retrofit.userid
+import com.professionalandroid.apps.capston_meeting.src.registerPage.RegisterPage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

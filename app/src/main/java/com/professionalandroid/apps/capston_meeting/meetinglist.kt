@@ -1,6 +1,5 @@
 package com.professionalandroid.apps.capston_meeting
 
-import com.professionalandroid.apps.capston_meeting.retrofit.board
 
 var viewpager_list: MutableList<viewpager_list_item> =
     mutableListOf(

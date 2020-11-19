@@ -35,7 +35,8 @@ data class Sender (
     val email: String,
     val gender: String,
     val age: String,
-    val location: String,
+    val location1: String,
+    val location2: String,
     val kakao_id: String,
     val point: Long
 )

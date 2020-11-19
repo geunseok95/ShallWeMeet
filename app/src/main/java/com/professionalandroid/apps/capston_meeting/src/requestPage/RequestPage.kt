@@ -11,44 +11,38 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.professionalandroid.apps.capston_meeting.MainActivity
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.img_num
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_File_list
-import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.request_Image_list
 import com.professionalandroid.apps.capston_meeting.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.retrofit.ConnectRetrofit
-import com.professionalandroid.apps.capston_meeting.retrofit.favorite
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.img_num
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_File_list
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_list
+import com.professionalandroid.apps.capston_meeting.src.requestPage.interfaces.RequestPageView
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_request_page.*
 import kotlinx.android.synthetic.main.fragment_request_page.view.*
 import okhttp3.*
-import retrofit2.Callback
-import retrofit2.Call
-import retrofit2.Response
 import java.io.File
 import kotlin.collections.HashMap
 
-class RequestPage : Fragment(),
+class RequestPage : Fragment(), RequestPageView,
     BottomSheetDialog.BottomsheetbuttonItemSelectedInterface, RequestPopUpWindow.MyDialogOKClickedListener {
 
     lateinit var mbottomsheetdialog: BottomSheetDialog
-    lateinit var retrofitService: ConnectRetrofit
     lateinit var spinneradapter1: ArrayAdapter<String>
     lateinit var spinneradapter2: ArrayAdapter<String>
     var location2Array = arrayOf<String>()
     var location1: String? = null
     var location2: String? = null
-    var year: Int? = 0
-    var month: Int? = 0
-    var date: Int? = 0
+
+    lateinit var mRequestPageService: RequestPageService
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        retrofitService = ConnectRetrofit(context)
         val location1Array = resources.getStringArray(R.array.location)
         location2Array = arrayOf("상관없음")
         spinneradapter1 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location1Array)
         spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+        mRequestPageService = RequestPageService(this, context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -190,7 +184,6 @@ class RequestPage : Fragment(),
     override fun onOKClicked(success:Int) {
         if(success == 1){
             val data: HashMap<String, RequestBody> = HashMap()
-            val connect_server = retrofitService.retrofitService()
 
             data["title"] = RequestBody.create(
                 MediaType.parse("text/plain"),
@@ -228,14 +221,7 @@ class RequestPage : Fragment(),
                 MediaType.parse("text/plain"),
                 average_age.text.toString()
             )
-            data["date"] = RequestBody.create(
-                MediaType.parse("text/plain"),
-                "${year}-${month}-${date}"
-            )
-            data["date2"] = RequestBody.create(
-                MediaType.parse("text/plain"),
-                "7시즈음"
-            )
+
             data["user"] = RequestBody.create(
                 MediaType.parse("text/plain"),
                 user.toString()
@@ -273,21 +259,13 @@ class RequestPage : Fragment(),
 
             Log.d("test", file1.toString())
 
-            connect_server.makeBoard(file1, file2, file3, data).enqueue(object :
-                Callback<favorite> {
-                override fun onFailure(call: Call<favorite>, t: Throwable) {
-                    Log.d("test", "서버연결 실패")
-                }
-
-                override fun onResponse(call: Call<favorite>, response: Response<favorite>) {
-                    //val board:String = response.body()!!
-                    Log.d("test", "서버 연결 성공")
-                }
-            })
-
-            (activity as MainActivity).close_fragment(this@RequestPage)
+            mRequestPageService.makeMeeting(file1, file2, file3, data)
         }
 
+    }
+
+    override fun makeMeeting() {
+        (activity as MainActivity).close_fragment(this@RequestPage)
     }
 
 
