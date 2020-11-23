@@ -6,31 +6,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.ReceiveResponse
 import kotlinx.android.synthetic.main.layout_receive_item.view.*
 
-class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveResponse>, val context: Context, val listener: OnReceiveClicked): RecyclerView.Adapter<ReceivePageRecyclerViewAdapter.ViewHolder>(), ReceivePageSubRecyclerViewAdapter.OnReceiverClicked {
+class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveResponse>, val context: Context, val listener: OnReceiveClicked,val mlistener: ReceivePageSubRecyclerViewAdapter.OnReceiverClicked): RecyclerView.Adapter<ReceivePageRecyclerViewAdapter.ViewHolder>(){
 
-    lateinit var mreceiver_recyclerview: RecyclerView
+    lateinit var mReceiverRecyclerView: RecyclerView
 
     interface OnReceiveClicked{
-        fun receiveClicked(view: View, position: Int, senderId: Long, status: Boolean)
+        fun myPageClicked(view: View, position: Int)
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+        var parentView: ConstraintLayout? = null
         var receiver_recyclerview: RecyclerView? = null
         var receive_title: TextView? = null
         var receive_locatoin1: TextView? = null
         var receive_location2: TextView? = null
+        var boardId: Long = 0
         var index = 0
         init {
             receiver_recyclerview = view.receiver_recyclerview
             receive_title = view.receive_title
             receive_locatoin1 = view.receive_location1
             receive_location2 = view.receive_location2
+            parentView = view.receive_page.apply {
+                setOnClickListener {
+                    listener.myPageClicked(view, adapterPosition)
+                }
+            }
         }
     }
 
@@ -47,18 +55,14 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
         holder.receive_title?.text = receiveList[position].title
         holder.receive_locatoin1?.text = receiveList[position].location1
         holder.receive_location2?.text = receiveList[position].location2
+        holder.index = position
 
-        val madapter = ReceivePageSubRecyclerViewAdapter(receiveList[position].senders.toMutableList(), context, this, position)
+        val madapter = ReceivePageSubRecyclerViewAdapter(receiveList[position].senders.toMutableList(), context, mlistener, holder.index)
         holder.receiver_recyclerview?.layoutManager = LinearLayoutManager(context)
         holder.receiver_recyclerview?.adapter = madapter
         holder.receiver_recyclerview?.setHasFixedSize(true)
-        holder.index = position
-        mreceiver_recyclerview = holder.receiver_recyclerview!!
+        holder.boardId = receiveList[position].idx
+        mReceiverRecyclerView = holder.receiver_recyclerview!!
     }
 
-    override fun success(view: View, position: Int, index: Int) {
-        val subViewHolder = mreceiver_recyclerview.findViewHolderForAdapterPosition(position) as ReceivePageSubRecyclerViewAdapter.SubViewHolder
-        Log.d("test", "success 실행")
-        listener.receiveClicked(view, index, subViewHolder.sender_id, subViewHolder.sender_status)
-    }
 }

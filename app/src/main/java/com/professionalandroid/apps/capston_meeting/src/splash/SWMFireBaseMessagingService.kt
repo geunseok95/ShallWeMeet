@@ -20,6 +20,7 @@ class SWMFireBaseMessagingService: FirebaseMessagingService() {
         @SuppressLint("LongLogTAG")//이건 뭐지?
         if(remoteMessage.notification != null){
             sendNotification(remoteMessage.notification?.title, remoteMessage.notification!!.body!!)
+            Log.d("test", "${remoteMessage.notification?.title}, ${remoteMessage.notification!!.body!!}")
         }
     }
 

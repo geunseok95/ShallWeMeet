@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.interfaces.ReceivePageView
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.Permit
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.ReceiveResponse
+import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.myDetailPage.MyDetailPage
 import kotlinx.android.synthetic.main.fragment_receive.view.*
 
-class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.OnReceiveClicked, ReceivePopUpWindow.MyDialogOKClickedListener {
+class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.OnReceiveClicked, ReceivePopUpWindow.MyDialogOKClickedListener,  ReceivePageSubRecyclerViewAdapter.OnReceiverClicked  {
 
     lateinit var mReceivePageRecyclerView: RecyclerView
     lateinit var mReceivePageRecyclerViewAdapter: ReceivePageRecyclerViewAdapter
@@ -24,7 +26,7 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mReceivePageRecyclerViewAdapter = ReceivePageRecyclerViewAdapter(receiveList, context, this)
+        mReceivePageRecyclerViewAdapter = ReceivePageRecyclerViewAdapter(receiveList, context, this, this)
         mReceivePageService = ReceivePageService(this, context)
     }
 
@@ -48,15 +50,16 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         return view
     }
 
-    override fun receiveClicked(view: View, position: Int, senderId: Long, status: Boolean) {
-        if(status){
-            val popUp = ReceivePopUpWindow(context!!, this)
-            popUp.start("신청을 수락할까요?", 1, position, senderId, status)
+
+    override fun myPageClicked(view:View, position: Int) {
+        val viewHolder = mReceivePageRecyclerView.findViewHolderForAdapterPosition(position) as ReceivePageRecyclerViewAdapter.ViewHolder
+        val boardId = viewHolder.boardId
+        val myDetailPage = MyDetailPage().apply {
+            arguments = Bundle().apply {
+                putLong("boardId", boardId)
+            }
         }
-        else{
-            val popUp = ReceivePopUpWindow(context!!, this)
-            popUp.start("결제를 진행할까요?", 0, position, senderId, status)
-        }
+        (activity as MainActivity).move_next_fragment(myDetailPage)
     }
 
     override fun onOKClicked(success: Int, position: Int, senderId: Long, status: Boolean) {
@@ -78,6 +81,18 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
     override fun success(positon: Int) {
         receiveList.removeAt(positon)
         mReceivePageRecyclerViewAdapter.notifyDataSetChanged()
+    }
+
+    override fun success(view: View, position: Int, index: Int) {
+        val subViewHolder = mReceivePageRecyclerViewAdapter.mReceiverRecyclerView.findViewHolderForAdapterPosition(index) as ReceivePageSubRecyclerViewAdapter.SubViewHolder
+        if(subViewHolder.sender_status){
+            val popUp = ReceivePopUpWindow(context!!, this)
+            popUp.start("신청을 수락할까요?", 1, position, subViewHolder.sender_id, subViewHolder.sender_status)
+        }
+        else{
+            val popUp = ReceivePopUpWindow(context!!, this)
+            popUp.start("결제를 진행할까요?", 0, position, subViewHolder.sender_id, subViewHolder.sender_status)
+        }
     }
 
 }

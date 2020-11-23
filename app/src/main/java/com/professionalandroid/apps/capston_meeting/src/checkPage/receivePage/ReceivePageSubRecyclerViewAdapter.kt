@@ -13,7 +13,7 @@ import com.professionalandroid.apps.capston_meeting.src.GlideApp
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.Sender
 import kotlinx.android.synthetic.main.layout_receiver_item.view.*
 
-class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, val context: Context, val listener: OnReceiverClicked, val index: Int):RecyclerView.Adapter<ReceivePageSubRecyclerViewAdapter.SubViewHolder>() {
+class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, val context: Context, val listener: OnReceiverClicked, val parent_index: Int):RecyclerView.Adapter<ReceivePageSubRecyclerViewAdapter.SubViewHolder>() {
 
     interface OnReceiverClicked{
         fun success(view: View, position: Int, index: Int)
@@ -35,7 +35,7 @@ class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, v
             receiver_status = view.receiver_status
             receiver_btn = view.receiver_btn.apply {
                 setOnClickListener {
-                    listener.success(view, adapterPosition, index)
+                    listener.success(view, parent_index, adapterPosition)
                 }
             }
         }

@@ -16,6 +16,7 @@ import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.img_num
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_File_list
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_list
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.gender
 import com.professionalandroid.apps.capston_meeting.src.requestPage.interfaces.RequestPageView
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_request_page.*
@@ -203,7 +204,7 @@ class RequestPage : Fragment(), RequestPageView,
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                "female"
+                gender
             )
             data["tag1"] = RequestBody.create(
                 MediaType.parse("text/plain"),

@@ -20,7 +20,7 @@ interface ReceivePageRetrofitInterface {
         @Body permit: Permit
     ): Call<DefaultResponse>
 
-    @PATCH("api/match")
+    @PATCH("api/match/payment")
     fun tryPaySuccess(
         @Body permit: Permit
     ): Call<DefaultResponse>
