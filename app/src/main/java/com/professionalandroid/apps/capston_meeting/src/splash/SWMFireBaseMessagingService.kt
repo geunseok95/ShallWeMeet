@@ -14,13 +14,22 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.professionalandroid.apps.capston_meeting.R
+import java.io.UnsupportedEncodingException
+import java.net.URLDecoder
 
 class SWMFireBaseMessagingService: FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         @SuppressLint("LongLogTAG")//이건 뭐지?
         if(remoteMessage.notification != null){
-            sendNotification(remoteMessage.notification?.title, remoteMessage.notification!!.body!!)
-            Log.d("test", "${remoteMessage.notification?.title}, ${remoteMessage.notification!!.body!!}")
+            try {
+                val title = URLDecoder.decode(remoteMessage.notification?.title, "EUC-KR")
+                val body = URLDecoder.decode(remoteMessage.notification?.body, "EUC-KR")
+                sendNotification(title, body)
+                Log.d("test", "${title}, ${body}")
+
+            }catch (ex: UnsupportedEncodingException){
+                Log.d("test", ex.message.toString())
+            }
         }
     }
 

@@ -31,6 +31,7 @@ class RequestPage : Fragment(), RequestPageView,
     lateinit var mbottomsheetdialog: BottomSheetDialog
     lateinit var spinneradapter1: ArrayAdapter<String>
     lateinit var spinneradapter2: ArrayAdapter<String>
+    lateinit var spinneradapter3: ArrayAdapter<String>
     var location2Array = arrayOf<String>()
     var location1: String? = null
     var location2: String? = null
@@ -40,9 +41,11 @@ class RequestPage : Fragment(), RequestPageView,
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val location1Array = resources.getStringArray(R.array.location)
+        val num_typeArray = resources.getStringArray(R.array.num_type)
         location2Array = arrayOf("상관없음")
         spinneradapter1 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location1Array)
         spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+        spinneradapter3 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, num_typeArray)
         mRequestPageService = RequestPageService(this, context)
     }
 
@@ -101,6 +104,11 @@ class RequestPage : Fragment(), RequestPageView,
             }
         }
 
+        view.request_num_type.apply {
+            adapter = spinneradapter3
+            prompt = "인원수를 선택하세요"
+        }
+
         view.request_img1.clipToOutline = true
         view.request_img2.clipToOutline = true
         view.request_img3.clipToOutline = true
@@ -145,7 +153,7 @@ class RequestPage : Fragment(), RequestPageView,
 
             setOnClickListener {
 
-                if (view.request_title.text.isNotEmpty() && view.request_num_type.text.isNotEmpty() && view.request_tag1.text.isNotEmpty() && view.request_tag2.text.isNotEmpty() && view.request_tag3.text.isNotEmpty()
+                if (view.request_title.text.isNotEmpty() && view.request_tag1.text.isNotEmpty() && view.request_tag2.text.isNotEmpty() && view.request_tag3.text.isNotEmpty()
                 ) {
                     val popup =
                         RequestPopUpWindow(
@@ -200,7 +208,7 @@ class RequestPage : Fragment(), RequestPageView,
             )
             data["num_type"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                request_num_type.text.toString()
+                request_num_type.selectedItem.toString()
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),

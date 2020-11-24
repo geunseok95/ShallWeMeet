@@ -28,4 +28,12 @@
         <item>상무지구</item>
     </string-array>
 
+    <string-array name="num_type">
+        <item>2대2</item>
+        <item>3대3</item>
+        <item>4대4</item>
+        <item>5대5</item>
+        <item>6대6</item>
+    </string-array>
+
 </resources>
