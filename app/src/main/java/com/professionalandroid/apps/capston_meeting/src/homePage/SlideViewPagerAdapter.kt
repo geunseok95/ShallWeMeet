@@ -10,7 +10,11 @@ import com.professionalandroid.apps.capston_meeting.src.GlideApp
 import com.professionalandroid.apps.capston_meeting.src.homePage.models.RecommendationResponse
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class SlideViewPagerAdapter(private val list: MutableList<RecommendationResponse>, val context: Context): PagerAdapter(){
+class SlideViewPagerAdapter(private val list: MutableList<RecommendationResponse>, val context: Context, val listener: ViewpagerItemSelected): PagerAdapter(){
+
+    interface ViewpagerItemSelected{
+        fun ItemClicked(idx: Long)
+    }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(container.context)
@@ -24,6 +28,10 @@ class SlideViewPagerAdapter(private val list: MutableList<RecommendationResponse
         view.hot_location2.text = list[position].location2
         view.hot_age.text = list[position].age.toString()
         view.hot_num_type.text = list[position].num_type
+
+        view.setOnClickListener {
+            listener.ItemClicked(list[position].idx)
+        }
 
         container.addView(view)
         return view

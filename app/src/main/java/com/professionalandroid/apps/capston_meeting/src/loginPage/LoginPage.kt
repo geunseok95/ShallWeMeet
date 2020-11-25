@@ -166,7 +166,6 @@ class LoginPage: BaseActivity(), LoginPageView{
                         gender = "male"
                         token = intent.getStringExtra("fmc_token")!!
                         val data = Verification(kakaoAccount.email, token)
-
                         mLoginPageService.validate(data)
 
                     }

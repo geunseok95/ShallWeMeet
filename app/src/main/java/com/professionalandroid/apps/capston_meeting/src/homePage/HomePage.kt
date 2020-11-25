@@ -11,13 +11,14 @@ import com.professionalandroid.apps.capston_meeting.*
 import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.src.applyPage.ApplyPage
+import com.professionalandroid.apps.capston_meeting.src.detailPage.DetailPage
 import com.professionalandroid.apps.capston_meeting.src.homePage.interfaces.HomepageView
 import com.professionalandroid.apps.capston_meeting.src.homePage.models.RecommendationResponse
 import com.professionalandroid.apps.capston_meeting.src.requestPage.RequestPage
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
 
 
-class HomePage : Fragment(),HomepageView {
+class HomePage : Fragment(), HomepageView, SlideViewPagerAdapter.ViewpagerItemSelected{
 
     lateinit var mHomepageService: HomepageService
 
@@ -44,8 +45,8 @@ class HomePage : Fragment(),HomepageView {
         hotTimeList.clear()
         hotNearList.clear()
 
-        mslideviewpager1 = SlideViewPager(hotTimeList)
-        mslideviewpager2= SlideViewPager(hotNearList)
+        mslideviewpager1 = SlideViewPager(hotTimeList, this)
+        mslideviewpager2= SlideViewPager(hotNearList, this)
 
         val view = inflater.inflate(R.layout.fragment_home_page, container, false)
         val meet = view.meet
@@ -77,6 +78,15 @@ class HomePage : Fragment(),HomepageView {
     override fun hotNear(hotNearList: List<RecommendationResponse>) {
         this.hotNearList.addAll(hotNearList)
         mslideviewpager2.adapter.notifyDataSetChanged()
+    }
+
+    override fun ItemClicked(idx: Long) {
+        val detailPage = DetailPage().apply{
+            arguments = Bundle().apply {
+                putLong("href", idx)
+            }
+        }
+        (activity as MainActivity).move_next_fragment(detailPage)
     }
 
 

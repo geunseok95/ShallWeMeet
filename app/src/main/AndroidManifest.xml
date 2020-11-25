@@ -46,6 +46,7 @@
         <activity
             android:name="com.professionalandroid.apps.capston_meeting.src.loginPage.LoginPage"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".src.splash.SplashScreenActivity"
             android:theme="@style/SplashTheme">

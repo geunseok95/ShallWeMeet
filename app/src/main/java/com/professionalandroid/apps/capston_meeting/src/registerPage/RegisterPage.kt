@@ -146,6 +146,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
         val intent = Intent(this@RegisterPage, MainActivity::class.java)
         intent.putExtra("user", idx)
         startActivity(intent)
+        finish()
     }
 }
 
