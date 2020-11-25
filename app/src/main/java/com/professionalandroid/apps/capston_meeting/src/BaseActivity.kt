@@ -46,6 +46,7 @@ open class BaseActivity: AppCompatActivity() {
             .load(imgURL)
             .centerCrop()
             .into(view)
+        view.contentDescription = imgURL
     }
 
     fun makeToast(toast: String){

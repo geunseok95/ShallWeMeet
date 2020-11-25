@@ -6,12 +6,11 @@
     <!-- Ted Permission -->
     <string name="permission_1">[설정] > [권한] 에서 권한을 허용할 수 있습니다.</string>
     <string name="permission_2">사진 및 파일을 저장하기 위하여 접근 권한이 필요합니다.</string>
-
     <string name="kakao_app_key">b7461141098ffb733be004789035edb8</string>
-
     <string name="msg_token_fmt">%s</string>
-
-    <string name="Logout"><u>로그아웃</u>.</string>
+    <string name="Logout"><u>로그아웃</u></string>
+    <string name="modify"><u>수정</u></string>
+    <string name="confirm"><u>완료</u></string>
 
     <!-- board element -->
     <string name="title">title</string>

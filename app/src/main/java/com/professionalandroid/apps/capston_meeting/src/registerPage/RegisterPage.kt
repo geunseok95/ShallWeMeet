@@ -122,7 +122,6 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
                 MediaType.parse("text/plain"),
                 register_location1.selectedItem.toString()
             )
-
             data["location2"] = RequestBody.create(
                 MediaType.parse("text/plain"),
                 register_location2.selectedItem.toString()
