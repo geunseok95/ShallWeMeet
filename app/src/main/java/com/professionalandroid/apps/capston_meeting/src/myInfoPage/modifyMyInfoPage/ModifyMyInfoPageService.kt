@@ -16,7 +16,7 @@ class ModifyMyInfoPageService(val mModifyMyInfoPageView: ModifyMyInfoPageView, v
     val mModifyMyInfoPageRetrofitInterface: ModifyMyInfoPageRetrofitInterface =
         GlobalApplication.retrofitService(context)!!.create(ModifyMyInfoPageRetrofitInterface::class.java)
 
-    fun modifyMyInfo(idx: Long, img: MultipartBody.Part, data: HashMap<String, RequestBody>){
+    fun modifyMyInfo(idx: Long, img: MultipartBody.Part?, data: HashMap<String, RequestBody>){
         mModifyMyInfoPageRetrofitInterface.modifyMyInfo(idx, img, data).enqueue(object : Callback<ModifyMyInfoResponse>{
             override fun onFailure(call: Call<ModifyMyInfoResponse>, t: Throwable) {
                 Log.d("test", "내 정보 수정 실패")

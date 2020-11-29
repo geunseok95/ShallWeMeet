@@ -136,16 +136,16 @@ class ModifyMyInfoPage : Fragment(), ModifyMyInfoPageView, BottomSheetDialog.Bot
                 MediaType.parse("text/plain"),
                 modify_my_info_location2.selectedItem.toString()
             )
+            var file1: MultipartBody.Part? = null
 
-            val originalFile1 = File(request_Image_File_list[0].path!!)
-
-            val filePart1: RequestBody = RequestBody.create(
-                MediaType.parse("image/*"),
-                originalFile1
-            )
-            val file1: MultipartBody.Part =
-                MultipartBody.Part.createFormData("img", originalFile1.name, filePart1)
-
+            if(request_Image_File_list[0] != uri) {
+                val originalFile1 = File(request_Image_File_list[0].path!!)
+                val filePart1: RequestBody = RequestBody.create(
+                    MediaType.parse("image/*"),
+                    originalFile1
+                )
+                file1 = MultipartBody.Part.createFormData("img", originalFile1.name, filePart1)
+            }
             mModifyMyInfoPageService.modifyMyInfo(user, file1, data)
         }
 

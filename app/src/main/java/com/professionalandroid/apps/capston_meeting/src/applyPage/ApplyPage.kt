@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.professionalandroid.apps.capston_meeting.*
 import com.professionalandroid.apps.capston_meeting.src.MainActivity
+import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.gender
 import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.src.applyPage.interfaces.ApplyPageView
 import com.professionalandroid.apps.capston_meeting.src.applyPage.models.ApplyResponse
@@ -89,7 +90,7 @@ class ApplyPage : Fragment(),
 
     // 최초로 넣어줄 데이터를 load 한다
     private fun loadPosts(){
-        mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, "female")
+        mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, gender)
     }
 
 

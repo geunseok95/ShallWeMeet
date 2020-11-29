@@ -8,10 +8,10 @@ import retrofit2.http.*
 
 interface ModifyMyInfoPageRetrofitInterface {
     @Multipart
-    @PATCH("api/users/{idx}")
+    @PATCH("api/users/{idx}/")
     fun modifyMyInfo(
         @Path("idx") idx: Long,
-        @Part img: MultipartBody.Part,
+        @Part img: MultipartBody.Part?,
         @PartMap data: HashMap<String, RequestBody>
     ):Call<ModifyMyInfoResponse>
 }

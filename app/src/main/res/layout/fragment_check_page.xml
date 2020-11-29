@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:tabIndicatorHeight="6dp"
-        app:tabIndicatorColor="#2AC1BC"
-        app:tabTextColor="#000000"
-        app:tabSelectedTextColor="#2AC1BC"
+        app:tabIndicatorColor="#FFF6AC"
+        app:tabTextColor="#ffffff"
+        app:tabSelectedTextColor="#FFF6AC"
         app:tabRippleColor="@null">
 
         <com.google.android.material.tabs.TabItem
