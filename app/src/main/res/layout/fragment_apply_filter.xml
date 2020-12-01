@@ -5,10 +5,19 @@
     android:layout_height="400dp"
     android:orientation="vertical"
     tools:context=".src.applyPage.ApplyFilter"
-    android:background="@drawable/background_color">
+    android:background="@drawable/round_button">
 
     <Spinner
-        android:id="@+id/spinner_location"
+        android:id="@+id/spinner_location1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/spinner_background"
+        android:theme="@style/SpinnerTheme"
+        android:spinnerMode="dialog"
+        android:layout_margin="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_location2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/spinner_background"
@@ -37,27 +46,39 @@
                 android:id="@+id/radioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2명"/>
+                android:textSize="13sp"
+                android:text="2 대 2"/>
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3명"/>
+                android:textSize="13sp"
+                android:text="3 대 3"/>
 
             <RadioButton
                 android:id="@+id/radioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4명"/>
+                android:textSize="13sp"
+                android:text="4 대 4"/>
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/radioButton4"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="13sp"-->
+<!--                android:text="5 대 5"/>-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/radioButton5"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="13sp"-->
+<!--                android:text="6 대 6"/>-->
 
             <RadioButton
-                android:id="@+id/radioButton4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5명 이상"/>
-            <RadioButton
-                android:id="@+id/radioButton5"
+                android:id="@+id/radioButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="상관없음"/>

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.MainActivity
@@ -16,10 +17,11 @@ import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.mo
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.ReceiveResponse
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.myDetailPage.MyDetailPage
 import kotlinx.android.synthetic.main.fragment_receive.view.*
+import kotlin.math.abs
 
 class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.OnReceiveClicked, ReceivePopUpWindow.MyDialogOKClickedListener,  ReceivePageSubRecyclerViewAdapter.OnReceiverClicked  {
 
-    lateinit var mReceivePageRecyclerView: RecyclerView
+    lateinit var mReceivePageRecyclerView: ViewPager2
     lateinit var mReceivePageRecyclerViewAdapter: ReceivePageRecyclerViewAdapter
     lateinit var mReceivePageService: ReceivePageService
     val receiveList = mutableListOf<ReceiveResponse>()
@@ -41,9 +43,29 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_receive, container, false)
+
+
+
         mReceivePageRecyclerView = view.receive_recyclerview
-        mReceivePageRecyclerView.layoutManager = LinearLayoutManager(context)
         mReceivePageRecyclerView.adapter = mReceivePageRecyclerViewAdapter
+
+
+        val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin).toFloat()
+        val pageOffset = resources.getDimensionPixelOffset(R.dimen.offset).toFloat()
+        view.receive_recyclerview.setPageTransformer { page, position -> val myOffset = position * -(2 * pageOffset + pageMargin)
+            if (position < -1) {
+                page.translationX = -myOffset
+            } else if (position <= 1) { val scaleFactor =
+                0.7f.coerceAtLeast(1 - abs(position - 0.14285715f))
+                page.translationX = myOffset
+                page.scaleY = scaleFactor
+                page.alpha = scaleFactor
+            }
+            else {
+                page.alpha = 0f
+                page.translationX = myOffset
+            } }
+
 
         mReceivePageService.getReceive(user)
 
@@ -52,7 +74,7 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
 
 
     override fun myPageClicked(view:View, position: Int) {
-        val viewHolder = mReceivePageRecyclerView.findViewHolderForAdapterPosition(position) as ReceivePageRecyclerViewAdapter.ViewHolder
+        val viewHolder = (mReceivePageRecyclerView.getChildAt(0) as RecyclerView).findViewHolderForAdapterPosition(position) as ReceivePageRecyclerViewAdapter.ViewHolder
         val boardId = viewHolder.boardId
         val myDetailPage = MyDetailPage().apply {
             arguments = Bundle().apply {

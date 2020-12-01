@@ -59,7 +59,7 @@ class RecyclerAdapter():
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title?.text = boards[position]?.title
-        GlideApp.with(mContext!!)
+        GlideApp.with(mContext)
             .load(boards[position]?.img1)
             .centerCrop()
             .into(holder.img1!!)
@@ -94,9 +94,6 @@ class RecyclerAdapter():
             location = view.imageview_location
             age = view.imageview_age
             num_type = view.imageview_num_type
-            tag1 = view.imageview_tag1
-            tag2 = view.imageview_tag2
-            tag3 = view.imageview_tag3
             index = 0
             parentview.item2_card_view.setOnClickListener {
                 mListener?.onItemSelected(view, adapterPosition)
@@ -129,7 +126,7 @@ class RecyclerAdapter():
         view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                visibleItemCount = recyclerView.getChildCount();
+                visibleItemCount = recyclerView.childCount;
                 totalItemCount = gridLayoutManager.itemCount
                 firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition()
                 lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition()
@@ -139,7 +136,7 @@ class RecyclerAdapter():
                 Log.d("first", firstVisibleItem.toString());
                 Log.d("last", lastVisibleItem.toString());
 
-                if (!isMoreLoading && (totalItemCount - visibleItemCount)<= (firstVisibleItem + visibleThreshold)) {
+                if (!isMoreLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                     if (mListener != null) {
                         mListener?.onLoadMore();
                     }

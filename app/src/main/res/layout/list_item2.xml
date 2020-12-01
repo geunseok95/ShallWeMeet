@@ -9,7 +9,8 @@
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="#00000000">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/item2_card_view"
@@ -17,12 +18,14 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="#ffffff">
+            android:background="#00000000"
+            app:cardBackgroundColor="#00000000">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#00000000">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageview_img1"
@@ -31,7 +34,6 @@
                     android:scaleType="centerCrop"
                     app:riv_corner_radius_top_right="10dp"
                     android:src="@drawable/watermelon"
-                    app:riv_border_color="#333333"
                     app:riv_mutate_background="true"
                     app:riv_oval="false" />
 
@@ -43,55 +45,35 @@
                     android:ems="13"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:textColor="#ffffff"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"/>
                 <TextView
                     android:id="@+id/imageview_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
                     android:text="@string/age"
-                    android:textColor="#000000"
+                    android:textSize="12sp"
                     android:layout_marginStart="10dp"/>
                 <TextView
                     android:id="@+id/imageview_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/location"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
                     android:layout_marginStart="10dp"/>
                 <TextView
                     android:id="@+id/imageview_num_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/num_type"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
                     android:layout_marginStart="10dp"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp">
-                    <TextView
-                        android:id="@+id/imageview_tag1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tag1"
-                        android:textSize="8sp"/>
-                    <TextView
-                        android:id="@+id/imageview_tag2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tag2"
-                        android:textSize="8sp"/>
-                    <TextView
-                        android:id="@+id/imageview_tag3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tag3"
-                        android:textSize="8sp"/>
-                </LinearLayout>
+
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

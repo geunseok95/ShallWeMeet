@@ -67,6 +67,8 @@ class ApplyPage : Fragment(),
         mRecyclerView.adapter = mRecyclerAdapter
         page = 0
 
+        Log.d("test", "$location1, $location2, $num_type, $age")
+
         loadPosts()
 
         view.apply_filter.apply {
@@ -153,12 +155,18 @@ class ApplyPage : Fragment(),
 
     override fun applyfilter_listener(v: View) {
         v.filter_btn.setOnClickListener {
-            val spinner_location1 = v.spinner_location.selectedItem.toString()
-            val radiobutton_num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()[0].toString()
+            val spinner_location1 = v.spinner_location1.selectedItem.toString()
+            val spinner_location2 = v.spinner_location2.selectedItem.toString()
+            val radiobutton_num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()
             val seekbar_age = v.filter_age.text.toString()
 
             // retrofit 서버연결
             page = 0
+            location1 = spinner_location1
+            location2 = spinner_location2
+            num_type = radiobutton_num_type
+            age = seekbar_age
+
             loadPosts()
         }
     }

@@ -49,9 +49,6 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
             location = view.imageview_location
             age = view.imageview_age
             num_type = view.imageview_num_type
-            tag1 = view.imageview_tag1
-            tag2 = view.imageview_tag2
-            tag3 = view.imageview_tag3
             index = 0
             parentview.item2_card_view.setOnClickListener {
                 mListener?.onItemSelected(view, adapterPosition)

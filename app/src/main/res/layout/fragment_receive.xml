@@ -5,9 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".src.checkPage.receivePage.ReceivePage">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/receive_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:clipChildren="false"/>
 
 </FrameLayout>

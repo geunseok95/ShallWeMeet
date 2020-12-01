@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".src.myInfoPage.MyInfoPage"
     android:orientation="vertical"
     android:background="@drawable/background_color">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/apply_filter"
@@ -15,12 +21,7 @@
         android:layout_marginBottom="30dp"
         android:layout_marginEnd="20dp"
         android:layout_gravity="end"
-        android:background="@drawable/round_button2"
+        android:background="@drawable/round_button"
         android:text="filter"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
+</FrameLayout>
