@@ -9,7 +9,7 @@
     tools:context=".src.checkPage.CheckPage">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/home_toolbar"
+        android:id="@+id/check_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:theme="@style/ToolbarTheme"
@@ -21,7 +21,7 @@
         android:layout_marginBottom="1dp">
 
         <TextView
-            android:id="@+id/home_address"
+            android:id="@+id/check_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="미팅을 관리하는 곳이에요"

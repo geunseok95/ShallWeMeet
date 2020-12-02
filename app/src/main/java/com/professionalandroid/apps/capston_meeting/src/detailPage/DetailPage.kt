@@ -50,6 +50,7 @@ class DetailPage : Fragment(), DetailPageView, DetailPopUpWindow.MyDialogOKClick
     }
 
     override fun getDetail(body: DetailResponse) {
+        detail_toolbar_title.text = body.title
         detail_title.text = body.title
         detail_tag1.text = body.tag1
         detail_tag2.text = body.tag2

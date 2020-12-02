@@ -10,6 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:theme="@style/ToolbarTheme"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            android:background="#20294b"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:layout_marginBottom="1dp">
+
+            <TextView
+                android:id="@+id/detail_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="방 제목"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+        </androidx.appcompat.widget.Toolbar>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
