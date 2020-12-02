@@ -9,7 +9,7 @@
     <string name="kakao_app_key">b7461141098ffb733be004789035edb8</string>
     <string name="msg_token_fmt">%s</string>
     <string name="Logout"><u>로그아웃</u></string>
-    <string name="modify"><u>수정</u></string>
+    <string name="modify"><u>프로필 수정하기</u></string>
     <string name="confirm"><u>완료</u></string>
 
     <!-- board element -->

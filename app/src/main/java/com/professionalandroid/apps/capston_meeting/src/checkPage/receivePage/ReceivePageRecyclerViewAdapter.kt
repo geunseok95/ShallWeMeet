@@ -27,6 +27,7 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
         var parentView: ConstraintLayout? = null
         var receive_image:RoundedImageView? = null
         var receiver_recyclerview: RecyclerView? = null
+        var receiver_zzani: ConstraintLayout? = null
         var receive_title: TextView? = null
         var receive_locatoin1: TextView? = null
         var receive_location2: TextView? = null
@@ -35,6 +36,7 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
         var index = 0
         init {
             receiver_recyclerview = view.receiver_recyclerview
+            receiver_zzani = view.receive_empty_status
             receive_title = view.receive_title
             receive_locatoin1 = view.receive_location1
             receive_location2 = view.receive_location2
@@ -64,6 +66,15 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
         holder.receive_num_type?.text = receiveList[position].num_type
         holder.boardId = receiveList[position].idx
         holder.index = position
+
+        if (receiveList[position].senders.isEmpty()){
+            holder.receiver_recyclerview?.visibility = View.GONE
+            holder.receiver_zzani?.visibility = View.VISIBLE
+        }
+        else{
+            holder.receiver_recyclerview?.visibility = View.VISIBLE
+            holder.receiver_zzani?.visibility = View.GONE
+        }
 
         val madapter = ReceivePageSubRecyclerViewAdapter(receiveList[position].senders.toMutableList(), context, mlistener, holder.boardId)
         holder.receiver_recyclerview?.layoutManager = LinearLayoutManager(context)

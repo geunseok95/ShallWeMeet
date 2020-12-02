@@ -59,5 +59,8 @@ class MyInfoPage : Fragment(), MyInfoPageView {
         (activity as MainActivity).displayImg(context!!, body.img, my_info_image)
         my_info_location1.text = body.location1
         my_info_location2.text = body.location2
+        my_info_age.text = body.age
+        my_info_phone.text = body.phone
+        my_info_point.text = body.point.toString()
     }
 }

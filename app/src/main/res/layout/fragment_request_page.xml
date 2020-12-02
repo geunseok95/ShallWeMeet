@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:hint="키워드"
                     android:textSize="10sp"
-                    android:maxLength="3"
+                    android:maxLength="5"
                     android:inputType="textPersonName" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:hint="키워드"
-                    android:maxLength="3"
+                    android:maxLength="5"
                     android:inputType="textPersonName" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="키워드"
-                    android:maxLength="3"
+                    android:maxLength="5"
                     android:textSize="10sp"
 
                     android:inputType="textPersonName" />
@@ -195,6 +195,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="10dp"
+                android:textColor="#ffffff"
                 android:text="등록하기"/>
 
         </LinearLayout>

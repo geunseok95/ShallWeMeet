@@ -9,7 +9,7 @@ data class MyInfoResponse (
     val age: String,
     val location1: String,
     val location2: String,
-    val kakao_id: String,
-    val point: Long,
+    val phone: String,
+    val point: Int,
     val token: String
 )
