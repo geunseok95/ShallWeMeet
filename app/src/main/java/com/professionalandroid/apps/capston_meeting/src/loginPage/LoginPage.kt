@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.kakao.auth.ApiErrorCode
@@ -16,20 +17,24 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.OptionalBoolean
 import com.kakao.util.exception.KakaoException
-import com.professionalandroid.apps.capston_meeting.*
+import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity
+import com.professionalandroid.apps.capston_meeting.src.GlobalApplication.Companion.FMC_TOKEN
+import com.professionalandroid.apps.capston_meeting.src.GlobalApplication.Companion.fmc_token
+import com.professionalandroid.apps.capston_meeting.src.GlobalApplication.Companion.sSharedPreferences
 import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.src.loginPage.interfaces.LoginPageView
 import com.professionalandroid.apps.capston_meeting.src.loginPage.models.LoginResponse
 import com.professionalandroid.apps.capston_meeting.src.loginPage.models.Verification
+import com.professionalandroid.apps.capston_meeting.src.loginPage.recognizePage.RecognizePage
 import com.professionalandroid.apps.capston_meeting.src.registerPage.RegisterPage
-import java.util.ArrayList
+import java.util.*
+
 
 class LoginPage: BaseActivity(), LoginPageView{
 
     lateinit var email: String
     lateinit var gender: String
-    lateinit var token: String
     private var sessionCallback: SessionCallback? = null
 
     lateinit var mLoginPageService : LoginPageService
@@ -51,7 +56,6 @@ class LoginPage: BaseActivity(), LoginPageView{
 
         val permission = object : PermissionListener {
             override fun onPermissionGranted() {//설정해 놓은 위험권한(카메라 접근 등)이 허용된 경우 이곳을 실행
-                Toast.makeText(this@LoginPage,"요청하신 권한이 허용되었습니다.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
@@ -164,8 +168,7 @@ class LoginPage: BaseActivity(), LoginPageView{
 
                         email = kakaoAccount.email
                         gender = "male"
-                        token = intent.getStringExtra("fmc_token")!!
-                        val data = Verification(kakaoAccount.email, token)
+                        val data = Verification(kakaoAccount.email, fmc_token)
                         mLoginPageService.validate(data)
 
                     }
@@ -184,9 +187,9 @@ class LoginPage: BaseActivity(), LoginPageView{
     }
 
     override fun failValidation() {
-        val intent = Intent(this@LoginPage, RegisterPage::class.java).apply {
+        val intent = Intent(this, RecognizePage::class.java).apply {
             putExtra("email", email)
-            putExtra("gender", gender) // 임시 성별 카카오 검수 후 추가
+            putExtra("gender", gender)
         }
         startActivity(intent)
     }

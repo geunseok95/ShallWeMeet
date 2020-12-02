@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color">
-
-    <com.kakao.usermgmt.LoginButton
-        android:id="@+id/kakao_login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="100dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
-</LinearLayout>
+    android:background="@drawable/splash">
+        <LinearLayout
+            android:id="@+id/login_main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        <com.kakao.usermgmt.LoginButton
+            android:id="@+id/kakao_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+    </LinearLayout>
+</FrameLayout>

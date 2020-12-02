@@ -78,11 +78,7 @@
                     android:hint="나이을 입력하세요"
                     android:inputType="number"/>
 
-                <EditText
-                    android:id="@+id/register_kakao_id_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="카카오 아이디를 입력해주세요" />
+
 
                 <Spinner
                     android:id="@+id/register_location1"
@@ -102,6 +98,10 @@
 
                 <Button
                     android:id="@+id/register_btn"
+                    android:background="@drawable/round_button"
+                    android:textColor="#ffffff"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="회원 가입하기"

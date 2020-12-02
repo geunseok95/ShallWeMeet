@@ -94,7 +94,9 @@ class GlobalApplication : Application() {
         var TAG = "TEMPLATE_APP"
 
         // JWT Token 값
-        var X_ACCESS_TOKEN = "X-ACCESS-TOKEN"
+        var FMC_TOKEN = "FMC-TOKEN"
+
+        var fmc_token = ""
 
         //날짜 형식
         var DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)

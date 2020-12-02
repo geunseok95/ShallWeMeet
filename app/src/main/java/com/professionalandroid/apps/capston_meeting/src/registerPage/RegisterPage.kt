@@ -1,21 +1,28 @@
 package com.professionalandroid.apps.capston_meeting.src.registerPage
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.R
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.requestPage.BottomSheetDialog
 import com.professionalandroid.apps.capston_meeting.src.requestPage.RequestPopUpWindow
-import com.professionalandroid.apps.capston_meeting.src.BaseActivity
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.img_num
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_File_list
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_list
+import com.professionalandroid.apps.capston_meeting.src.loginPage.LoginPage
 import com.professionalandroid.apps.capston_meeting.src.registerPage.interfaces.RegisterPageView
 import kotlinx.android.synthetic.main.activity_register_page.*
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
-import kotlinx.android.synthetic.main.fragment_request_page.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -24,20 +31,27 @@ import kotlin.collections.HashMap
 
 class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.BottomsheetbuttonItemSelectedInterface,  RequestPopUpWindow.MyDialogOKClickedListener {
 
-    lateinit var email: String
-    lateinit var gender: String
+    var email: String? = null
+    var gender: String? = null
+    var phone: String? = null
 
     lateinit var mbottomsheetdialog: BottomSheetDialog
     lateinit var mRegisterPageService: RegisterPageService
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
 
-        mRegisterPageService =  RegisterPageService(this, applicationContext)
+        mRegisterPageService = RegisterPageService(this, this)
+        val ft = supportFragmentManager
 
-        email = intent.getStringExtra("email")!!
-        gender = intent.getStringExtra("gender")!!
+        email = intent.getStringExtra("email")
+        gender = intent.getStringExtra("gender")
+        phone = intent.getStringExtra("phone")
+
+        Log.d("test2", "$email $gender $phone")
+
         request_Image_File_list.clear()
         val uri = Uri.parse("android.resource://com.professionalandroid.apps.capston_meeting/drawable/happy.jpg")
         request_Image_File_list.add(uri)
@@ -52,7 +66,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
                     BottomSheetDialog(
                         this@RegisterPage
                     )
-                mbottomsheetdialog.show(supportFragmentManager, "bottom_sheet_dialog")
+                mbottomsheetdialog.show(ft, "bottom_sheet_dialog")
             }
         }
 
@@ -104,7 +118,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
 
         register_btn.apply {
             setOnClickListener {
-                if (register_nickname_input.text.isNotEmpty() && register_age_input.text.isNotEmpty() && register_kakao_id_input.text.isNotEmpty()) {
+                if (register_nickname_input.text.isNotEmpty() && register_age_input.text.isNotEmpty()) {
                     val popup =
                         RequestPopUpWindow(
                             context,
@@ -123,6 +137,8 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
             }
         }
     }
+
+
 
     override fun bottombutton_listener(v: View) {
         val bottom_sheet_dialog_camera = v.bottom_sheet_dialog_camera
@@ -151,15 +167,15 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
             )
             data["email"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                email
+                email!!
             )
-            data["kakao_id"] = RequestBody.create(
+            data["phone"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                register_kakao_id_input.text.toString()
+                phone
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                gender
+                gender!!
             )
             data["location1"] = RequestBody.create(
                 MediaType.parse("text/plain"),
@@ -186,7 +202,11 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
     }
 
     override fun register(idx: Long) {
-        val intent = Intent(this@RegisterPage, MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("user", idx)
+            putExtra("gender", gender)
+            putExtra("phone", phone)
+        }
         intent.putExtra("user", idx)
         startActivity(intent)
         finish()

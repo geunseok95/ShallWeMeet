@@ -8,10 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.professionalandroid.apps.capston_meeting.R
+import com.professionalandroid.apps.capston_meeting.src.BaseActivity
+import com.professionalandroid.apps.capston_meeting.src.GlobalApplication.Companion.FMC_TOKEN
+import com.professionalandroid.apps.capston_meeting.src.GlobalApplication.Companion.fmc_token
+import com.professionalandroid.apps.capston_meeting.src.GlobalApplication.Companion.sSharedPreferences
 import com.professionalandroid.apps.capston_meeting.src.loginPage.LoginPage
 
 
-class SplashScreenActivity:AppCompatActivity() {
+class SplashScreenActivity:BaseActivity() {
     private val TAG = "test"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +38,9 @@ class SplashScreenActivity:AppCompatActivity() {
             // Log and toast
             val msg = getString(R.string.msg_token_fmt, token)
             Log.d(TAG, msg)
-            val intent = Intent(this, LoginPage::class.java).apply {
-                putExtra("fmc_token", token)
-            }
+            fmc_token = token!!
+
+            val intent = Intent(this, LoginPage::class.java)
             startActivity(intent)
             finish()
         })

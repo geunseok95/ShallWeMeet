@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.professionalandroid.apps.capston_meeting.R
-import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.img_num
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_File_list
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity.Companion.request_Image_list
@@ -19,11 +18,9 @@ import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.src.myInfoPage.modifyMyInfoPage.interfaces.ModifyMyInfoPageView
 import com.professionalandroid.apps.capston_meeting.src.requestPage.BottomSheetDialog
-import kotlinx.android.synthetic.main.activity_register_page.*
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_modify_my_info_page.*
 import kotlinx.android.synthetic.main.fragment_modify_my_info_page.view.*
-import kotlinx.android.synthetic.main.fragment_request_page.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
