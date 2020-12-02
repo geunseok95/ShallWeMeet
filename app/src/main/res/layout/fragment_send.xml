@@ -7,6 +7,7 @@
     tools:context=".src.checkPage.sendPage.SendPage">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@drawable/edge"
         android:id="@+id/send_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

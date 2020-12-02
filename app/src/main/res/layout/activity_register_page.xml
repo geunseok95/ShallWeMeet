@@ -1,76 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".src.registerPage.RegisterPage"
-    android:background="@drawable/background_color">
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/register_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/ic_baseline_add_24"
-        android:scaleType="centerCrop"
-        app:riv_corner_radius="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="90dp"
-        app:layout_constraintBottom_toTopOf="@id/register_input"
-        android:padding="20dp"/>
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/register_input"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/register_image"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/register_nickname_input"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".src.registerPage.RegisterPage"
+        android:background="@drawable/background_color">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/register_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/ic_baseline_add_24"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="90dp"
+            app:layout_constraintBottom_toTopOf="@id/register_input"
+            android:padding="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/register_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="닉네임을 입력하세요" />
+            app:layout_constraintTop_toBottomOf="@id/register_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/register_age_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="나이을 입력하세요"
-            android:inputType="number"/>
+            <EditText
+                android:id="@+id/register_nickname_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="닉네임을 입력하세요" />
 
-        <EditText
-            android:id="@+id/register_kakao_id_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="카카오 아이디를 입력해주세요" />
+            <EditText
+                android:id="@+id/register_age_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="나이을 입력하세요"
+                android:inputType="number"/>
 
-        <Spinner
-            android:id="@+id/register_location1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/spinner_background"
-            android:theme="@style/SpinnerTheme"
-            android:spinnerMode="dialog"/>
+            <EditText
+                android:id="@+id/register_kakao_id_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="카카오 아이디를 입력해주세요" />
 
-        <Spinner
-            android:id="@+id/register_location2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/spinner_background"
-            android:theme="@style/SpinnerTheme"
-            android:spinnerMode="dialog"/>
+            <Spinner
+                android:id="@+id/register_location1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/spinner_background"
+                android:theme="@style/SpinnerTheme"
+                android:spinnerMode="dialog"/>
 
-        <Button
-            android:id="@+id/register_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="회원 가입하기"
-            android:layout_gravity="center"/>
+            <Spinner
+                android:id="@+id/register_location2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/spinner_background"
+                android:theme="@style/SpinnerTheme"
+                android:spinnerMode="dialog"/>
 
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원 가입하기"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

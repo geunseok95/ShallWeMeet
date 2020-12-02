@@ -1,6 +1,7 @@
 package com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,10 @@ import com.professionalandroid.apps.capston_meeting.src.GlideApp
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.Sender
 import kotlinx.android.synthetic.main.layout_receiver_item.view.*
 
-class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, val context: Context, val listener: OnReceiverClicked, val parent_index: Int):RecyclerView.Adapter<ReceivePageSubRecyclerViewAdapter.SubViewHolder>() {
+class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, val context: Context, val listener: OnReceiverClicked, val boardId: Long):RecyclerView.Adapter<ReceivePageSubRecyclerViewAdapter.SubViewHolder>() {
 
     interface OnReceiverClicked{
-        fun success(view: View, position: Int, index: Int)
+        fun successMatch(senderId: Long, sender_status: Boolean, boardId: Long)
     }
 
     inner class SubViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -33,11 +34,7 @@ class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, v
             receiver_nickName = view.receiver_nickNave
             receiver_age = view.receiver_age
             receiver_status = view.receiver_status
-            receiver_btn = view.receiver_btn.apply {
-                setOnClickListener {
-                    listener.success(view, parent_index, adapterPosition)
-                }
-            }
+            receiver_btn = view.receiver_btn
         }
     }
 
@@ -59,6 +56,9 @@ class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, v
         holder.receiver_age?.text = receiverList[position].age
         holder.sender_id = receiverList[position].idx
         holder.sender_status = receiverList[position].status
+        holder.receiver_btn?.setOnClickListener {
+            listener.successMatch(holder.sender_id, holder.sender_status, boardId)
+        }
         if(receiverList[position].status){
             holder.receiver_status?.text = "결제가 완료되었어요"
         }

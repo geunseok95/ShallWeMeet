@@ -13,6 +13,7 @@ data class ApplyResponse (
     val location2: String,
     val num_type: String,
     val age: Long,
+    val date: String,
     val gender: String,
     val createdDate: String,
     val updatedDate: String,

@@ -189,6 +189,5 @@ class LoginPage: BaseActivity(), LoginPageView{
             putExtra("gender", gender) // 임시 성별 카카오 검수 후 추가
         }
         startActivity(intent)
-        finish()
     }
 }

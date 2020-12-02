@@ -1,12 +1,17 @@
 package com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage.models
 
 data class SendResponse (
+    val date: String,
+    val matched: List<Matched>
+)
+
+data class Matched (
     val idx: Long,
     val sender: Sender,
     val board: Board,
     val status: Boolean,
     val createdTime: String,
-    val _matched: Boolean
+    val matched: Boolean
 )
 
 data class Board (
@@ -23,10 +28,12 @@ data class Board (
     val num_type: String,
     val age: Long,
     val gender: String,
+    val date: String,
     val createdDate: String,
     val updatedDate: String,
     val user: Sender
 )
+
 
 data class Sender (
     val idx: Long,
@@ -37,6 +44,6 @@ data class Sender (
     val age: String,
     val location1: String,
     val location2: String,
-    val kakao_id: String,
-    val point: Long
+    val point: Long,
+    val token: String
 )

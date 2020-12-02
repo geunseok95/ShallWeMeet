@@ -8,14 +8,39 @@
     android:background="@drawable/background_color"
     tools:context=".src.checkPage.CheckPage">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:theme="@style/ToolbarTheme"
+        android:contentInsetLeft="0dp"
+        android:contentInsetStart="0dp"
+        android:background="#20294b"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:layout_marginBottom="1dp">
+
+        <TextView
+            android:id="@+id/home_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="미팅을 관리하는 곳이에요"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/check_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#20294b"
         app:tabIndicatorHeight="6dp"
-        app:tabIndicatorColor="#FFF6AC"
+        app:tabIndicatorColor="#FFA896"
         app:tabTextColor="#ffffff"
-        app:tabSelectedTextColor="#FFF6AC"
+        app:tabSelectedTextColor="#FFA896"
         app:tabRippleColor="@null">
 
         <com.google.android.material.tabs.TabItem

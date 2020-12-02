@@ -22,7 +22,6 @@
         app:dotsSize="6dp"
         app:dotsSpacing="5dp"
         app:dotsWidthFactor="2.5"
-
         app:layout_constraintTop_toBottomOf="@id/fragment_viewpager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

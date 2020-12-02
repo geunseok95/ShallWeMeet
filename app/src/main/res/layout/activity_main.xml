@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
         android:paddingBottom="50dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,7 +22,6 @@
         android:theme="@style/NavigationTheme"
         app:menu="@menu/bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="#ffffff"
-        android:backgroundTint="#00000000"/>
+        android:background="#20294b"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

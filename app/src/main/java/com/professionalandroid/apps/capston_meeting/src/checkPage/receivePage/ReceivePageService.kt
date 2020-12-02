@@ -38,7 +38,7 @@ class ReceivePageService(val mReceivePageView: ReceivePageView, context: Context
         })
     }
 
-    fun trySuccess(permit: Permit, position: Int){
+    fun trySuccess(permit: Permit){
         mReceivePagePageRetrofitInterface.trySuccess(permit).enqueue(object : Callback<DefaultResponse>{
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                 Log.d("test", "수락하기 실패")
@@ -52,7 +52,7 @@ class ReceivePageService(val mReceivePageView: ReceivePageView, context: Context
                 Log.d("test", body.toString())
                 when (body?.code) {
                     200 -> {
-                        mReceivePageView.success(position)
+                        mReceivePageView.success()
                     }
                     400 -> {
                         Log.d("test", "이미 매칭 됨")
@@ -63,7 +63,7 @@ class ReceivePageService(val mReceivePageView: ReceivePageView, context: Context
         })
     }
 
-    fun tryPaySuccess(permit: Permit, position: Int){
+    fun tryPaySuccess(permit: Permit){
         mReceivePagePageRetrofitInterface.tryPaySuccess(permit).enqueue(object : Callback<DefaultResponse>{
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                 Log.d("test", "결제하고 수락하기 실패")
@@ -77,7 +77,7 @@ class ReceivePageService(val mReceivePageView: ReceivePageView, context: Context
                 Log.d("test", body.toString())
                 when(body?.code){
                     200 -> {
-                        mReceivePageView.success(position)
+                        mReceivePageView.success()
                     }
                     401 -> {
                         Log.d("test", "이미 매칭 됨")

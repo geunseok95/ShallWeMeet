@@ -3,7 +3,9 @@ package com.professionalandroid.apps.capston_meeting.src.registerPage
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.R
@@ -13,6 +15,7 @@ import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.registerPage.interfaces.RegisterPageView
 import kotlinx.android.synthetic.main.activity_register_page.*
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.view.*
+import kotlinx.android.synthetic.main.fragment_request_page.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -54,10 +57,50 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
         }
 
         // location
-        val items = resources.getStringArray(R.array.location)
-        val spinneradapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, items)
-        register_location1.adapter = spinneradapter
-        register_location1.prompt = "선호 지역을 선택하세요"
+        val location1Array = resources.getStringArray(R.array.location)
+        var location2Array = arrayOf("상관없음")
+        var spinneradapter1 = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, location1Array)
+        var spinneradapter2 = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, location2Array)
+
+        register_location1.apply {
+            adapter = spinneradapter1
+            prompt = "지역을 선택하세요"
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    if(spinneradapter1.getItem(p2).equals("상관없음")){
+                        location2Array = arrayOf("상관없음")
+                        spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+                        register_location2.apply {
+                            adapter = spinneradapter2
+                            prompt = "상세주소를 선택하세요"
+                        }
+                    }
+
+                    else if(spinneradapter1.getItem(p2).equals("서울")){
+                        location2Array = resources.getStringArray(R.array.Seoul)
+                        Log.d("test", location2Array.joinToString())
+                        spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+                        register_location2.apply {
+                            adapter = spinneradapter2
+                            prompt = "상세주소를 선택하세요"
+                        }
+                    }
+                    else if(spinneradapter1.getItem(p2).equals("광주")){
+                        location2Array = resources.getStringArray(R.array.Gwangju)
+                        Log.d("test", location2Array.joinToString())
+                        spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
+                        register_location2.apply {
+                            adapter = spinneradapter2
+                            prompt = "상세주소를 선택하세요"
+                        }
+                    }
+                }
+            }
+        }
 
         register_btn.apply {
             setOnClickListener {

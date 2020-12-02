@@ -15,7 +15,7 @@ import com.professionalandroid.apps.capston_meeting.src.GlideApp
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.ReceiveResponse
 import kotlinx.android.synthetic.main.layout_receive_item.view.*
 
-class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveResponse>, val context: Context, val listener: OnReceiveClicked,val mlistener: ReceivePageSubRecyclerViewAdapter.OnReceiverClicked): RecyclerView.Adapter<ReceivePageRecyclerViewAdapter.ViewHolder>(){
+class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveResponse>, val context: Context, val listener: OnReceiveClicked, val mlistener: ReceivePageSubRecyclerViewAdapter.OnReceiverClicked): RecyclerView.Adapter<ReceivePageRecyclerViewAdapter.ViewHolder>(){
 
     lateinit var mReceiverRecyclerView: RecyclerView
 
@@ -62,9 +62,10 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
         holder.receive_locatoin1?.text = receiveList[position].location1
         holder.receive_location2?.text = receiveList[position].location2
         holder.receive_num_type?.text = receiveList[position].num_type
+        holder.boardId = receiveList[position].idx
         holder.index = position
 
-        val madapter = ReceivePageSubRecyclerViewAdapter(receiveList[position].senders.toMutableList(), context, mlistener, holder.index)
+        val madapter = ReceivePageSubRecyclerViewAdapter(receiveList[position].senders.toMutableList(), context, mlistener, holder.boardId)
         holder.receiver_recyclerview?.layoutManager = LinearLayoutManager(context)
         holder.receiver_recyclerview?.adapter = madapter
         holder.receiver_recyclerview?.setHasFixedSize(true)

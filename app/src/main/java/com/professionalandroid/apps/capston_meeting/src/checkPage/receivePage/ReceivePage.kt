@@ -2,6 +2,7 @@ package com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.my
 import kotlinx.android.synthetic.main.fragment_receive.view.*
 import kotlin.math.abs
 
-class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.OnReceiveClicked, ReceivePopUpWindow.MyDialogOKClickedListener,  ReceivePageSubRecyclerViewAdapter.OnReceiverClicked  {
+class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.OnReceiveClicked, ReceivePopUpWindow.MyDialogOKClickedListener, ReceivePageSubRecyclerViewAdapter.OnReceiverClicked  {
 
     lateinit var mReceivePageRecyclerView: ViewPager2
     lateinit var mReceivePageRecyclerViewAdapter: ReceivePageRecyclerViewAdapter
@@ -43,8 +44,6 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_receive, container, false)
-
-
 
         mReceivePageRecyclerView = view.receive_recyclerview
         mReceivePageRecyclerView.adapter = mReceivePageRecyclerViewAdapter
@@ -84,14 +83,15 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         (activity as MainActivity).move_next_fragment(myDetailPage)
     }
 
-    override fun onOKClicked(success: Int, position: Int, senderId: Long, status: Boolean) {
+
+    override fun onOKClicked(success: Int, senderId: Long, status: Boolean,  boardId: Long) {
         if(success == 1){
-            val permit = Permit(receiveList[position].idx, senderId)
-            mReceivePageService.trySuccess(permit, position)
+            val permit = Permit(boardId, senderId)
+            mReceivePageService.trySuccess(permit)
         }
         else{
-            val permit = Permit(receiveList[position].idx, senderId)
-            mReceivePageService.tryPaySuccess(permit, position)
+            val permit = Permit(boardId, senderId)
+            mReceivePageService.tryPaySuccess(permit)
         }
     }
 
@@ -100,21 +100,20 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         mReceivePageRecyclerViewAdapter.notifyDataSetChanged()
     }
 
-    override fun success(positon: Int) {
-        receiveList.removeAt(positon)
+    override fun success() {
+        receiveList.clear()
+        mReceivePageService.getReceive(user)
         mReceivePageRecyclerViewAdapter.notifyDataSetChanged()
     }
 
-    override fun success(view: View, position: Int, index: Int) {
-        val subViewHolder = mReceivePageRecyclerViewAdapter.mReceiverRecyclerView.findViewHolderForAdapterPosition(index) as ReceivePageSubRecyclerViewAdapter.SubViewHolder
-        if(subViewHolder.sender_status){
+    override fun successMatch(senderId: Long, sender_status: Boolean, boardId: Long) {
+        if(sender_status){
             val popUp = ReceivePopUpWindow(context!!, this)
-            popUp.start("신청을 수락할까요?", 1, position, subViewHolder.sender_id, subViewHolder.sender_status)
+            popUp.start("신청을 수락할까요?", 1, senderId, sender_status, boardId)
         }
         else{
             val popUp = ReceivePopUpWindow(context!!, this)
-            popUp.start("결제를 진행할까요?", 0, position, subViewHolder.sender_id, subViewHolder.sender_status)
+            popUp.start("결제를 진행할까요?", 0, senderId, sender_status, boardId)
         }
     }
-
 }

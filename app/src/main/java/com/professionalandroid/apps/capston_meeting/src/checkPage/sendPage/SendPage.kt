@@ -16,7 +16,7 @@ import com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage.model
 import com.professionalandroid.apps.capston_meeting.src.detailPage.DetailPage
 import kotlinx.android.synthetic.main.fragment_send.view.*
 
-class SendPage : Fragment(), SendPageView, SendPageRecyclerViewAdapter.OnSendItemClicked {
+class SendPage : Fragment(), SendPageView, SendPageViewPagerAdapter.SendViewPagerItemSelected{
 
     lateinit var mSendRecyclerView: RecyclerView
     lateinit var mSendRecyclerViewAdapter: SendPageRecyclerViewAdapter
@@ -44,7 +44,6 @@ class SendPage : Fragment(), SendPageView, SendPageRecyclerViewAdapter.OnSendIte
         mSendRecyclerView = view.send_recyclerview
         mSendRecyclerView.layoutManager = LinearLayoutManager(context)
         mSendRecyclerView.adapter = mSendRecyclerViewAdapter
-
         mSendPageService.getSend(user)
 
         return view
@@ -55,11 +54,10 @@ class SendPage : Fragment(), SendPageView, SendPageRecyclerViewAdapter.OnSendIte
         mSendRecyclerViewAdapter.notifyDataSetChanged()
     }
 
-    override fun movetoDetail(view: View, position: Int) {
-        val viewHolder = mSendRecyclerView.findViewHolderForAdapterPosition(position) as SendPageRecyclerViewAdapter.ViewHolder
+    override fun itemClicked(boardId: Long) {
         val detailPage = DetailPage().apply{
             arguments = Bundle().apply {
-                putLong("href", viewHolder.send_boardId)
+                putLong("href", boardId)
             }
         }
         (activity as MainActivity).move_next_fragment(detailPage)

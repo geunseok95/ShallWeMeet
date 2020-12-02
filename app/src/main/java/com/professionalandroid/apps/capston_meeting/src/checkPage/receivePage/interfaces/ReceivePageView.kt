@@ -4,5 +4,5 @@ import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.mo
 
 interface ReceivePageView {
     fun getReceive(body: List<ReceiveResponse>)
-    fun success(positon: Int)
+    fun success()
 }

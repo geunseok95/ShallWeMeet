@@ -1,5 +1,6 @@
 package com.professionalandroid.apps.capston_meeting.src.requestPage
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_request_page.*
 import kotlinx.android.synthetic.main.fragment_request_page.view.*
 import okhttp3.*
 import java.io.File
+import java.util.*
 import kotlin.collections.HashMap
 
 class RequestPage : Fragment(), RequestPageView,
@@ -35,6 +37,10 @@ class RequestPage : Fragment(), RequestPageView,
     var location2Array = arrayOf<String>()
     var location1: String? = null
     var location2: String? = null
+    var year: Int? = 0
+    var month: Int? = 0
+    var date: Int? = 0
+
 
     lateinit var mRequestPageService: RequestPageService
 
@@ -59,6 +65,22 @@ class RequestPage : Fragment(), RequestPageView,
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_request_page, container, false)
+
+        val calendar = Calendar.getInstance()
+        val calendar2 = Calendar.getInstance().apply{   add(Calendar.DATE, 7)   }
+        view.request_calender.setOnClickListener {
+            DatePickerDialog(context!!,
+                DatePickerDialog.OnDateSetListener { p0, p1, p2, p3 ->
+                    year = p1
+                    month = p2 + 1
+                    date = p3
+                    val selectDate = "${month}월 ${date}일"
+                    request_calender.text = selectDate
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) ,calendar.get(Calendar.DAY_OF_MONTH)).apply{
+                datePicker.minDate = calendar.timeInMillis
+                datePicker.maxDate = calendar2.timeInMillis
+            }.show()
+        }
 
         // location
         view.request_location1.apply {
@@ -230,7 +252,10 @@ class RequestPage : Fragment(), RequestPageView,
                 MediaType.parse("text/plain"),
                 average_age.text.toString()
             )
-
+            data["date"] = RequestBody.create(
+                MediaType.parse("text/plain"),
+                "${year}-${month}-${date}"
+            )
             data["user"] = RequestBody.create(
                 MediaType.parse("text/plain"),
                 user.toString()

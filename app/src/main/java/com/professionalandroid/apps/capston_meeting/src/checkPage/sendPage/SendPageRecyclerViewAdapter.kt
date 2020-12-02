@@ -1,44 +1,37 @@
 package com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.BaseActivity
 import com.professionalandroid.apps.capston_meeting.src.GlideApp
+import com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage.models.Matched
 import com.professionalandroid.apps.capston_meeting.src.checkPage.sendPage.models.SendResponse
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.android.synthetic.main.layout_send_item.view.*
 
-class SendPageRecyclerViewAdapter(val sendList: MutableList<SendResponse>, val context: Context, val listener: OnSendItemClicked): RecyclerView.Adapter<SendPageRecyclerViewAdapter.ViewHolder>() {
+class SendPageRecyclerViewAdapter(val sendList: MutableList<SendResponse>, val context: Context, val listener: SendPageViewPagerAdapter.SendViewPagerItemSelected): RecyclerView.Adapter<SendPageRecyclerViewAdapter.ViewHolder>() {
 
-    interface OnSendItemClicked{
-        fun movetoDetail(view:View, position: Int)
-    }
+    lateinit var mSubViewPager: ViewPager2
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val parent = view
-        var send_image: RoundedImageView? = null
-        var send_title: TextView? = null
-        var send_location1: TextView? = null
-        var send_location2: TextView? = null
-        var send_age: TextView? = null
-        var send_num_type: TextView? = null
-        var send_boardId: Long = 0
-
+        var send_month: TextView? = null
+        var send_date: TextView? = null
+        var send_viewPager: ViewPager2? = null
+        var send_dotIndicator: DotsIndicator? = null
         init {
-            send_image = view.send_image
-            send_title = view.send_title
-            send_location1 = view.send_location1
-            send_location2 = view.send_location2
-            send_age = view.send_age
-            send_num_type = view.send_num_type
-            parent.setOnClickListener {
-                listener.movetoDetail(view, adapterPosition)
-            }
+            //send_month = view.send_month
+            send_date = view.send_date
+            send_viewPager = view.send_viewpager
+            send_dotIndicator = view.send_dots_indicator
         }
     }
 
@@ -52,16 +45,24 @@ class SendPageRecyclerViewAdapter(val sendList: MutableList<SendResponse>, val c
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        GlideApp.with(context)
-            .load(sendList[position].board.img1)
-            .centerCrop()
-            .into(holder.send_image!!)
+        val temp = sendList[position].date
+        var month = temp.substring(5, 7)
+        var date = temp.substring(8, 10)
 
-        holder.send_title?.text = sendList[position].board.title
-        holder.send_location1?.text = sendList[position].board.location1
-        holder.send_location2?.text = sendList[position].board.location2
-        holder.send_age?.text = sendList[position].board.age.toString()
-        holder.send_num_type?.text = sendList[position].board.num_type
-        holder.send_boardId = sendList[position].board.idx
+        if(month[0] == '0'){
+            month = month[1].toString()
+        }
+
+        if(date[0] == '0'){
+            date = date[1].toString()
+        }
+
+        holder.send_month?.text = "  $month 월  "
+        holder.send_date?.text = "$date 일"
+
+        val madapter = SendPageViewPagerAdapter(sendList[position].matched.toMutableList(), context, listener)
+        holder.send_viewPager?.adapter = madapter
+        holder.send_dotIndicator?.setViewPager2(holder.send_viewPager!!)
+        mSubViewPager = holder.send_viewPager!!
     }
 }
