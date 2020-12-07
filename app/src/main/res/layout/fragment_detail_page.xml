@@ -48,6 +48,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"/>
+
             <HorizontalScrollView
                 android:id="@+id/detail_img"
                 android:layout_width="match_parent"
@@ -113,19 +114,41 @@
                     android:textSize="20sp"
                     android:textColor="#000000"/>
 
-                <TextView
-                    android:id="@+id/detail_location1"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/location"
-                    android:textSize="20sp"
-                    android:textColor="#000000"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/detail_location1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=", "
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:id="@+id/detail_location2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location"
+                        android:textSize="16sp"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/detail_location2"
+                    android:id="@+id/detail_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/location"
+                    android:text="@string/date"
                     android:textSize="20sp"
                     android:textColor="#000000"/>
 
@@ -136,7 +159,6 @@
                     android:text="@string/num_type"
                     android:textSize="20sp"
                     android:textColor="#000000"/>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"

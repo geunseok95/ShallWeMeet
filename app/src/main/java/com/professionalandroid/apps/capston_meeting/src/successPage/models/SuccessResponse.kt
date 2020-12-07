@@ -1,5 +1,7 @@
 package com.professionalandroid.apps.capston_meeting.src.successPage.models
 
+import android.provider.ContactsContract
+
 data class SuccessResponse (
     val is_senders: List<Is>,
     val is_makers: List<Is>
@@ -43,6 +45,6 @@ data class Sender (
     val age: String,
     val location1: String,
     val location2: String,
-    val kakao_id: String,
+    val phone: String,
     val point: Long
 )

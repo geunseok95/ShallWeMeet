@@ -5,6 +5,8 @@
 
     <item
         android:gravity="center"
+        android:height="200dp"
+        android:width="200dp"
         android:drawable="@drawable/splash"/>
 
 </layer-list>

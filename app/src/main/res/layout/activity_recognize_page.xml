@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/background_color"
     tools:context=".src.loginPage.recognizePage.RecognizePage">
 
 
@@ -93,7 +94,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="인증번호 재전송"
+            android:text="재전송"
             android:layout_marginEnd="10dp"
             android:textColor="#000000"
             android:textSize="10sp"/>

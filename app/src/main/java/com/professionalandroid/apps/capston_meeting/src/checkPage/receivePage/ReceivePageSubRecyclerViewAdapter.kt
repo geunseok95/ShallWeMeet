@@ -14,10 +14,10 @@ import com.professionalandroid.apps.capston_meeting.src.GlideApp
 import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.models.Sender
 import kotlinx.android.synthetic.main.layout_receiver_item.view.*
 
-class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, val context: Context, val listener: OnReceiverClicked, val boardId: Long):RecyclerView.Adapter<ReceivePageSubRecyclerViewAdapter.SubViewHolder>() {
+class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, val context: Context, val listener: OnReceiverClicked, val parent_position: Int):RecyclerView.Adapter<ReceivePageSubRecyclerViewAdapter.SubViewHolder>() {
 
     interface OnReceiverClicked{
-        fun successMatch(senderId: Long, sender_status: Boolean, boardId: Long)
+        fun successMatch(parent_position: Int, position: Int)
     }
 
     inner class SubViewHolder(view: View): RecyclerView.ViewHolder(view){
@@ -27,8 +27,6 @@ class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, v
         var receiver_age: TextView? = null
         var receiver_status: TextView? = null
         var receiver_btn: Button? = null
-        var sender_id: Long = 0
-        var sender_status: Boolean = false
         init {
             receiver_image = view.receiver_image
             receiver_nickName = view.receiver_nickNave
@@ -54,10 +52,8 @@ class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, v
             .into(holder.receiver_image!!)
         holder.receiver_nickName?.text = receiverList[position].nickName
         holder.receiver_age?.text = receiverList[position].age
-        holder.sender_id = receiverList[position].idx
-        holder.sender_status = receiverList[position].status
         holder.receiver_btn?.setOnClickListener {
-            listener.successMatch(holder.sender_id, holder.sender_status, boardId)
+            listener.successMatch(parent_position, position)
         }
         if(receiverList[position].status){
             holder.receiver_status?.text = "결제가 완료되었어요"

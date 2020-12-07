@@ -14,9 +14,11 @@ import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.my
 import kotlinx.android.synthetic.main.fragment_my_detail_page.*
 import kotlinx.android.synthetic.main.fragment_my_detail_page.view.*
 
-class MyDetailPage : Fragment(), MyDetailPageView {
+class MyDetailPage : Fragment(), MyDetailPageView, MyDetailPageDialog.MyDetailDialogClicked {
 
     lateinit var mMyDetailPageService: MyDetailPageService
+    lateinit var myDetailDialog: MyDetailPageDialog
+    var boardId: Long? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,23 +36,25 @@ class MyDetailPage : Fragment(), MyDetailPageView {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_my_detail_page, container, false)
-        val boardId = arguments?.getLong("boardId", 0)
+        boardId = arguments?.getLong("boardId", 0)
 
         mMyDetailPageService.getMyDetail(boardId!!, user)
 
         view.my_detail_delete_btn.setOnClickListener {
-            mMyDetailPageService.deletePage(boardId)
+            myDetailDialog = MyDetailPageDialog(context!!, this)
+            myDetailDialog.show()
         }
 
         return view
     }
 
     override fun getMyDetail(body: MyDetailResponse) {
-        my_detail_title.text = body.title
+        my_detail_toolbar_title.text = body.title
         my_detail_tag1.text = body.tag1
         my_detail_tag2.text = body.tag2
         my_detail_tag3.text = body.tag3
-        my_detail_location.text = body.location1
+        my_detail_location1.text = body.location1
+        my_detail_location2.text = body.location2
         my_detail_num_type.text = body.num_type
 
         (activity as MainActivity).displayImg(context!!, body.img1 ,my_detail_img1)
@@ -62,4 +66,12 @@ class MyDetailPage : Fragment(), MyDetailPageView {
         (activity as MainActivity).close_fragment(this)
     }
 
+    override fun clickYes() {
+        mMyDetailPageService.deletePage(boardId!!)
+        myDetailDialog.dismiss()
+    }
+
+    override fun clickNo() {
+        myDetailDialog.dismiss()
+    }
 }

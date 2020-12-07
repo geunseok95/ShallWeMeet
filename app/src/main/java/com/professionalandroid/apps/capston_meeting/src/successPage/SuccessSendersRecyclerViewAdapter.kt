@@ -21,7 +21,7 @@ class SuccessSendersRecyclerViewAdapter(val sendersList: MutableList<Is>, val co
         var success_location2: TextView? = null
         var success_age: TextView? = null
         var success_num_type: TextView? = null
-        var success_kakao_id: TextView? = null
+        var success_phone_number: TextView? = null
 
         init {
             success_img = view.success_img
@@ -31,7 +31,7 @@ class SuccessSendersRecyclerViewAdapter(val sendersList: MutableList<Is>, val co
             success_location2 = view.success_location2
             success_age = view.success_age
             success_num_type = view.success_num_type
-            success_kakao_id = view.success_kakao_id
+            success_phone_number = view.success_phone_number
         }
     }
 
@@ -55,6 +55,6 @@ class SuccessSendersRecyclerViewAdapter(val sendersList: MutableList<Is>, val co
         holder.success_location2?.text = sendersList[position].board.location2
         holder.success_age?.text = sendersList[position].board.user.age
         holder.success_num_type?.text = sendersList[position].board.num_type
-        holder.success_kakao_id?.text = sendersList[position].board.user.kakao_id
+        holder.success_phone_number?.text = sendersList[position].board.user.phone
     }
 }

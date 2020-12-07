@@ -21,7 +21,7 @@ class SuccessMakersRecyclerViewAdapter(val makersList: MutableList<Is>, val cont
         var success_location2: TextView? = null
         var success_age: TextView? = null
         var success_num_type: TextView? = null
-        var success_kakao_id: TextView? = null
+        var success_phone_number: TextView? = null
 
         init {
             success_img = view.success_img
@@ -31,7 +31,7 @@ class SuccessMakersRecyclerViewAdapter(val makersList: MutableList<Is>, val cont
             success_location2 = view.success_location2
             success_age = view.success_age
             success_num_type = view.success_num_type
-            success_kakao_id = view.success_kakao_id
+            success_phone_number = view.success_phone_number
         }
     }
 
@@ -55,6 +55,6 @@ class SuccessMakersRecyclerViewAdapter(val makersList: MutableList<Is>, val cont
         holder.success_location2?.text = makersList[position].board.location2
         holder.success_age?.text = makersList[position].sender.age
         holder.success_num_type?.text = makersList[position].board.num_type
-        holder.success_kakao_id?.text = makersList[position].sender.kakao_id
+        holder.success_phone_number?.text = makersList[position].sender.phone
     }
 }

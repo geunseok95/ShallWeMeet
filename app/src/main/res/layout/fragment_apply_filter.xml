@@ -5,7 +5,8 @@
     android:layout_height="400dp"
     android:orientation="vertical"
     tools:context=".src.applyPage.ApplyFilter"
-    android:background="@drawable/round_button">
+    android:background="@drawable/rounded_layout"
+    android:backgroundTint="#20294b">
 
     <Spinner
         android:id="@+id/spinner_location1"

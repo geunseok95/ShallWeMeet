@@ -36,9 +36,17 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <ImageView
+            android:id="@+id/bookmark_empty_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/sad_zzooni"
+            android:layout_gravity="center"
+            android:layout_marginTop="250dp"
+            android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favorite_recyclerview"
+            android:id="@+id/bookmark_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

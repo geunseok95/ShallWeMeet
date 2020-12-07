@@ -2,6 +2,7 @@ package com.professionalandroid.apps.capston_meeting.src
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kakao.usermgmt.UserManagement
@@ -63,7 +64,7 @@ class MainActivity : BaseActivity() {
 
     fun move_next_fragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
         transaction.replace(R.id.main_layout, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
@@ -72,7 +73,7 @@ class MainActivity : BaseActivity() {
     fun close_fragment(fragment: Fragment){
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
-        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
         transaction.remove(fragment)
         transaction.commit()
         manager.popBackStack()
@@ -95,6 +96,16 @@ class MainActivity : BaseActivity() {
                 startActivity(intent)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
+        if(count == 0) {
+            super.onBackPressed()
+        }
+        else{
+            supportFragmentManager.popBackStack()
+        }
     }
 
 }

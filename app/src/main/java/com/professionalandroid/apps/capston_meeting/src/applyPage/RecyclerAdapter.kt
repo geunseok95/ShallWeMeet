@@ -24,10 +24,11 @@ class RecyclerAdapter():
     var visibleItemCount = 0
     var totalItemCount = 0
     var lastVisibleItem = 0
+
     lateinit var gridLayoutManager: GridLayoutManager
     lateinit var boards :MutableList<ApplyResponse?>
     lateinit var mContext: Context
-    private var mListener: OnListItemSelelctedInterface? = null
+    lateinit var mListener: OnListItemSelelctedInterface
 
     // list와 연결할 listener
     interface OnListItemSelelctedInterface{
@@ -43,6 +44,30 @@ class RecyclerAdapter():
         this.mListener = listener
         this.boards = boards
         this.gridLayoutManager = gridLayoutManager
+    }
+
+    fun setRecyclerView(view:RecyclerView){
+        view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                visibleItemCount = recyclerView.childCount;
+                totalItemCount = gridLayoutManager.itemCount
+                firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition()
+                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition()
+                Log.d("total", totalItemCount.toString());
+                Log.d("visible", visibleItemCount.toString());
+
+                Log.d("first", firstVisibleItem.toString());
+                Log.d("last", lastVisibleItem.toString());
+
+                if (!isMoreLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                    if (mListener != null) {
+                        mListener.onLoadMore();
+                    }
+                    isMoreLoading = true;
+                }
+            }
+        })
     }
 
     override fun onCreateViewHolder(
@@ -64,7 +89,8 @@ class RecyclerAdapter():
             .centerCrop()
             .into(holder.img1!!)
 
-        holder.location?.text = boards[position]?.location1
+        holder.location1?.text = boards[position]?.location1
+        holder.location2?.text = boards[position]?.location2
         holder.num_type?.text = boards[position]?.num_type
         holder.age?.text = boards[position]?.age.toString()
         holder.tag1?.text = boards[position]?.tag1
@@ -78,7 +104,8 @@ class RecyclerAdapter():
         var parentview = view
         var title: TextView? = null
         var img1: RoundedImageView? = null
-        var location: TextView? = null
+        var location1: TextView? = null
+        var location2: TextView? = null
         var num_type: TextView? = null
         var age: TextView? = null
         var tag1: TextView? = null
@@ -91,25 +118,23 @@ class RecyclerAdapter():
         init {
             title = view.imageview_title
             img1 = view.imageview_img1
-            location = view.imageview_location
+            location1 = view.imageview_location1
+            location2 = view.imageview_location2
             age = view.imageview_age
             num_type = view.imageview_num_type
             index = 0
             parentview.item2_card_view.setOnClickListener {
-                mListener?.onItemSelected(view, adapterPosition)
+                mListener.onItemSelected(view, adapterPosition)
             }
             parentview.star_btn.setOnClickListener{
                 val position = adapterPosition
                 toggleItemSelectied(position)
                 boards[position]?.check = !boards[position]!!.check
-                mListener?.onStarChecked(view, adapterPosition)
+                mListener.onStarChecked(view, adapterPosition)
             }
 
         }
 
-        override fun toString(): String {
-            return super.toString() + " '" + title!!.text + "'"
-        }
     }
 
     fun toggleItemSelectied(position:Int){
@@ -122,27 +147,5 @@ class RecyclerAdapter():
         notifyItemChanged(position)
     }
 
-    fun setRecyclerView(view:RecyclerView){
-        view.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                visibleItemCount = recyclerView.childCount;
-                totalItemCount = gridLayoutManager.itemCount
-                firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition()
-                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition()
-                Log.d("total", totalItemCount.toString());
-                Log.d("visible", visibleItemCount.toString());
 
-                Log.d("first", firstVisibleItem.toString());
-                Log.d("last", lastVisibleItem.toString());
-
-                if (!isMoreLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                    if (mListener != null) {
-                        mListener?.onLoadMore();
-                    }
-                    isMoreLoading = true;
-                }
-            }
-        })
-    }
 }

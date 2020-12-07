@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="230dp"
     android:layout_height="wrap_content"
+    android:backgroundTint="#20294b"
     android:background="@drawable/rounded_layout" >
 
     <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:gravity="center"
             android:paddingTop="10dp"
             android:text="텍스트"/>
@@ -32,7 +33,7 @@
                 android:id="@+id/ok"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:backgroundTint="#D3EEf9"
+                android:backgroundTint="#FFA896"
                 android:background="@drawable/round_button"
                 android:layout_margin="5dp"
                 android:text="확인"

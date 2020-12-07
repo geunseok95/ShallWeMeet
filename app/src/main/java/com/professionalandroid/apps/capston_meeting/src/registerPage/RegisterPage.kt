@@ -171,7 +171,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
             )
             data["phone"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                phone
+                phone!!
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),
@@ -209,7 +209,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
         }
         intent.putExtra("user", idx)
         startActivity(intent)
-        finish()
+        finishAffinity()
     }
 }
 

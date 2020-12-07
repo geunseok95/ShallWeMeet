@@ -20,11 +20,12 @@ import com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage.my
 import kotlinx.android.synthetic.main.fragment_receive.view.*
 import kotlin.math.abs
 
-class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.OnReceiveClicked, ReceivePopUpWindow.MyDialogOKClickedListener, ReceivePageSubRecyclerViewAdapter.OnReceiverClicked  {
+class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.OnReceiveClicked, ReceivePopUpWindow.MyDialogOKClickedListener, ReceivePageSubRecyclerViewAdapter.OnReceiverClicked , ReceivePageUserDialog.DialogClicked {
 
     lateinit var mReceivePageRecyclerView: ViewPager2
     lateinit var mReceivePageRecyclerViewAdapter: ReceivePageRecyclerViewAdapter
     lateinit var mReceivePageService: ReceivePageService
+    lateinit var mReceivePageUserDialog: ReceivePageUserDialog
     val receiveList = mutableListOf<ReceiveResponse>()
 
     override fun onAttach(context: Context) {
@@ -48,7 +49,6 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         mReceivePageRecyclerView = view.receive_recyclerview
         mReceivePageRecyclerView.adapter = mReceivePageRecyclerViewAdapter
 
-
         val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin).toFloat()
         val pageOffset = resources.getDimensionPixelOffset(R.dimen.offset).toFloat()
         view.receive_recyclerview.setPageTransformer { page, position -> val myOffset = position * -(2 * pageOffset + pageMargin)
@@ -63,8 +63,8 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
             else {
                 page.alpha = 0f
                 page.translationX = myOffset
-            } }
-
+            }
+        }
 
         mReceivePageService.getReceive(user)
 
@@ -83,6 +83,22 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         (activity as MainActivity).move_next_fragment(myDetailPage)
     }
 
+    override fun successMatch(parent_position: Int, position: Int) {
+        mReceivePageUserDialog =
+            ReceivePageUserDialog(
+                context!!,
+                this,
+                receiveList[parent_position].senders[position].img,
+                receiveList[parent_position].senders[position].nickName,
+                receiveList[parent_position].senders[position].age,
+                receiveList[parent_position].senders[position].location1,
+                receiveList[parent_position].senders[position].location2,
+                receiveList[parent_position].senders[position].idx,
+                receiveList[parent_position].senders[position].status,
+                receiveList[parent_position].idx
+            )
+        mReceivePageUserDialog.show()
+    }
 
     override fun onOKClicked(success: Int, senderId: Long, status: Boolean,  boardId: Long) {
         if(success == 1){
@@ -106,14 +122,17 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         mReceivePageRecyclerViewAdapter.notifyDataSetChanged()
     }
 
-    override fun successMatch(senderId: Long, sender_status: Boolean, boardId: Long) {
+    override fun accept(senderId: Long, sender_status: Boolean, boardId: Long) {
         if(sender_status){
             val popUp = ReceivePopUpWindow(context!!, this)
             popUp.start("신청을 수락할까요?", 1, senderId, sender_status, boardId)
+            mReceivePageUserDialog.dismiss()
         }
         else{
             val popUp = ReceivePopUpWindow(context!!, this)
             popUp.start("결제를 진행할까요?", 0, senderId, sender_status, boardId)
+            mReceivePageUserDialog.dismiss()
         }
+
     }
 }

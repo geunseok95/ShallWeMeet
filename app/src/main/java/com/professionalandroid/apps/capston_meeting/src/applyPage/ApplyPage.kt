@@ -69,8 +69,6 @@ class ApplyPage : Fragment(),
 
         Log.d("test", "$location1, $location2, $num_type, $age")
 
-        loadPosts()
-
         view.apply_filter.apply {
             setOnClickListener {
                 mapplyfilter =
@@ -86,15 +84,13 @@ class ApplyPage : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mRecyclerAdapter?.notifyDataSetChanged()
+        loadPosts()
     }
-
 
     // 최초로 넣어줄 데이터를 load 한다
     private fun loadPosts(){
         mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, gender)
     }
-
 
     override fun setBoard(new_boards:List<ApplyResponse>?){
         if(new_boards?.size != 0) {
@@ -109,7 +105,6 @@ class ApplyPage : Fragment(),
         }
 
     }
-
 
     fun addBoards(boards: List<ApplyResponse>){
         this.boards.addAll(boards)

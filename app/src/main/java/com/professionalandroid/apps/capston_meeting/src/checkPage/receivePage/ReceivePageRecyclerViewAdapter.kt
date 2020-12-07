@@ -33,7 +33,6 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
         var receive_location2: TextView? = null
         var receive_num_type: TextView? = null
         var boardId: Long = 0
-        var index = 0
         init {
             receiver_recyclerview = view.receiver_recyclerview
             receiver_zzani = view.receive_empty_status
@@ -64,8 +63,6 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
         holder.receive_locatoin1?.text = receiveList[position].location1
         holder.receive_location2?.text = receiveList[position].location2
         holder.receive_num_type?.text = receiveList[position].num_type
-        holder.boardId = receiveList[position].idx
-        holder.index = position
 
         if (receiveList[position].senders.isEmpty()){
             holder.receiver_recyclerview?.visibility = View.GONE
@@ -76,7 +73,7 @@ class ReceivePageRecyclerViewAdapter(val receiveList: MutableList<ReceiveRespons
             holder.receiver_zzani?.visibility = View.GONE
         }
 
-        val madapter = ReceivePageSubRecyclerViewAdapter(receiveList[position].senders.toMutableList(), context, mlistener, holder.boardId)
+        val madapter = ReceivePageSubRecyclerViewAdapter(receiveList[position].senders.toMutableList(), context, mlistener, position)
         holder.receiver_recyclerview?.layoutManager = LinearLayoutManager(context)
         holder.receiver_recyclerview?.adapter = madapter
         holder.receiver_recyclerview?.setHasFixedSize(true)

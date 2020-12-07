@@ -79,6 +79,7 @@
 
             </LinearLayout>
         </HorizontalScrollView>
+
         <LinearLayout
             android:id="@+id/request_profile"
             android:layout_width="wrap_content"

@@ -13,7 +13,6 @@ class RequestPopUpWindow(context : Context, mlistener: MyDialogOKClickedListener
     private val dlg = Dialog(context)   //부모 액티비티의 context 가 들어감
     private lateinit var lblDesc : TextView
     private lateinit var btnOK : Button
-    private lateinit var btnCancel : Button
     private val listener = mlistener
 
     fun start(message : String, success: Int) {

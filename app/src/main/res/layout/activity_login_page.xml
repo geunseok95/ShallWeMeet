@@ -3,12 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash">
-        <LinearLayout
-            android:id="@+id/login_main_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+    android:background="@drawable/background_color">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:src="@drawable/splash"/>
+
         <com.kakao.usermgmt.LoginButton
             android:id="@+id/kakao_login_button"
             android:layout_width="match_parent"
@@ -17,5 +19,4 @@
             android:layout_marginBottom="100dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"/>
-    </LinearLayout>
 </FrameLayout>

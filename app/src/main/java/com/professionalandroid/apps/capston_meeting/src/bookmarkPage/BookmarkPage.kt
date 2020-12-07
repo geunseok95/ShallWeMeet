@@ -15,6 +15,7 @@ import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.u
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.interfaces.BookmarkPageView
 import com.professionalandroid.apps.capston_meeting.src.bookmarkPage.models.BookmarkResponse
+import kotlinx.android.synthetic.main.fragment_bookmark_page.*
 import kotlinx.android.synthetic.main.fragment_bookmark_page.view.*
 import kotlinx.android.synthetic.main.list_item2.view.*
 
@@ -42,7 +43,7 @@ class BookmarkPage : Fragment(), BookmarkPageView, BookmarkRecyclerViewAdapter.O
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_bookmark_page, container, false)
-        mRecyclerView = view.favorite_recyclerview
+        mRecyclerView = view.bookmark_recyclerview
         mRecyclerView.layoutManager = GridLayoutManager(context,2)
         mRecyclerView.adapter = mBookmarkRecyclerViewAdapter
 
@@ -76,6 +77,14 @@ class BookmarkPage : Fragment(), BookmarkPageView, BookmarkRecyclerViewAdapter.O
 
     override fun searchBookmark(body: List<BookmarkResponse>) {
         boards.clear()
+        if(body.isEmpty()){
+            bookmark_empty_status.visibility = View.VISIBLE
+            bookmark_recyclerview.visibility = View.GONE
+        }
+        else{
+            bookmark_empty_status.visibility = View.GONE
+            bookmark_recyclerview.visibility = View.VISIBLE
+        }
         boards.addAll(body)
         mBookmarkRecyclerViewAdapter.notifyDataSetChanged()
     }

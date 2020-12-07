@@ -1,6 +1,7 @@
 package com.professionalandroid.apps.capston_meeting.src.applyPage
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
+import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.professionalandroid.apps.capston_meeting.R
 import kotlinx.android.synthetic.main.fragment_apply_filter.view.*
+
 
 class ApplyFilter(
     applyfilter_listener: ApplyFilterSelectedInterface
@@ -57,12 +60,28 @@ class ApplyFilter(
                 }
 
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    (p0?.getChildAt(0) as TextView).setTextColor(Color.WHITE)
                     if(spinneradapter1.getItem(p2).equals("상관없음")){
                         location2Array = arrayOf("상관없음")
                         spinneradapter2 = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, location2Array)
                         view.spinner_location2.apply {
                             adapter = spinneradapter2
                             prompt = "상세주소를 선택하세요"
+                            onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onNothingSelected(p0: AdapterView<*>?) {
+                                }
+
+                                override fun onItemSelected(
+                                    p0: AdapterView<*>?,
+                                    p1: View?,
+                                    p2: Int,
+                                    p3: Long
+                                ) {
+                                    (p0?.getChildAt(0) as TextView).setTextColor(Color.WHITE)
+                                }
+
+                            }
+
                         }
                     }
 
@@ -73,6 +92,20 @@ class ApplyFilter(
                         view.spinner_location2.apply {
                             adapter = spinneradapter2
                             prompt = "상세주소를 선택하세요"
+                            onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onNothingSelected(p0: AdapterView<*>?) {
+                                }
+
+                                override fun onItemSelected(
+                                    p0: AdapterView<*>?,
+                                    p1: View?,
+                                    p2: Int,
+                                    p3: Long
+                                ) {
+                                    (p0?.getChildAt(0) as TextView).setTextColor(Color.WHITE)
+                                }
+
+                            }
                         }
                     }
                     else if(spinneradapter1.getItem(p2).equals("광주")){
@@ -82,6 +115,20 @@ class ApplyFilter(
                         view.spinner_location2.apply {
                             adapter = spinneradapter2
                             prompt = "상세주소를 선택하세요"
+                            onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onNothingSelected(p0: AdapterView<*>?) {
+                                }
+
+                                override fun onItemSelected(
+                                    p0: AdapterView<*>?,
+                                    p1: View?,
+                                    p2: Int,
+                                    p3: Long
+                                ) {
+                                    (p0?.getChildAt(0) as TextView).setTextColor(Color.WHITE)
+                                }
+
+                            }
                         }
                     }
                 }

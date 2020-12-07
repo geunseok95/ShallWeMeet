@@ -33,7 +33,8 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
         var parentview = view
         var title: TextView? = null
         var img1: RoundedImageView? = null
-        var location: TextView? = null
+        var location1: TextView? = null
+        var location2: TextView? = null
         var num_type: TextView? = null
         var age: TextView? = null
         var tag1: TextView? = null
@@ -46,7 +47,8 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
         init {
             title = view.imageview_title
             img1 = view.imageview_img1
-            location = view.imageview_location
+            location1 = view.imageview_location1
+            location2 = view.imageview_location1
             age = view.imageview_age
             num_type = view.imageview_num_type
             index = 0
@@ -78,7 +80,8 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
             .centerCrop()
             .into(holder.img1!!)
 
-        holder.location?.text = bookmarkList[position].board.location1
+        holder.location1?.text = bookmarkList[position].board.location1
+        holder.location2?.text = bookmarkList[position].board.location2
         holder.num_type?.text = bookmarkList[position].board.num_type
         holder.age?.text = bookmarkList[position].board.age.toString()
         holder.tag1?.text = bookmarkList[position].board.tag1

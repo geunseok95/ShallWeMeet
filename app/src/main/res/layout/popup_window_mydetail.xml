@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/my_detail_dialog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="230dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_button"
+    android:backgroundTint="#20294b">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#00000000"  >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="잠깐!\n정말 방을 지울까요?"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:backgroundTint="#FFA896"
+                android:background="@drawable/round_button"
+                android:layout_margin="5dp"
+                android:text="네, 다음에 만날께요"
+                android:layout_gravity="center"
+                android:elevation="10dp"/>
+            <Button
+                android:id="@+id/none_delete"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:backgroundTint="#FFA896"
+                android:background="@drawable/round_button"
+                android:layout_margin="5dp"
+                android:text="아니요, 조금만 더 기다릴께요"
+                android:layout_gravity="center"
+                android:elevation="10dp"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
