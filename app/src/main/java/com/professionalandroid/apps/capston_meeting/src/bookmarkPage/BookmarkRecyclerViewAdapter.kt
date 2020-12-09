@@ -5,6 +5,7 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
@@ -32,27 +33,25 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         var parentview = view
         var title: TextView? = null
-        var img1: RoundedImageView? = null
+        var img1: ImageView? = null
         var location1: TextView? = null
         var location2: TextView? = null
         var num_type: TextView? = null
+        var date: TextView? = null
         var age: TextView? = null
-        var tag1: TextView? = null
-        var tag2: TextView? = null
-        var tag3: TextView? = null
 
         // index를 이용해서 상속받은 class에서
         var index: Int? = null
 
         init {
-            title = view.imageview_title
             img1 = view.imageview_img1
             location1 = view.imageview_location1
             location2 = view.imageview_location1
             age = view.imageview_age
             num_type = view.imageview_num_type
+            date = view.imageview_date
             index = 0
-            parentview.item2_card_view.setOnClickListener {
+            parentview.setOnClickListener {
                 mListener?.onItemSelected(view, adapterPosition)
             }
             parentview.star_btn.apply {
@@ -74,6 +73,11 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val temp = bookmarkList[position].board.date
+        val month = temp.substring(5, 7)
+        val date = temp.substring(8, 10)
+
         holder.title?.text = bookmarkList[position].board.title
         GlideApp.with(mContext!!)
             .load(bookmarkList[position].board.img1)
@@ -83,10 +87,8 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
         holder.location1?.text = bookmarkList[position].board.location1
         holder.location2?.text = bookmarkList[position].board.location2
         holder.num_type?.text = bookmarkList[position].board.num_type
+        holder.date?.text = "${month}월 ${date}일"
         holder.age?.text = bookmarkList[position].board.age.toString()
-        holder.tag1?.text = bookmarkList[position].board.tag1
-        holder.tag2?.text = bookmarkList[position].board.tag2
-        holder.tag3?.text = bookmarkList[position].board.tag3
         holder.index = position
     }
 

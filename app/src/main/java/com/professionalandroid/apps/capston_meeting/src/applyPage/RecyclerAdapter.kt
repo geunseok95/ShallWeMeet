@@ -6,10 +6,10 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.makeramen.roundedimageview.RoundedImageView
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.applyPage.models.ApplyResponse
 import com.professionalandroid.apps.capston_meeting.src.GlideApp
@@ -83,6 +83,11 @@ class RecyclerAdapter():
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val temp = boards[position]?.date
+        val month = temp?.substring(5, 7)
+        val date = temp?.substring(8, 10)
+
         holder.title?.text = boards[position]?.title
         GlideApp.with(mContext)
             .load(boards[position]?.img1)
@@ -92,10 +97,8 @@ class RecyclerAdapter():
         holder.location1?.text = boards[position]?.location1
         holder.location2?.text = boards[position]?.location2
         holder.num_type?.text = boards[position]?.num_type
+        holder.date?.text = "${month}월 ${date}일"
         holder.age?.text = boards[position]?.age.toString()
-        holder.tag1?.text = boards[position]?.tag1
-        holder.tag2?.text = boards[position]?.tag2
-        holder.tag3?.text = boards[position]?.tag3
         holder.index = position
         holder.parentview.star_btn.isChecked = boards[position]!!.check
     }
@@ -103,32 +106,30 @@ class RecyclerAdapter():
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var parentview = view
         var title: TextView? = null
-        var img1: RoundedImageView? = null
+        var img1: ImageView? = null
         var location1: TextView? = null
         var location2: TextView? = null
         var num_type: TextView? = null
+        var date: TextView? = null
         var age: TextView? = null
-        var tag1: TextView? = null
-        var tag2: TextView? = null
-        var tag3: TextView? = null
 
         // index를 이용해서 상속받은 class에서
         var index: Int? = null
 
         init {
-            title = view.imageview_title
             img1 = view.imageview_img1
             location1 = view.imageview_location1
             location2 = view.imageview_location2
             age = view.imageview_age
             num_type = view.imageview_num_type
+            date = view.imageview_date
             index = 0
-            parentview.item2_card_view.setOnClickListener {
+            parentview.setOnClickListener {
                 mListener.onItemSelected(view, adapterPosition)
             }
             parentview.star_btn.setOnClickListener{
                 val position = adapterPosition
-                toggleItemSelectied(position)
+                toggleItemSelected(position)
                 boards[position]?.check = !boards[position]!!.check
                 mListener.onStarChecked(view, adapterPosition)
             }
@@ -137,7 +138,7 @@ class RecyclerAdapter():
 
     }
 
-    fun toggleItemSelectied(position:Int){
+    fun toggleItemSelected(position:Int){
         if(mSelectedItems[position, false]){
             mSelectedItems.delete(position)
         }

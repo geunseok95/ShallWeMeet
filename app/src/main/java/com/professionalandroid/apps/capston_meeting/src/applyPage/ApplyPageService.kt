@@ -30,8 +30,7 @@ class ApplyPageService (val mApplyPageView: ApplyPageView, val context: Context)
                 Log.d("test", body.toString())
                 if(body != null){
                     if(body.isNotEmpty()){
-                        mApplyPageView.setBoard(body)
-
+                        mApplyPageView.loadmore(body)
                     }
                 }
             }

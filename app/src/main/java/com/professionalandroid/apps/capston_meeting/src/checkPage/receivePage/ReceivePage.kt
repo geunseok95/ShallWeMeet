@@ -25,7 +25,6 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
     lateinit var mReceivePageRecyclerView: ViewPager2
     lateinit var mReceivePageRecyclerViewAdapter: ReceivePageRecyclerViewAdapter
     lateinit var mReceivePageService: ReceivePageService
-    lateinit var mReceivePageUserDialog: ReceivePageUserDialog
     val receiveList = mutableListOf<ReceiveResponse>()
 
     override fun onAttach(context: Context) {
@@ -49,27 +48,30 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         mReceivePageRecyclerView = view.receive_recyclerview
         mReceivePageRecyclerView.adapter = mReceivePageRecyclerViewAdapter
 
-        val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin).toFloat()
-        val pageOffset = resources.getDimensionPixelOffset(R.dimen.offset).toFloat()
-        view.receive_recyclerview.setPageTransformer { page, position -> val myOffset = position * -(2 * pageOffset + pageMargin)
-            if (position < -1) {
-                page.translationX = -myOffset
-            } else if (position <= 1) { val scaleFactor =
-                0.7f.coerceAtLeast(1 - abs(position - 0.14285715f))
-                page.translationX = myOffset
-                page.scaleY = scaleFactor
-                page.alpha = scaleFactor
-            }
-            else {
-                page.alpha = 0f
-                page.translationX = myOffset
-            }
+
+        // You need to retain one page on each side so that the next and previous items are visible
+        view.receive_recyclerview.offscreenPageLimit = 1
+
+// Add a PageTransformer that translates the next and previous items horizontally
+// towards the center of the screen, which makes them visible
+        val nextItemVisiblePx = resources.getDimension(R.dimen.pageMargin)
+        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.pageMargin)
+        val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+        val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
+            page.translationX = -pageTranslationX * position
+            // Next line scales the item's height. You can remove it if you don't want this effect
+            page.scaleY = 1 - (0.15f * abs(position))
+            // If you want a fading effect uncomment the next line:
+            // page.alpha = 0.25f + (1 - abs(position))
         }
+        view.receive_recyclerview.setPageTransformer(pageTransformer)
+
 
         mReceivePageService.getReceive(user)
 
         return view
     }
+
 
 
     override fun myPageClicked(view:View, position: Int) {
@@ -84,20 +86,19 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
     }
 
     override fun successMatch(parent_position: Int, position: Int) {
-        mReceivePageUserDialog =
-            ReceivePageUserDialog(
-                context!!,
-                this,
-                receiveList[parent_position].senders[position].img,
-                receiveList[parent_position].senders[position].nickName,
-                receiveList[parent_position].senders[position].age,
-                receiveList[parent_position].senders[position].location1,
-                receiveList[parent_position].senders[position].location2,
-                receiveList[parent_position].senders[position].idx,
-                receiveList[parent_position].senders[position].status,
-                receiveList[parent_position].idx
-            )
-        mReceivePageUserDialog.show()
+
+        val popup = ReceivePageUserDialog(context!!, this)
+        popup.start(
+            context!!,
+            receiveList[parent_position].senders[position].idx,
+            receiveList[parent_position].senders[position].status,
+            receiveList[parent_position].idx,
+            receiveList[parent_position].senders[position].img,
+            receiveList[parent_position].senders[position].nickName,
+            receiveList[parent_position].senders[position].age,
+            receiveList[parent_position].senders[position].location1,
+            receiveList[parent_position].senders[position].location2)
+
     }
 
     override fun onOKClicked(success: Int, senderId: Long, status: Boolean,  boardId: Long) {
@@ -126,12 +127,10 @@ class ReceivePage : Fragment(), ReceivePageView,ReceivePageRecyclerViewAdapter.O
         if(sender_status){
             val popUp = ReceivePopUpWindow(context!!, this)
             popUp.start("신청을 수락할까요?", 1, senderId, sender_status, boardId)
-            mReceivePageUserDialog.dismiss()
         }
         else{
             val popUp = ReceivePopUpWindow(context!!, this)
             popUp.start("결제를 진행할까요?", 0, senderId, sender_status, boardId)
-            mReceivePageUserDialog.dismiss()
         }
 
     }

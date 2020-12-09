@@ -26,13 +26,11 @@ class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, v
         var receiver_nickName: TextView? = null
         var receiver_age: TextView? = null
         var receiver_status: TextView? = null
-        var receiver_btn: Button? = null
         init {
             receiver_image = view.receiver_image
             receiver_nickName = view.receiver_nickNave
             receiver_age = view.receiver_age
             receiver_status = view.receiver_status
-            receiver_btn = view.receiver_btn
         }
     }
 
@@ -52,7 +50,7 @@ class ReceivePageSubRecyclerViewAdapter(val receiverList: MutableList<Sender>, v
             .into(holder.receiver_image!!)
         holder.receiver_nickName?.text = receiverList[position].nickName
         holder.receiver_age?.text = receiverList[position].age
-        holder.receiver_btn?.setOnClickListener {
+        holder.parentview.setOnClickListener {
             listener.successMatch(parent_position, position)
         }
         if(receiverList[position].status){

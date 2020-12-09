@@ -92,18 +92,15 @@ class ApplyPage : Fragment(),
         mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, gender)
     }
 
-    override fun setBoard(new_boards:List<ApplyResponse>?){
+    override fun loadmore(new_boards:List<ApplyResponse>?){
         if(new_boards?.size != 0) {
-            this.boards.apply {
-                clear()
-                addAll(new_boards!!)
-            }
+            this.boards.addAll(new_boards!!)
             mRecyclerAdapter?.notifyDataSetChanged()
+            mRecyclerAdapter?.isMoreLoading = false
         }
         else{
             Toast.makeText(activity as MainActivity, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     fun addBoards(boards: List<ApplyResponse>){
@@ -117,20 +114,18 @@ class ApplyPage : Fragment(),
     }
 
     override fun onLoadMore() {
-        mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, "female")
+        mApplyPageService.searchBoard(getPage(), size, location1, location2, num_type, age, user, date, gender)
     }
-
 
     override fun onItemSelected(v: View, position: Int) {
         val viewholder: RecyclerAdapter.ViewHolder = mRecyclerView.findViewHolderForAdapterPosition(position) as RecyclerAdapter.ViewHolder
 
-        val detailpage = DetailPage()
-        val bundle = Bundle()
+        val detailpage = DetailPage().apply{
+            arguments = Bundle().apply {
+                putLong("href", boards[viewholder.index!!]!!.idx)
+            }
+        }
 
-        Log.d("test_position", position.toString())
-        Log.d("test", "${viewholder.index}")
-        bundle.putLong("href", boards[viewholder.index!!]!!.idx)
-        detailpage.arguments = bundle
         (activity as MainActivity).move_next_fragment(detailpage)
     }
 
@@ -139,7 +134,6 @@ class ApplyPage : Fragment(),
 
         // 체크시 즐겨찾기 추가, 체크 해제시 즐겨찾기 제거
         if(v.star_btn.isChecked){
-
             val data = Bookmark(user, boards[viewholder.index!!]?.idx!!)
             mApplyPageService.addBookmark(data)
         }
@@ -150,18 +144,14 @@ class ApplyPage : Fragment(),
 
     override fun applyfilter_listener(v: View) {
         v.filter_btn.setOnClickListener {
-            val spinner_location1 = v.spinner_location1.selectedItem.toString()
-            val spinner_location2 = v.spinner_location2.selectedItem.toString()
-            val radiobutton_num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()
-            val seekbar_age = v.filter_age.text.toString()
 
             // retrofit 서버연결
             page = 0
-            location1 = spinner_location1
-            location2 = spinner_location2
-            num_type = radiobutton_num_type
-            age = seekbar_age
-
+            location1 = v.spinner_location1.selectedItem.toString()
+            location2 = v.spinner_location2.selectedItem.toString()
+            num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()
+            age = v.filter_age.text.toString()
+            this.boards.clear()
             loadPosts()
         }
     }
