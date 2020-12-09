@@ -2,11 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".src.applyPage.ApplyFilter"
-    android:background="@drawable/rounded_layout"
-    android:backgroundTint="#20294b">
+    android:background="@drawable/round_button2"
+    android:backgroundTint="#20294b"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="10dp">
 
     <Spinner
         android:id="@+id/spinner_location1"
@@ -15,7 +18,7 @@
         android:background="@drawable/spinner_background"
         android:theme="@style/SpinnerTheme"
         android:spinnerMode="dialog"
-        android:layout_margin="20dp"/>
+        android:layout_marginTop="10dp"/>
 
     <Spinner
         android:id="@+id/spinner_location2"
@@ -24,13 +27,13 @@
         android:background="@drawable/spinner_background"
         android:theme="@style/SpinnerTheme"
         android:spinnerMode="dialog"
-        android:layout_margin="20dp"/>
+        android:layout_marginTop="20dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="20dp">
+        android:layout_marginTop="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:checkedButton="@+id/radioButton5">
+            android:checkedButton="@+id/radioButton5"
+            >
 
             <RadioButton
                 android:id="@+id/radioButton"
@@ -98,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="20dp">
+        android:layout_marginTop="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,19 +121,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:min="19"
-            android:max="60"/>
+            android:max="40"/>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/filter_btn"
         android:background="@drawable/round_button2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="검색"
         android:textColor="#000000"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

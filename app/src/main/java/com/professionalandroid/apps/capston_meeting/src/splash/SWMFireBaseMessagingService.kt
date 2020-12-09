@@ -69,7 +69,7 @@ class SWMFireBaseMessagingService: FirebaseMessagingService() {
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
             .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setContentTitle("Colloc Notification")
+            .setContentTitle("Cheese \uD83D\uDE00")
             .setContentText(body)
             .setAutoCancel(true)
             .setSound(notificationSound)

@@ -23,7 +23,6 @@ class SendPageRecyclerViewAdapter(val sendList: MutableList<SendResponse>, val c
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val parent = view
-        var send_month: TextView? = null
         var send_date: TextView? = null
         var send_viewPager: ViewPager2? = null
         var send_dotIndicator: DotsIndicator? = null
@@ -45,20 +44,8 @@ class SendPageRecyclerViewAdapter(val sendList: MutableList<SendResponse>, val c
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val temp = sendList[position].date
-        var month = temp.substring(5, 7)
-        var date = temp.substring(8, 10)
 
-        if(month[0] == '0'){
-            month = month[1].toString()
-        }
-
-        if(date[0] == '0'){
-            date = date[1].toString()
-        }
-
-        holder.send_month?.text = "  $month 월  "
-        holder.send_date?.text = "$date 일"
+        holder.send_date?.text = sendList[position].date
 
         val madapter = SendPageViewPagerAdapter(sendList[position].matched.toMutableList(), context, listener)
         holder.send_viewPager?.adapter = madapter

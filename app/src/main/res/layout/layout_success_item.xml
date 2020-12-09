@@ -22,7 +22,6 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:scaleType="fitStart"
-                android:src="@drawable/watermelon"
                 app:riv_border_color="#333333"
                 app:riv_mutate_background="true"
                 app:riv_oval="false" />

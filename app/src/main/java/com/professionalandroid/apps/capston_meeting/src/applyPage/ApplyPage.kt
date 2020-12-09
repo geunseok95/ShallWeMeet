@@ -144,7 +144,6 @@ class ApplyPage : Fragment(),
 
     override fun applyfilter_listener(v: View) {
         v.filter_btn.setOnClickListener {
-
             // retrofit 서버연결
             page = 0
             location1 = v.spinner_location1.selectedItem.toString()

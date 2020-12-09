@@ -37,33 +37,37 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="신청받았어요"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:padding="20dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/success_makers_recyclerview"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/success_tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="50dp"
+            android:background="#20294b"
+            app:tabIndicatorHeight="6dp"
+            app:tabIndicatorColor="#FFA896"
+            app:tabTextColor="#ffffff"
+            app:tabSelectedTextColor="#FFA896"
+            app:tabRippleColor="@null">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="신청했어요"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:padding="20dp"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/success_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신청받았어요"
+                android:textSize="20sp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/success_senders_recyclerview"
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/success_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신청했어요"
+                android:textSize="17sp" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <FrameLayout
+            android:id="@+id/success_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -8,35 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
 import com.professionalandroid.apps.capston_meeting.R
+import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
 import com.professionalandroid.apps.capston_meeting.src.successPage.interfaces.SuccessPageView
 import com.professionalandroid.apps.capston_meeting.src.successPage.models.Is
+import com.professionalandroid.apps.capston_meeting.src.successPage.successReceivePage.SuccessMakersRecyclerViewAdapter
+import com.professionalandroid.apps.capston_meeting.src.successPage.successReceivePage.SuccessReceivePage
+import com.professionalandroid.apps.capston_meeting.src.successPage.successSendPage.SuccessSendPage
+import com.professionalandroid.apps.capston_meeting.src.successPage.successSendPage.SuccessSendersRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_success_page.view.*
 
-class SuccessPage : Fragment(), SuccessPageView {
-
-    lateinit var mSuccessPageService: SuccessPageService
-    lateinit var mMakersRecyclerView: RecyclerView
-    lateinit var mMakersRecyclerViewAdapter: SuccessMakersRecyclerViewAdapter
-    lateinit var mSendersRecyclerView: RecyclerView
-    lateinit var mSendersRecyclerViewAdapter: SuccessSendersRecyclerViewAdapter
-    val makersList = mutableListOf<Is>()
-    val sendersList = mutableListOf<Is>()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mSuccessPageService = SuccessPageService(this, context)
-        mMakersRecyclerViewAdapter = SuccessMakersRecyclerViewAdapter(makersList, context)
-        mSendersRecyclerViewAdapter = SuccessSendersRecyclerViewAdapter(sendersList, context)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        makersList.clear()
-        sendersList.clear()
-
-    }
+class SuccessPage : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,28 +28,35 @@ class SuccessPage : Fragment(), SuccessPageView {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_success_page, container, false)
-        mMakersRecyclerView = view.success_makers_recyclerview
-        mMakersRecyclerView.layoutManager = LinearLayoutManager(context)
-        mMakersRecyclerView.adapter = mMakersRecyclerViewAdapter
 
-        mSendersRecyclerView = view.success_senders_recyclerview
-        mSendersRecyclerView.layoutManager = LinearLayoutManager(context)
-        mSendersRecyclerView.adapter = mSendersRecyclerViewAdapter
+        val successReceivePage = SuccessReceivePage()
+        val successSendPage = SuccessSendPage()
 
-        mSuccessPageService.getSuccess(user)
+        val ft = (activity as MainActivity).supportFragmentManager
+        var nowPage = view.success_tab.selectedTabPosition
 
+        ft.beginTransaction().replace(R.id.success_container, successReceivePage).commit()
+
+       view.success_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+           override fun onTabReselected(tab: TabLayout.Tab?) {
+           }
+
+           override fun onTabUnselected(tab: TabLayout.Tab?) {
+           }
+
+           override fun onTabSelected(tab: TabLayout.Tab?) {
+               val newPage = tab?.position
+               if (nowPage != newPage){
+                   when(newPage){
+                       0 -> ft.beginTransaction().replace(R.id.success_container, successReceivePage).commit()
+                       1 -> ft.beginTransaction().replace(R.id.success_container, successSendPage).commit()
+                   }
+                   nowPage = newPage!!
+               }
+           }
+
+       })
         return view
     }
-
-    override fun getMakers(makersList: List<Is>) {
-        this.makersList.addAll(makersList)
-        mMakersRecyclerViewAdapter.notifyDataSetChanged()
-    }
-
-    override fun getSenders(sendersList: List<Is>) {
-        this.sendersList.addAll(sendersList)
-        mSendersRecyclerViewAdapter.notifyDataSetChanged()
-    }
-
 
 }

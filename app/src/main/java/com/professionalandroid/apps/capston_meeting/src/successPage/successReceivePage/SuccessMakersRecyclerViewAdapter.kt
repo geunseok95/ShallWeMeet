@@ -1,4 +1,4 @@
-package com.professionalandroid.apps.capston_meeting.src.successPage
+package com.professionalandroid.apps.capston_meeting.src.successPage.successReceivePage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import com.professionalandroid.apps.capston_meeting.src.GlideApp
 import com.professionalandroid.apps.capston_meeting.src.successPage.models.Is
 import kotlinx.android.synthetic.main.layout_success_item.view.*
 
-class SuccessSendersRecyclerViewAdapter(val sendersList: MutableList<Is>, val context: Context): RecyclerView.Adapter<SuccessSendersRecyclerViewAdapter.ViewHolder>() {
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class SuccessMakersRecyclerViewAdapter(val makersList: MutableList<Is>, val context: Context): RecyclerView.Adapter<SuccessMakersRecyclerViewAdapter.ViewHolder>() {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         var success_img: RoundedImageView? = null
         var success_title: TextView? = null
         var success_nickName: TextView? = null
@@ -41,20 +41,20 @@ class SuccessSendersRecyclerViewAdapter(val sendersList: MutableList<Is>, val co
     }
 
     override fun getItemCount(): Int {
-        return sendersList.size
+        return makersList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         GlideApp.with(context)
-            .load(sendersList[position].board.img1)
+            .load(makersList[position].sender.img)
             .centerCrop()
             .into(holder.success_img!!)
-        holder.success_title?.text = sendersList[position].board.title
-        holder.success_nickName?.text = sendersList[position].board.user.nickName
-        holder.success_location1?.text = sendersList[position].board.location1
-        holder.success_location2?.text = sendersList[position].board.location2
-        holder.success_age?.text = sendersList[position].board.user.age
-        holder.success_num_type?.text = sendersList[position].board.num_type
-        holder.success_phone_number?.text = sendersList[position].board.user.phone
+        holder.success_title?.text = makersList[position].board.title
+        holder.success_nickName?.text = makersList[position].sender.nickName
+        holder.success_location1?.text = makersList[position].board.location1
+        holder.success_location2?.text = makersList[position].board.location2
+        holder.success_age?.text = makersList[position].sender.age
+        holder.success_num_type?.text = makersList[position].board.num_type
+        holder.success_phone_number?.text = makersList[position].sender.phone
     }
 }
