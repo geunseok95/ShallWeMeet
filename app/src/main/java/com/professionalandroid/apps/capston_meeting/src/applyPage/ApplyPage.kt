@@ -66,6 +66,7 @@ class ApplyPage : Fragment(),
         mRecyclerAdapter?.setRecyclerView(mRecyclerView)
         mRecyclerView.adapter = mRecyclerAdapter
         page = 0
+        boards.clear()
 
         Log.d("test", "$location1, $location2, $num_type, $age")
 
@@ -75,7 +76,6 @@ class ApplyPage : Fragment(),
                     ApplyFilter(
                         this@ApplyPage
                     )
-                mapplyfilter.show((activity as MainActivity).supportFragmentManager, "apply_filter")
             }
         }
 
@@ -99,7 +99,7 @@ class ApplyPage : Fragment(),
             mRecyclerAdapter?.isMoreLoading = false
         }
         else{
-            Toast.makeText(activity as MainActivity, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show()
+
         }
     }
 

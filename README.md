@@ -4,7 +4,7 @@
 
 
 #### UI Flow
-![UI flow](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/UI%20flow.jpg?raw=true)
+![UI flow](https://github.com/geunseok95/ShallWeMeet/blob/master/readmefile/UI%20flow.png?raw=true)
 
 * #### MVP Pattern 적용
 
