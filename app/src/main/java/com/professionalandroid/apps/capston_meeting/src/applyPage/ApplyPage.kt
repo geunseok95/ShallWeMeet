@@ -68,8 +68,6 @@ class ApplyPage : Fragment(),
         page = 0
         boards.clear()
 
-        Log.d("test", "$location1, $location2, $num_type, $age")
-
         view.apply_filter.apply {
             setOnClickListener {
                 mapplyfilter =
@@ -84,6 +82,7 @@ class ApplyPage : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).progressON((activity as MainActivity))
         loadPosts()
     }
 
@@ -97,6 +96,7 @@ class ApplyPage : Fragment(),
             this.boards.addAll(new_boards!!)
             mRecyclerAdapter?.notifyDataSetChanged()
             mRecyclerAdapter?.isMoreLoading = false
+            (activity as MainActivity).progressOFF()
         }
         else{
 

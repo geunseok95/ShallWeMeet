@@ -183,7 +183,6 @@ class RequestPage : Fragment(), RequestPageView,
                             this@RequestPage
                         )
                     popup.start("미팅을 만들까요?", 1)
-
                 }
                 else{
                     val popup =
@@ -293,12 +292,15 @@ class RequestPage : Fragment(), RequestPageView,
 
             Log.d("test", file1.toString())
 
+            (activity as MainActivity).progressON((activity as MainActivity))
             mRequestPageService.makeMeeting(file1, file2, file3, data)
         }
 
     }
 
     override fun makeMeeting() {
+        (activity as MainActivity).progressOFF()
+
         (activity as MainActivity).close_fragment(this@RequestPage)
     }
 

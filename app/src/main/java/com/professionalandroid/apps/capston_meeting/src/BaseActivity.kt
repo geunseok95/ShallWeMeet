@@ -7,19 +7,25 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.ImageDecoder
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDialog
 import androidx.core.content.FileProvider
+import com.professionalandroid.apps.capston_meeting.R
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,6 +42,7 @@ open class BaseActivity: AppCompatActivity() {
         var img_num = 0
     }
 
+    var progressDialog: AppCompatDialog? = null
 
     fun printLog(test: String){
         Log.d("test", test)
@@ -191,5 +198,32 @@ open class BaseActivity: AppCompatActivity() {
         return file
     }
 
+    // progress loading
+    open fun progressON(activity: Activity?): Unit {
+        if (activity == null || activity.isFinishing) {
+            return
+        }
+
+        if (progressDialog != null && progressDialog!!.isShowing) {
+            return
+        } else {
+            progressDialog = AppCompatDialog(activity)
+            progressDialog?.setCancelable(false)
+            progressDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            progressDialog?.setContentView(R.layout.layout_progress_loading)
+            progressDialog?.show()
+        }
+        val img_loading_frame = progressDialog?.findViewById<ImageView>(R.id.iv_progress_loading)
+        GlideApp.with(this)
+            .load(R.raw.progress_loading)
+            .into(img_loading_frame!!)
+    }
+
+
+    open fun progressOFF() {
+        if (progressDialog != null && progressDialog!!.isShowing) {
+            progressDialog?.dismiss()
+        }
+    }
 
 }
