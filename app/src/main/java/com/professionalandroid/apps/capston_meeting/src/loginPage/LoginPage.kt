@@ -34,7 +34,6 @@ import java.util.*
 class LoginPage: BaseActivity(), LoginPageView{
 
     lateinit var email: String
-    lateinit var gender: String
     private var sessionCallback: SessionCallback? = null
 
     lateinit var mLoginPageService : LoginPageService
@@ -167,7 +166,6 @@ class LoginPage: BaseActivity(), LoginPageView{
                         }
 
                         email = kakaoAccount.email
-                        gender = "male"
                         val data = Verification(kakaoAccount.email, fmc_token)
                         mLoginPageService.validate(data)
 
@@ -180,7 +178,7 @@ class LoginPage: BaseActivity(), LoginPageView{
         val intent = Intent(this@LoginPage, MainActivity::class.java).apply {
             putExtra("email", email)
             putExtra("user", body.idx)
-            putExtra("gender", gender) // 임시 성별 카카오 검수 후 추가
+            putExtra("gender", body.gender) // 임시 성별 카카오 검수 후 추가
         }
         startActivity(intent)
         finish()
@@ -189,7 +187,6 @@ class LoginPage: BaseActivity(), LoginPageView{
     override fun failValidation() {
         val intent = Intent(this, RecognizePage::class.java).apply {
             putExtra("email", email)
-            putExtra("gender", gender)
         }
         startActivity(intent)
     }

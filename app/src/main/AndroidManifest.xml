@@ -42,30 +42,36 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
-        <activity android:name=".src.registerPage.RegisterPage">
+        <activity android:name=".src.registerPage.RegisterPage"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".src.loginPage.recognizePage.RecognizePage">
+        <activity android:name=".src.loginPage.recognizePage.RecognizePage"
+            android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name="com.professionalandroid.apps.capston_meeting.src.loginPage.LoginPage"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".src.splash.SplashScreenActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".src.MainActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
 
     </application>
 

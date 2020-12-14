@@ -73,12 +73,10 @@ class RecognizePage : BaseActivity(), RecognizePageView {
 
     override fun confirmCode() {
         val email = intent.getStringExtra("email")
-        val gender = intent.getStringExtra("gender")
         val phone = recognize_phone_number.text.toString()
 
         val intent = Intent(this, RegisterPage::class.java).apply {
             putExtra("email", email)
-            putExtra("gender", gender)
             putExtra("phone", phone)
         }
         startActivity(intent)

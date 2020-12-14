@@ -83,7 +83,7 @@ class GlobalApplication : Application() {
             }
 
         // 테스트 서버 주소
-        var BASE_URL = "https://shallwemeet.co.kr"
+        var BASE_URL = "http://mimansa.co.kr:8080"
 
         // 실서버 주소
         //    public static String BASE_URL = "https://template.softsquared.com/";

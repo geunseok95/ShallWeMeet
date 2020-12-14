@@ -72,6 +72,25 @@
                     android:layout_height="wrap_content"
                     android:hint="닉네임을 입력하세요" />
 
+
+                <RadioGroup
+                    android:id="@+id/register_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="남자"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="여자"/>
+
+                </RadioGroup>
+
                 <EditText
                     android:id="@+id/register_age_input"
                     android:layout_width="wrap_content"

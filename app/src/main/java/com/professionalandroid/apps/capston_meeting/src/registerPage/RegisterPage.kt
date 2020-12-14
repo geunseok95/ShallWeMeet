@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import com.professionalandroid.apps.capston_meeting.src.MainActivity
 import com.professionalandroid.apps.capston_meeting.R
@@ -47,7 +48,6 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
         val ft = supportFragmentManager
 
         email = intent.getStringExtra("email")
-        gender = intent.getStringExtra("gender")
         phone = intent.getStringExtra("phone")
 
         Log.d("test2", "$email $gender $phone")
@@ -175,7 +175,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                gender!!
+                findViewById<RadioButton>(register_gender.checkedRadioButtonId).text.toString()
             )
             data["location1"] = RequestBody.create(
                 MediaType.parse("text/plain"),

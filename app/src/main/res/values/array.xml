@@ -29,6 +29,7 @@
     </string-array>
 
     <string-array name="num_type">
+        <item>1 대 1</item>
         <item>2 대 2</item>
         <item>3 대 3</item>
         <item>4 대 4</item>

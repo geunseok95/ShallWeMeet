@@ -4,7 +4,8 @@ data class LoginResponse(
     val code: Int,
     val msg: String,
     val idx: Long,
-    val _checked: Boolean
+    val _checked: Boolean,
+    val gender: String
 )
 
 data class Verification(
