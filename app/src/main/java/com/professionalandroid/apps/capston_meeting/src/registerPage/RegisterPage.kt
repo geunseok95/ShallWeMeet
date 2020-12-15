@@ -33,8 +33,8 @@ import kotlin.collections.HashMap
 class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.BottomsheetbuttonItemSelectedInterface,  RequestPopUpWindow.MyDialogOKClickedListener {
 
     var email: String? = null
-    var gender: String? = null
     var phone: String? = null
+    var gender: String? = null
 
     lateinit var mbottomsheetdialog: BottomSheetDialog
     lateinit var mRegisterPageService: RegisterPageService
@@ -49,8 +49,6 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
 
         email = intent.getStringExtra("email")
         phone = intent.getStringExtra("phone")
-
-        Log.d("test2", "$email $gender $phone")
 
         request_Image_File_list.clear()
         val uri = Uri.parse("android.resource://com.professionalandroid.apps.capston_meeting/drawable/happy.jpg")
@@ -73,7 +71,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
         // location
         val location1Array = resources.getStringArray(R.array.location)
         var location2Array = arrayOf("상관없음")
-        var spinneradapter1 = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, location1Array)
+        val spinneradapter1 = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, location1Array)
         var spinneradapter2 = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, location2Array)
 
         register_location1.apply {
@@ -136,8 +134,19 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
                 }
             }
         }
-    }
 
+        register_gender.setOnCheckedChangeListener { radioGroup, i ->
+            when(i){
+                1 -> {gender = "male"
+                Log.d("test", gender!!)
+                }
+                2 -> {
+                    gender = "female"
+                    Log.d("test", gender!!)
+                }
+            }
+        }
+    }
 
 
     override fun bottombutton_listener(v: View) {
@@ -175,7 +184,7 @@ class RegisterPage : BaseActivity(), RegisterPageView, BottomSheetDialog.Bottoms
             )
             data["gender"] = RequestBody.create(
                 MediaType.parse("text/plain"),
-                findViewById<RadioButton>(register_gender.checkedRadioButtonId).text.toString()
+                gender
             )
             data["location1"] = RequestBody.create(
                 MediaType.parse("text/plain"),

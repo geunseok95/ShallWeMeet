@@ -105,7 +105,7 @@ class GlobalApplication : Application() {
         fun retrofitService(context: Context): Retrofit? {
             // connect server
             if(retrofit == null) {
-                retrofit = Retrofit.Builder().baseUrl("https://shallwemeet.co.kr")
+                retrofit = Retrofit.Builder().baseUrl("https://mimansa.co.kr")
                     .client(
                         OkHttpClient.Builder().sslSocketFactory(
                             getPinnedCertSslSocketFactory(
@@ -123,7 +123,7 @@ class GlobalApplication : Application() {
             try {
                 val am: AssetManager = context.resources.assets
                 val cf: CertificateFactory = CertificateFactory.getInstance("X.509")
-                val caInput: InputStream = am.open("swm.cer")
+                val caInput: InputStream = am.open("cert1.cer")
                 var ca: Certificate? = null
                 try {
                     ca = cf.generateCertificate(caInput)

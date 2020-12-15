@@ -30,6 +30,8 @@ class MainActivity : BaseActivity() {
         user = intent.getLongExtra("user", -1)
         gender = intent.getStringExtra("gender")!!
 
+        Log.d("test", gender)
+
         val homepage = HomePage()
         val checkPage =
             CheckPage()
