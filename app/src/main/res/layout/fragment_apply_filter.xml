@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".src.applyPage.ApplyFilter"
-    android:background="@drawable/round_button2"
-    android:backgroundTint="#20294b"
+    android:background="@drawable/round_button"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:paddingBottom="10dp">

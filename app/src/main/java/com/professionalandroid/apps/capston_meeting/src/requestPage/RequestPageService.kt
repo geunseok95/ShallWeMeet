@@ -20,6 +20,7 @@ class RequestPageService(val mRequestPageView: RequestPageView, val context: Con
         mRequestPageRetrofitInterface.makeBoard(img1, img2, img3, data).enqueue(object : Callback<DefaultResponse>{
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                 Log.d("test", "방만들기 실패")
+            mRequestPageView.failMakeMeeting()
             }
 
             override fun onResponse(

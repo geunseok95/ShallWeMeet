@@ -304,5 +304,11 @@ class RequestPage : Fragment(), RequestPageView,
         (activity as MainActivity).close_fragment(this@RequestPage)
     }
 
+    override fun failMakeMeeting() {
+        (activity as MainActivity).progressOFF()
+
+        (activity as MainActivity).makeToast("정보를 확인하고 다시한번 시도해주세요")
+    }
+
 
 }

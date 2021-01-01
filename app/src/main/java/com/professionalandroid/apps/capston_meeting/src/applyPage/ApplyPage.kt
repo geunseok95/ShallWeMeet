@@ -74,6 +74,7 @@ class ApplyPage : Fragment(),
                     ApplyFilter(
                         this@ApplyPage
                     )
+                mapplyfilter.show((activity as MainActivity).supportFragmentManager, "applyFilter_dialog")
             }
         }
 
@@ -146,8 +147,12 @@ class ApplyPage : Fragment(),
             page = 0
             location1 = v.spinner_location1.selectedItem.toString()
             location2 = v.spinner_location2.selectedItem.toString()
-            num_type = v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId).text.toString()
+            val selectedNumType= v.findViewById<RadioButton>(v.radioGroup.checkedRadioButtonId)
+            if(selectedNumType != null) {
+                num_type = selectedNumType.text.toString()
+            }
             age = v.filter_age.text.toString()
+
             this.boards.clear()
             loadPosts()
         }

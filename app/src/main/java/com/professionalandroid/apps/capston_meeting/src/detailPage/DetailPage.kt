@@ -11,6 +11,7 @@ import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.u
 import com.professionalandroid.apps.capston_meeting.R
 import com.professionalandroid.apps.capston_meeting.src.detailPage.interfaces.DetailPageView
 import com.professionalandroid.apps.capston_meeting.src.detailPage.models.ApplyBody
+import com.professionalandroid.apps.capston_meeting.src.detailPage.models.Bookmark
 import com.professionalandroid.apps.capston_meeting.src.detailPage.models.DetailResponse
 import kotlinx.android.synthetic.main.fragment_detail_page.*
 import kotlinx.android.synthetic.main.fragment_detail_page.view.*
@@ -23,7 +24,6 @@ class DetailPage : Fragment(), DetailPageView, DetailPopUpWindow.MyDialogOKClick
         super.onAttach(context)
         mDetailPageService = DetailPageService(this, context)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,16 @@ class DetailPage : Fragment(), DetailPageView, DetailPopUpWindow.MyDialogOKClick
             val popUp = DetailPopUpWindow(context!!, this)
             popUp.start()
         }
+
+        view.detail_star_btn.setOnClickListener {
+            if(detail_star_btn.isChecked){
+                val data = Bookmark(user, boardId)
+                mDetailPageService.addBookmark(data)
+            }
+            else{
+                mDetailPageService.deleteBookmark(user, boardId)
+            }
+        }
         return view
     }
 
@@ -59,6 +69,7 @@ class DetailPage : Fragment(), DetailPageView, DetailPopUpWindow.MyDialogOKClick
         detail_location1.text = body.location1
         detail_location2.text = body.location2
         detail_num_type.text = body.num_type
+        detail_star_btn.isChecked = body.check
 
         (activity as MainActivity).displayImg(context!!, body.img1 ,detail_img1)
         (activity as MainActivity).displayImg(context!!, body.img2 ,detail_img2)

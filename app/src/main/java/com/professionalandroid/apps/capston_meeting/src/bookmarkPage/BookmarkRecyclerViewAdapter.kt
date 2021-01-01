@@ -46,7 +46,7 @@ class BookmarkRecyclerViewAdapter(val bookmarkList: MutableList<BookmarkResponse
         init {
             img1 = view.imageview_img1
             location1 = view.imageview_location1
-            location2 = view.imageview_location1
+            location2 = view.imageview_location2
             age = view.imageview_age
             num_type = view.imageview_num_type
             date = view.imageview_date

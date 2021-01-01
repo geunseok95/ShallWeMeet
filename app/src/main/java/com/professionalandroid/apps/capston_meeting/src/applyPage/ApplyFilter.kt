@@ -30,7 +30,6 @@ class ApplyFilter(
     private var mapplyfilter_listener: ApplyFilterSelectedInterface? = applyfilter_listener
     lateinit var spinneradapter:ArrayAdapter<String>
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val items = resources.getStringArray(R.array.location)
@@ -42,6 +41,7 @@ class ApplyFilter(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
     }
 
     override fun onCreateView(
@@ -134,7 +134,6 @@ class ApplyFilter(
                 }
             }
         }
-
 
         view.filter_age_seekbar.apply {
             setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
