@@ -2,12 +2,10 @@ package com.professionalandroid.apps.capston_meeting.src.checkPage.receivePage
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.professionalandroid.apps.capston_meeting.src.MainActivity.Companion.user
